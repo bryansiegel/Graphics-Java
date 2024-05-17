@@ -1,4 +1,4 @@
-package com.bryansiegel.graphicsjava;
+package com.bryansiegel.graphicsjava.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
