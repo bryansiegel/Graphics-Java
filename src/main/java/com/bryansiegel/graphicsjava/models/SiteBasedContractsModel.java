@@ -1,4 +1,4 @@
-package com.bryansiegel.graphicsjava;
+package com.bryansiegel.graphicsjava.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,10 +7,10 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
-public class IndexOfFormsModel {
+public class SiteBasedContractsModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
 
     @NotBlank(message = "Form Name is Required")
     private String FormName;
@@ -20,5 +20,4 @@ public class IndexOfFormsModel {
     private String FormUrl;
 
     private boolean active = true;
-
 }

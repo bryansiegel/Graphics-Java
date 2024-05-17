@@ -1,4 +1,4 @@
-package com.bryansiegel.graphicsjava;
+package com.bryansiegel.graphicsjava.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -8,7 +8,7 @@ public class CurrentEvaluationsModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
 
     @NotBlank(message = "Form Name is Required")
     private String FormName;
