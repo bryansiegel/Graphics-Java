@@ -1,7 +1,7 @@
 package com.bryansiegel.graphicsjava.repositories;
 
 import com.bryansiegel.graphicsjava.models.SiteBasedContractsModel;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
-public interface siteBasedContractsRepository extends JpaRepository<SiteBasedContractsModel, Long> {
+public interface siteBasedContractsRepository extends CrudRepository<SiteBasedContractsModel, Long> {
 }

@@ -1,7 +1,7 @@
 package com.bryansiegel.graphicsjava.repositories;
 
 import com.bryansiegel.graphicsjava.models.FormDownloadsModel;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
-public interface formDownloadsRepository extends JpaRepository<FormDownloadsModel, Long> {
+public interface formDownloadsRepository extends CrudRepository<FormDownloadsModel, Long> {
 }
