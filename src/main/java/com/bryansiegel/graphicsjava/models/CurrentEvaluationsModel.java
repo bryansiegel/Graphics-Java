@@ -3,16 +3,20 @@ package com.bryansiegel.graphicsjava.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.Arrays;
+
 @Entity
 public class CurrentEvaluationsModel {
     public CurrentEvaluationsModel() {
     }
 
-    public CurrentEvaluationsModel(Long id, String formName, String formUpload, String formUrl, boolean active) {
+    public CurrentEvaluationsModel(Long id, String formName, byte[] data, String formUrl, String type, String name, boolean active) {
         this.id = id;
         FormName = formName;
-        FormUpload = formUpload;
+        this.data = data;
         FormUrl = formUrl;
+        this.type = type;
+        this.name = name;
         this.active = active;
     }
 
@@ -23,9 +27,17 @@ public class CurrentEvaluationsModel {
     @NotBlank(message = "Form Name is Required")
     private String FormName;
 
-    private String FormUpload;
+
+    @Lob
+    private byte[] data;
 
     private String FormUrl;
+
+    private String FormUpload;
+
+    private String type;
+    private String name;
+
 
     private boolean active = true;
 
@@ -45,12 +57,12 @@ public class CurrentEvaluationsModel {
         FormName = formName;
     }
 
-    public String getFormUpload() {
-        return FormUpload;
+    public byte[] getData() {
+        return data;
     }
 
-    public void setFormUpload(String formUpload) {
-        FormUpload = formUpload;
+    public void setData(byte[] data) {
+        this.data = data;
     }
 
     public String getFormUrl() {
@@ -59,6 +71,30 @@ public class CurrentEvaluationsModel {
 
     public void setFormUrl(String formUrl) {
         FormUrl = formUrl;
+    }
+
+    public String getFormUpload() {
+        return FormUpload;
+    }
+
+    public void setFormUpload(String formUpload) {
+        FormUpload = formUpload;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public boolean isActive() {
@@ -74,8 +110,11 @@ public class CurrentEvaluationsModel {
         return "CurrentEvaluationsModel{" +
                 "id=" + id +
                 ", FormName='" + FormName + '\'' +
-                ", FormUpload='" + FormUpload + '\'' +
+                ", data=" + Arrays.toString(data) +
                 ", FormUrl='" + FormUrl + '\'' +
+                ", FormUpload='" + FormUpload + '\'' +
+                ", type='" + type + '\'' +
+                ", name='" + name + '\'' +
                 ", active=" + active +
                 '}';
     }

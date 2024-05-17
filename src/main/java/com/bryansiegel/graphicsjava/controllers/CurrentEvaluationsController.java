@@ -2,6 +2,7 @@ package com.bryansiegel.graphicsjava.controllers;
 
 import com.bryansiegel.graphicsjava.models.CurrentEvaluationsModel;
 import com.bryansiegel.graphicsjava.repositories.currentEvaluationsRepository;
+import com.bryansiegel.graphicsjava.services.DocumentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 
 @Controller
@@ -37,10 +42,11 @@ public class CurrentEvaluationsController {
 
     //create
     @PostMapping("/admin/current-evaluations/create")
-    public String createCurrentEvaluations(@Valid CurrentEvaluationsModel currentEvaluations, BindingResult bindingResult, Model model) {
+    public String createCurrentEvaluations(@Valid CurrentEvaluationsModel currentEvaluations, BindingResult bindingResult, Model model) throws IOException {
         if (bindingResult.hasErrors()) {
             return "admin/current-evaluations/create.html";
         }
+
 
         currentEvaluationsRepository.save(currentEvaluations);
         return "redirect:/admin/current-evaluations/";
