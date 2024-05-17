@@ -10,4 +10,14 @@ public class HomeController {
     public String home() {
         return "public/home";
     }
+
+    @GetMapping("/forms-archives")
+    public String formsArchives() {
+        return "public/forms-archives";
+    }
+
+    @GetMapping("/templates-logos")
+    public String templatesLogos() {
+        return "public/templates-logos";
+    }
 }
