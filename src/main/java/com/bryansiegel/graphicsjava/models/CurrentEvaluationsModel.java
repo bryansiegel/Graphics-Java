@@ -1,22 +1,16 @@
 package com.bryansiegel.graphicsjava.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-
-import java.util.Arrays;
 
 @Entity
 public class CurrentEvaluationsModel {
     public CurrentEvaluationsModel() {
     }
 
-    public CurrentEvaluationsModel(Long id, String formName, byte[] data, String formUrl, String type, String name, boolean active) {
+    public CurrentEvaluationsModel(Long id, String formName, String fileName, boolean active) {
         this.id = id;
         FormName = formName;
-        this.data = data;
-        FormUrl = formUrl;
-        this.type = type;
-        this.name = name;
+        FileName = fileName;
         this.active = active;
     }
 
@@ -24,19 +18,9 @@ public class CurrentEvaluationsModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotBlank(message = "Form Name is Required")
     private String FormName;
 
-
-    @Lob
-    private byte[] data;
-
-    private String FormUrl;
-
-    private String FormUpload;
-
-    private String type;
-    private String name;
+    private String FileName;
 
 
     private boolean active = true;
@@ -57,44 +41,12 @@ public class CurrentEvaluationsModel {
         FormName = formName;
     }
 
-    public byte[] getData() {
-        return data;
+    public String getFileName() {
+        return FileName;
     }
 
-    public void setData(byte[] data) {
-        this.data = data;
-    }
-
-    public String getFormUrl() {
-        return FormUrl;
-    }
-
-    public void setFormUrl(String formUrl) {
-        FormUrl = formUrl;
-    }
-
-    public String getFormUpload() {
-        return FormUpload;
-    }
-
-    public void setFormUpload(String formUpload) {
-        FormUpload = formUpload;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setFileName(String fileName) {
+        FileName = fileName;
     }
 
     public boolean isActive() {
@@ -110,11 +62,7 @@ public class CurrentEvaluationsModel {
         return "CurrentEvaluationsModel{" +
                 "id=" + id +
                 ", FormName='" + FormName + '\'' +
-                ", data=" + Arrays.toString(data) +
-                ", FormUrl='" + FormUrl + '\'' +
-                ", FormUpload='" + FormUpload + '\'' +
-                ", type='" + type + '\'' +
-                ", name='" + name + '\'' +
+                ", FilePath='" + FileName + '\'' +
                 ", active=" + active +
                 '}';
     }

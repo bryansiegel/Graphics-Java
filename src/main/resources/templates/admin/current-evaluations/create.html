@@ -1,5 +1,6 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -7,20 +8,18 @@
 <body>
 <h1>Create A Current Evaluation</h1>
 
-<form action="#" th:action="@{/admin/current-evaluations/create}" th:object="${currentEvaluationsModel}" method="post" enctype="multipart/form-data">
+<form th:action="@{/admin/current-evaluations/create}" th:object="${currentEvaluationDto}" method="post" enctype="multipart/form-data">
 
-    <label for="form_name">Form Name</label>
-    <input type="text" th:field="*{formName}" id="form_name" placeholder="Form Name">
-    <span th:if="${#fields.hasErrors('formName')}" th:errors="*{formName}"></span>
+    <label for="formName">Form Name</label>
+    <input type="text" name="formName" th:field="${currentEvaluationDto.formName}" id="formName"
+           placeholder="Form Name"/>
+    <span th:if="${#fields.hasErrors('formName')}" th:errors="*{currentEvaluationDto.formName}"></span>
 
-    <label for="form_url">Form Url</label>
-    <input type="text" th:field="*{formUrl}" id="form_url" placeholder="Form Url">
-    <span th:if="${#fields.hasErrors('formUrl')}" th:errors="*{formUrl}"></span>
+    <label for="file">Form Upload</label>
+    <input type="file" name="file" th:field="${currentEvaluationDto.file}" id="file" placeholder="Form Upload"
+           accept="application/pdf"/>
+    <span th:if="${#fields.hasErrors('file')}" th:errors="*{currentEvaluationDto.file}"></span>
 
-    <label for="form_url">Form Upload</label>
-    <input type="file" name="file" id="form_upload" placeholder="Form Upload" />
-    <span th:if="${#fields.hasErrors('formUpload')}" th:errors="*{formUpload}"></span>
-    
 
     <input type="submit" value="Add Current Evaluation">
 

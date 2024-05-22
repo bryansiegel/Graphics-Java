@@ -1,31 +1,39 @@
 package com.bryansiegel.graphicsjava.controllers;
 
+import com.bryansiegel.graphicsjava.models.CurrentEvaluationsDto;
 import com.bryansiegel.graphicsjava.models.CurrentEvaluationsModel;
 import com.bryansiegel.graphicsjava.repositories.currentEvaluationsRepository;
-import com.bryansiegel.graphicsjava.services.DocumentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.Date;
 
 
 @Controller
 public class CurrentEvaluationsController {
 
+    @Autowired
     private final currentEvaluationsRepository currentEvaluationsRepository;
 
-    @Autowired
+
     public CurrentEvaluationsController(currentEvaluationsRepository currentEvaluationsRepository) {
         this.currentEvaluationsRepository = currentEvaluationsRepository;
     }
+
+
 
     //index
     @GetMapping("/admin/current-evaluations/")
@@ -36,20 +44,45 @@ public class CurrentEvaluationsController {
 
     //create
     @GetMapping("admin/current-evaluations/create")
-    public String create(CurrentEvaluationsModel model) {
+    public String showCreatePage(Model model) {
+        CurrentEvaluationsDto currentEvaluationDto = new CurrentEvaluationsDto();
+        model.addAttribute("currentEvaluationDto", currentEvaluationDto);
         return "admin/current-evaluations/create.html";
     }
 
     //create
     @PostMapping("/admin/current-evaluations/create")
-    public String createCurrentEvaluations(@Valid CurrentEvaluationsModel currentEvaluations, BindingResult bindingResult, Model model) throws IOException {
-        if (bindingResult.hasErrors()) {
+    public String createCurrentEvaluation(@Valid @ModelAttribute CurrentEvaluationsDto currentEvaluationDto, BindingResult result) {
+
+        if (currentEvaluationDto.getFile().isEmpty()) {
+            result.addError(new FieldError("currentEvaluationDto", "file", "The image file is required"));
+        }
+
+        if (result.hasErrors()) {
             return "admin/current-evaluations/create.html";
         }
 
+        //save file
+        MultipartFile file = currentEvaluationDto.getFile();
+        Date createdAt = new Date();
+        String storageFileName = createdAt.getTime() + "_" + file.getOriginalFilename();
 
-        currentEvaluationsRepository.save(currentEvaluations);
+        try {
+            String uploadDir = "public/files/currentEvaluations/";
+            Path uploadPath = Paths.get(uploadDir);
+
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
+            }
+            try (InputStream inputStream = file.getInputStream()) {
+                Files.copy(inputStream, Paths.get(uploadDir + storageFileName), StandardCopyOption.REPLACE_EXISTING);
+            }
+            } catch (Exception ex) {
+            System.out.println("Exception: " + ex.getMessage());
+
+        }
         return "redirect:/admin/current-evaluations/";
+
     }
 
     //Edit

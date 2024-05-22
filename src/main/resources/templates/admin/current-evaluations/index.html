@@ -21,7 +21,6 @@
             <tbody>
             <tr th:each="currentEvaluationModel : ${currentEvaluations}">
                 <td th:text="${currentEvaluationModel.formName}"></td>
-                <td th:text="${currentEvaluationModel.formUrl}"></td>
                 <td><a th:href="@{/admin/current-evaluations/edit/{id}(id=${currentEvaluationModel.id})}">Edit</a></td>
                 <td><a th:href="@{/admin/current-evaluations/delete/{id}(id=${currentEvaluationModel.id})}">Delete</a></td>
             </tr>
