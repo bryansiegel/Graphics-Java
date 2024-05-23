@@ -1,7 +1,5 @@
 package com.bryansiegel.graphicsjava.controllers;
 
-import com.bryansiegel.graphicsjava.models.CurrentEvaluationsDto;
-import com.bryansiegel.graphicsjava.models.CurrentEvaluationsModel;
 import com.bryansiegel.graphicsjava.models.IndexOfFormsDto;
 import com.bryansiegel.graphicsjava.models.IndexOfFormsModel;
 import com.bryansiegel.graphicsjava.repositories.indexOfFormsRepository;
