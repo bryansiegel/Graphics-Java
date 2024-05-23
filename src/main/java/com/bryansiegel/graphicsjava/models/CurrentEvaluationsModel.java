@@ -7,10 +7,10 @@ public class CurrentEvaluationsModel {
     public CurrentEvaluationsModel() {
     }
 
-    public CurrentEvaluationsModel(Long id, String formName, String fileName, boolean active) {
+    public CurrentEvaluationsModel(Long id, String formName, String filePath, boolean active) {
         this.id = id;
         FormName = formName;
-        FileName = fileName;
+        FilePath = filePath;
         this.active = active;
     }
 
@@ -20,8 +20,7 @@ public class CurrentEvaluationsModel {
 
     private String FormName;
 
-    private String FileName;
-
+    private String FilePath;
 
     private boolean active = true;
 
@@ -41,12 +40,12 @@ public class CurrentEvaluationsModel {
         FormName = formName;
     }
 
-    public String getFileName() {
-        return FileName;
+    public String getFilePath() {
+        return FilePath;
     }
 
-    public void setFileName(String fileName) {
-        FileName = fileName;
+    public void setFilePath(String filePath) {
+        FilePath = filePath;
     }
 
     public boolean isActive() {
@@ -62,7 +61,7 @@ public class CurrentEvaluationsModel {
         return "CurrentEvaluationsModel{" +
                 "id=" + id +
                 ", FormName='" + FormName + '\'' +
-                ", FilePath='" + FileName + '\'' +
+                ", FilePath='" + FilePath + '\'' +
                 ", active=" + active +
                 '}';
     }

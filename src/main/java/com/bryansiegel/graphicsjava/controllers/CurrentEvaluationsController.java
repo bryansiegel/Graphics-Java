@@ -5,7 +5,6 @@ import com.bryansiegel.graphicsjava.models.CurrentEvaluationsModel;
 import com.bryansiegel.graphicsjava.repositories.currentEvaluationsRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -24,6 +22,8 @@ import java.util.Date;
 
 @Controller
 public class CurrentEvaluationsController {
+    //file upload dir
+    String UPLOAD_DIR = "/public/files/currentEvaluations/";
 
     @Autowired
     private final currentEvaluationsRepository currentEvaluationsRepository;
@@ -50,9 +50,22 @@ public class CurrentEvaluationsController {
         return "admin/current-evaluations/create.html";
     }
 
+//    //create 2
+//    @PostMapping("/admin/current-evaluations/create")
+//    public String createCurrentEvaluation(@RequestParam("file") MultipartFile file, @RequestParam  String formName, ModelMap modelMap, currentEvaluationsRepository _currentEvaluationsRepository) throws IOException {
+//        modelMap.addAttribute("file", file);
+//        modelMap.addAttribute("formName", formName);
+//
+//
+//
+//
+//        return "admin/current-evaluations/create.html";
+//    }
+
+
     //create
     @PostMapping("/admin/current-evaluations/create")
-    public String createCurrentEvaluation(@Valid @ModelAttribute CurrentEvaluationsDto currentEvaluationDto, CurrentEvaluationsModel currentEvaluationsModel,  BindingResult result) {
+    public String createCurrentEvaluation(@Valid @ModelAttribute CurrentEvaluationsDto currentEvaluationDto, @RequestParam String formName, CurrentEvaluationsModel _currentEvaluationsModel, BindingResult result) {
 
         if (currentEvaluationDto.getFile().isEmpty()) {
             result.addError(new FieldError("currentEvaluationDto", "file", "The image file is required"));
@@ -67,26 +80,30 @@ public class CurrentEvaluationsController {
         Date createdAt = new Date();
         String storageFileName = createdAt.getTime() + "_" + file.getOriginalFilename();
 
+
+        //FilePath
+        String filePath = UPLOAD_DIR + storageFileName;
+
         try {
-            String uploadDir = "/public/files/currentEvaluations/";
-            Path uploadPath = Paths.get(uploadDir);
+            Path uploadPath = Paths.get(UPLOAD_DIR);
 
             if (!Files.exists(uploadPath)) {
                 Files.createDirectories(uploadPath);
             }
 
             try (InputStream inputStream = file.getInputStream()) {
-                Files.copy(inputStream, Paths.get(uploadDir + storageFileName), StandardCopyOption.REPLACE_EXISTING);
+                Files.copy(inputStream, Paths.get(UPLOAD_DIR + storageFileName), StandardCopyOption.REPLACE_EXISTING);
+
+//                _currentEvaluationsModel = new CurrentEvaluationsModel();
+//                _currentEvaluationsModel.setFormName(formName);
+//                _currentEvaluationsModel.setFilePath(filePath);
+//
+//                currentEvaluationsRepository.save(_currentEvaluationsModel);
+
             }
             } catch (Exception ex) {
             System.out.println("Exception: " + ex.getMessage());
         }
-
-        if (result.hasErrors()) {
-            return "admin/current-evaluations/create.html";
-        }
-
-
 
         return "redirect:/admin/current-evaluations/";
 

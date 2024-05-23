@@ -46,7 +46,7 @@ public class FileUploadService {
         //Save
         CurrentEvaluationsModel currentEvaluationsModel = new CurrentEvaluationsModel();
         currentEvaluationsModel.setFormName(formName);
-        currentEvaluationsModel.setFileName(path.toString());
+        currentEvaluationsModel.setFilePath(path.toString());
         return _currentEvaluationsRepository.save(currentEvaluationsModel);
     }
 
