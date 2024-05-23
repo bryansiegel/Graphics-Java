@@ -23,7 +23,7 @@ import java.util.Date;
 @Controller
 public class CurrentEvaluationsController {
     //file upload dir
-    String UPLOAD_DIR = "/public/files/currentEvaluations/";
+    String UPLOAD_DIR = "public/files/currentEvaluations/";
 
     @Autowired
     private final currentEvaluationsRepository currentEvaluationsRepository;
@@ -94,11 +94,11 @@ public class CurrentEvaluationsController {
             try (InputStream inputStream = file.getInputStream()) {
                 Files.copy(inputStream, Paths.get(UPLOAD_DIR + storageFileName), StandardCopyOption.REPLACE_EXISTING);
 
-//                _currentEvaluationsModel = new CurrentEvaluationsModel();
-//                _currentEvaluationsModel.setFormName(formName);
-//                _currentEvaluationsModel.setFilePath(filePath);
-//
-//                currentEvaluationsRepository.save(_currentEvaluationsModel);
+                _currentEvaluationsModel = new CurrentEvaluationsModel();
+                _currentEvaluationsModel.setFormName(formName);
+                _currentEvaluationsModel.setFilePath(filePath);
+
+                currentEvaluationsRepository.save(_currentEvaluationsModel);
 
             }
             } catch (Exception ex) {
