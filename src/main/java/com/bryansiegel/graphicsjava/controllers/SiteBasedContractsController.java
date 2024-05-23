@@ -153,7 +153,6 @@ public class SiteBasedContractsController {
         return "redirect:/admin/site-based-contracts/";
     }
 
-
     //Delete
     @GetMapping("/admin/site-based-contracts/delete/{id}")
     public String deleteSiteBasedContracts(@PathVariable Long id) {
@@ -161,7 +160,6 @@ public class SiteBasedContractsController {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         repo.delete(sitebasedcontracts);
         return "redirect:/admin/site-based-contracts/";
-
     }
 
 }
