@@ -12,11 +12,10 @@ public class SiteBasedContractsModel {
     public SiteBasedContractsModel() {
     }
 
-    public SiteBasedContractsModel(Long id, String formName, String formUpload, String formUrl, boolean active) {
+    public SiteBasedContractsModel(Long id, String formName, String filePath, boolean active) {
         this.id = id;
         FormName = formName;
-        FormUpload = formUpload;
-        FormUrl = formUrl;
+        FilePath = filePath;
         this.active = active;
     }
 
@@ -27,9 +26,7 @@ public class SiteBasedContractsModel {
     @NotBlank(message = "Form Name is Required")
     private String FormName;
 
-    private String FormUpload;
-
-    private String FormUrl;
+    private String FilePath;
 
     private boolean active = true;
 
@@ -49,20 +46,12 @@ public class SiteBasedContractsModel {
         FormName = formName;
     }
 
-    public String getFormUpload() {
-        return FormUpload;
+    public String getFilePath() {
+        return FilePath;
     }
 
-    public void setFormUpload(String formUpload) {
-        FormUpload = formUpload;
-    }
-
-    public String getFormUrl() {
-        return FormUrl;
-    }
-
-    public void setFormUrl(String formUrl) {
-        FormUrl = formUrl;
+    public void setFilePath(String filePath) {
+        FilePath = filePath;
     }
 
     public boolean isActive() {
@@ -78,8 +67,7 @@ public class SiteBasedContractsModel {
         return "SiteBasedContractsModel{" +
                 "id=" + id +
                 ", FormName='" + FormName + '\'' +
-                ", FormUpload='" + FormUpload + '\'' +
-                ", FormUrl='" + FormUrl + '\'' +
+                ", FilePath='" + FilePath + '\'' +
                 ", active=" + active +
                 '}';
     }
