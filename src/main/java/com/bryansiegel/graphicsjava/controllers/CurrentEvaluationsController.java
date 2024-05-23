@@ -96,10 +96,12 @@ public class CurrentEvaluationsController {
 
     //Edit
     @GetMapping("/admin/current-evaluations/edit/{id}")
-    public String editCurrentEvaluations(@PathVariable Long id, @ModelAttribute CurrentEvaluationsDto currentEvaluationDto, @RequestParam String formName, CurrentEvaluationsModel _currentEvaluationsModel, Model model) {
+    public String editCurrentEvaluations(@PathVariable Long id, Model model) {
 
         CurrentEvaluationsModel currentEvaluations = currentEvaluationsRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+
+
         model.addAttribute("currentEvaluations", currentEvaluations);
 
 
