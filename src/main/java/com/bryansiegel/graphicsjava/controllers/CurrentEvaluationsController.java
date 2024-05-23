@@ -110,13 +110,60 @@ public class CurrentEvaluationsController {
 
     //Update
     @PostMapping("/admin/current-evaluations/update/{id}")
-    public String updateCurrentEvaluations(@Valid CurrentEvaluationsModel currentEvaluations, BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
+    public String updateCurrentEvaluations(@Valid @ModelAttribute CurrentEvaluationsDto currentEvaluationDto, @PathVariable Long id, @RequestParam String formName, CurrentEvaluationsModel _currentEvaluationsModel, BindingResult result) {
+
+        if (currentEvaluationDto.getFile().isEmpty()) {
+            result.addError(new FieldError("currentEvaluationDto", "file", "The image file is required"));
+        }
+
+        if (result.hasErrors()) {
             return "admin/current-evaluations/edit.html";
         }
-        currentEvaluationsRepository.save(currentEvaluations);
+
+        //save file
+        MultipartFile file = currentEvaluationDto.getFile();
+        Date createdAt = new Date();
+        String storageFileName = createdAt.getTime() + "_" + file.getOriginalFilename();
+
+
+        //SET FilePath
+        String filePath = UPLOAD_DIR + storageFileName;
+
+        try {
+            Path uploadPath = Paths.get(UPLOAD_DIR);
+
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
+            }
+
+            try (InputStream inputStream = file.getInputStream()) {
+                Files.copy(inputStream, Paths.get(UPLOAD_DIR + storageFileName), StandardCopyOption.REPLACE_EXISTING);
+
+                //Save to db
+                CurrentEvaluationsModel _currentEvaluations = currentEvaluationsRepository.findById(id)
+                        .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+
+
+                _currentEvaluationsModel.setFormName(formName);
+                _currentEvaluationsModel.setFilePath(filePath);
+
+                currentEvaluationsRepository.save(_currentEvaluationsModel);
+            }
+        } catch (Exception ex) {
+            System.out.println("Exception: " + ex.getMessage());
+        }
         return "redirect:/admin/current-evaluations/";
     }
+
+
+// Old
+//    public String updateCurrentEvaluations(@Valid CurrentEvaluationsModel currentEvaluations, BindingResult bindingResult, Model model) {
+//        if (bindingResult.hasErrors()) {
+//            return "admin/current-evaluations/edit.html";
+//        }
+//        currentEvaluationsRepository.save(currentEvaluations);
+//        return "redirect:/admin/current-evaluations/";
+//    }
 
     //Delete
     @GetMapping("/admin/current-evaluations/delete/{id}")

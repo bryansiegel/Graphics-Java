@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<form th:action="@{/admin/current-evaluations/update}" th:object="${currentEvaluations}" method="post" enctype="multipart/form-data">
+<form th:action="@{/admin/current-evaluations/update/{id}(id=${currentEvaluations.id})}" th:object="${currentEvaluations}" method="post" enctype="multipart/form-data">
 
     <label for="formName">Form Name</label>
     <input type="text" name="formName" th:field="${currentEvaluations.formName}" id="formName"
@@ -13,9 +13,9 @@
     <span th:if="${#fields.hasErrors('formName')}" th:errors="*{currentEvaluations.formName}"></span>
 
     <label for="file">Form Upload</label>
-    <input type="file" name="file" th:field="${file}" id="file" placeholder="Form Upload"
+    <input type="file" name="file"  id="file" placeholder="Form Upload"
            accept="application/pdf"/>
-    <span th:if="${#fields.hasErrors('file')}" th:errors="*{file}"></span>
+
 
 
     <input type="submit" value="Add Current Evaluation">
