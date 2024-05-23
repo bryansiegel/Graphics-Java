@@ -68,7 +68,7 @@ public class CurrentEvaluationsController {
         String storageFileName = createdAt.getTime() + "_" + file.getOriginalFilename();
 
         try {
-            String uploadDir = "/public/files/currentEvaluations/";
+            String uploadDir = "public/files/currentEvaluations/";
             Path uploadPath = Paths.get(uploadDir);
 
             if (!Files.exists(uploadPath)) {
@@ -79,6 +79,7 @@ public class CurrentEvaluationsController {
                 Files.copy(inputStream, Paths.get(uploadDir + storageFileName), StandardCopyOption.REPLACE_EXISTING);
             }
             } catch (Exception ex) {
+
             System.out.println("Exception: " + ex.getMessage());
         }
 
