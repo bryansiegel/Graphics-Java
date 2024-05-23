@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/admin/site-based-contracts/update/{id}(id=${siteBasedContracts.id})}" th:object="${siteBasedContracts}" method="post" enctype="multipart/form-data">
+
+    <label for="formName">Form Name</label>
+    <input type="text" name="formName" th:field="${siteBasedContracts.formName}" id="formName"
+           placeholder="Form Name"/>
+    <span th:if="${#fields.hasErrors('formName')}" th:errors="*{siteBasedContracts.formName}"></span>
+
+    <label for="file">Form Upload</label>
+    <input type="file" name="file"  id="file" placeholder="Form Upload"
+           accept="application/pdf"/>
+
+
+
+    <input type="submit" value="Add Site Based Contract">
+</body>
+</html>

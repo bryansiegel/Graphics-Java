@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:switch="${sitebasedcontracts}">
+    <h2 th:case="null">No Site Based Contracts yet!</h2>
+    <div th:case="*">
+        <h2>Site Based Contracts</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Form Name</th>
+                <th>Form Url</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="SiteBasedContractsModel : ${sitebasedcontracts}">
+                <td th:text="${SiteBasedContractsModel.formName}"></td>
+                <td th:text="${SiteBasedContractsModel.filePath}"></td>
+
+                <td><a th:href="@{/admin/site-based-contracts/edit/{id}(id=${SiteBasedContractsModel.id})}">Edit</a></td>
+                <td><a th:href="@{/admin/site-based-contracts/delete/{id}(id=${SiteBasedContractsModel.id})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/admin/site-based-contracts/create">Add a new Site Based Contract</a></p>
+</div>
+</body>
+</html>

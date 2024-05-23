@@ -103,7 +103,7 @@ public class SiteBasedContractsController {
 
         model.addAttribute("siteBasedContracts", siteBasedContracts);
 
-        return "admin/index-of-forms/edit.html";
+        return "admin/site-based-contracts/edit.html";
     }
 
     //Update
@@ -125,7 +125,7 @@ public class SiteBasedContractsController {
 
 
         //SET FilePath
-        String filePath = UPLOAD_DIR + storageFileName;
+        String filePath = "files/site-based-contracts/" + storageFileName;
 
         try {
             Path uploadPath = Paths.get(UPLOAD_DIR);
