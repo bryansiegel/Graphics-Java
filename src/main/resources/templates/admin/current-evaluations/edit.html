@@ -5,24 +5,19 @@
     <title>Title</title>
 </head>
 <body>
-<form action="#"
-      th:action="@{/admin/current-evaluations/update/{id}(id=${currentEvaluations.id})}"
-      th:object="${currentEvaluations}"
-      method="post">
-    <label for="form_name">Form Name</label>
-    <input type="text" th:field="*{formName}" id="form_name" placeholder="Form Name">
-    <span th:if="${#fields.hasErrors('formName')}" th:errors="*{formName}"></span>
+<form th:action="@{/admin/current-evaluations/update}" th:object="${currentEvaluationDto}" method="post" enctype="multipart/form-data">
 
-    <label for="form_url">Form Url</label>
-    <input type="text" th:field="*{formUrl}" id="form_url" placeholder="Form Url">
-    <span th:if="${#fields.hasErrors('formUrl')}" th:errors="*{formUrl}"></span>
+    <label for="formName">Form Name</label>
+    <input type="text" name="formName" th:field="${currentEvaluationDto.formName}" id="formName"
+           placeholder="Form Name"/>
+    <span th:if="${#fields.hasErrors('formName')}" th:errors="*{currentEvaluationDto.formName}"></span>
 
-    <label for="form_url">Form Upload</label>
-    <input type="text" th:field="*{formUpload}" id="form_upload" placeholder="Form Upload">
-    <span th:if="${#fields.hasErrors('formUpload')}" th:errors="*{formUpload}"></span>
+    <label for="file">Form Upload</label>
+    <input type="file" name="file" th:field="${currentEvaluationDto.file}" id="file" placeholder="Form Upload"
+           accept="application/pdf"/>
+    <span th:if="${#fields.hasErrors('file')}" th:errors="*{currentEvaluationDto.file}"></span>
 
 
     <input type="submit" value="Add Current Evaluation">
-</form>
 </body>
 </html>
