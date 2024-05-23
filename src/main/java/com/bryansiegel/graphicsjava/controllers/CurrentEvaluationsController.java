@@ -52,7 +52,7 @@ public class CurrentEvaluationsController {
 
     //create
     @PostMapping("/admin/current-evaluations/create")
-    public String createCurrentEvaluation(@Valid @ModelAttribute CurrentEvaluationsDto currentEvaluationDto, BindingResult result) {
+    public String createCurrentEvaluation(@Valid @ModelAttribute CurrentEvaluationsDto currentEvaluationDto, CurrentEvaluationsModel currentEvaluationsModel,  BindingResult result) {
 
         if (currentEvaluationDto.getFile().isEmpty()) {
             result.addError(new FieldError("currentEvaluationDto", "file", "The image file is required"));
@@ -68,19 +68,26 @@ public class CurrentEvaluationsController {
         String storageFileName = createdAt.getTime() + "_" + file.getOriginalFilename();
 
         try {
-            String uploadDir = "public/files/currentEvaluations/";
+            String uploadDir = "/public/files/currentEvaluations/";
             Path uploadPath = Paths.get(uploadDir);
 
             if (!Files.exists(uploadPath)) {
                 Files.createDirectories(uploadPath);
             }
+
             try (InputStream inputStream = file.getInputStream()) {
                 Files.copy(inputStream, Paths.get(uploadDir + storageFileName), StandardCopyOption.REPLACE_EXISTING);
             }
             } catch (Exception ex) {
             System.out.println("Exception: " + ex.getMessage());
-
         }
+
+        if (result.hasErrors()) {
+            return "admin/current-evaluations/create.html";
+        }
+
+
+
         return "redirect:/admin/current-evaluations/";
 
     }
