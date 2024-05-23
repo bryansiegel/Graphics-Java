@@ -22,8 +22,8 @@
                 <td th:text="${IndexOfFormsModel.formName}"></td>
                 <td th:text="${IndexOfFormsModel.filePath}"></td>
 
-                <td><a th:href="@{/admin/current-evaluations/edit/{id}(id=${IndexOfFormsModel.id})}">Edit</a></td>
-                <td><a th:href="@{/admin/current-evaluations/delete/{id}(id=${IndexOfFormsModel.id})}">Delete</a></td>
+                <td><a th:href="@{/admin/index-of-forms/edit/{id}(id=${IndexOfFormsModel.id})}">Edit</a></td>
+                <td><a th:href="@{/admin/index-of-forms/delete/{id}(id=${IndexOfFormsModel.id})}">Delete</a></td>
             </tr>
             </tbody>
         </table>

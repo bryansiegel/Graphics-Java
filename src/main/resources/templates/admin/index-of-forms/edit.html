@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/admin/index-of-forms/update/{id}(id=${indexofforms.id})}" th:object="${indexofforms}" method="post" enctype="multipart/form-data">
+
+    <label for="formName">Form Name</label>
+    <input type="text" name="formName" th:field="${indexofforms.formName}" id="formName"
+           placeholder="Form Name"/>
+    <span th:if="${#fields.hasErrors('formName')}" th:errors="*{indexofforms.formName}"></span>
+
+    <label for="file">Form Upload</label>
+    <input type="file" name="file"  id="file" placeholder="Form Upload"
+           accept="application/pdf"/>
+
+
+
+    <input type="submit" value="Add Index Of Forms">
+</body>
+</html>
