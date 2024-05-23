@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:switch="${indexofforms}">
+    <h2 th:case="null">No Index Of Forms yet!</h2>
+    <div th:case="*">
+        <h2>Index Of Forms</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Form Name</th>
+                <th>Form Url</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="IndexOfFormsModel : ${indexofforms}">
+                <td th:text="${IndexOfFormsModel.formName}"></td>
+                <td th:text="${IndexOfFormsModel.filePath}"></td>
+
+                <td><a th:href="@{/admin/current-evaluations/edit/{id}(id=${IndexOfFormsModel.id})}">Edit</a></td>
+                <td><a th:href="@{/admin/current-evaluations/delete/{id}(id=${IndexOfFormsModel.id})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/admin/index-of-forms/create">Add a new Index Of Form</a></p>
+</div>
+</body>
+</html>

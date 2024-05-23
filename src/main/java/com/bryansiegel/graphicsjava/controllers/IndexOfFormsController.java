@@ -36,15 +36,15 @@ public class IndexOfFormsController {
     @GetMapping("/admin/index-of-forms/")
     public String indexOfForms(Model model) {
         model.addAttribute("indexofforms", repo.findAll());
-        return "admin/current-evaluations/index.html";
+        return "admin/index-of-forms/index.html";
     }
 
     //GET create
     @GetMapping("admin/index-of-forms/create")
     public String showCreatePage(Model model) {
         IndexOfFormsDto indexOfFormsDto = new IndexOfFormsDto();
-        model.addAttribute("indexofforms", repo);
-        return "admin/current-evaluations/create.html";
+        model.addAttribute("indexOfFormsDto", indexOfFormsDto);
+        return "admin/index-of-forms/create.html";
     }
 
     //POST create
@@ -89,7 +89,7 @@ public class IndexOfFormsController {
             System.out.println("Exception: " + ex.getMessage());
         }
 
-        return "redirect:/admin/current-evaluations/";
+        return "redirect:/admin/index-of-forms/";
     }
 
     //Edit
