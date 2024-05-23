@@ -23,7 +23,7 @@ import java.util.Date;
 @Controller
 public class CurrentEvaluationsController {
     //file upload dir
-    String UPLOAD_DIR = "public/files/currentEvaluations/";
+    String UPLOAD_DIR = "src/main/resources/static/files/current-evaluations/";
 
     @Autowired
     private final currentEvaluationsRepository currentEvaluationsRepository;
@@ -68,7 +68,7 @@ public class CurrentEvaluationsController {
 
 
         //SET FilePath
-        String filePath = UPLOAD_DIR + storageFileName;
+        String filePath = "files/current-evaluations/" + storageFileName;
 
         try {
             Path uploadPath = Paths.get(UPLOAD_DIR);
@@ -154,16 +154,6 @@ public class CurrentEvaluationsController {
         }
         return "redirect:/admin/current-evaluations/";
     }
-
-
-// Old
-//    public String updateCurrentEvaluations(@Valid CurrentEvaluationsModel currentEvaluations, BindingResult bindingResult, Model model) {
-//        if (bindingResult.hasErrors()) {
-//            return "admin/current-evaluations/edit.html";
-//        }
-//        currentEvaluationsRepository.save(currentEvaluations);
-//        return "redirect:/admin/current-evaluations/";
-//    }
 
     //Delete
     @GetMapping("/admin/current-evaluations/delete/{id}")
