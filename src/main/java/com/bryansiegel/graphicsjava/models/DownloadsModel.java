@@ -12,12 +12,11 @@ public class DownloadsModel {
     public DownloadsModel() {
     }
 
-    public DownloadsModel(long id, String category, String formName, String formUrl, String formUpload) {
+    public DownloadsModel(long id, String category, String formName, String filePath) {
         this.id = id;
         Category = category;
         FormName = formName;
-        FormUrl = formUrl;
-        FormUpload = formUpload;
+        FilePath = filePath;
     }
 
     @Id
@@ -28,12 +27,9 @@ public class DownloadsModel {
     private String Category;
 
     @NotBlank(message = "Form Name is Required")
-
     private String FormName;
 
-    private String FormUrl;
-
-    private String FormUpload;
+    private String FilePath;
 
     public long getId() {
         return id;
@@ -43,36 +39,28 @@ public class DownloadsModel {
         this.id = id;
     }
 
-    public String getCategory() {
+    public @NotBlank(message = "Category is Required") String getCategory() {
         return Category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(@NotBlank(message = "Category is Required") String category) {
         Category = category;
     }
 
-    public String getFormName() {
+    public @NotBlank(message = "Form Name is Required") String getFormName() {
         return FormName;
     }
 
-    public void setFormName(String formName) {
+    public void setFormName(@NotBlank(message = "Form Name is Required") String formName) {
         FormName = formName;
     }
 
-    public String getFormUrl() {
-        return FormUrl;
+    public String getFilePath() {
+        return FilePath;
     }
 
-    public void setFormUrl(String formUrl) {
-        FormUrl = formUrl;
-    }
-
-    public String getFormUpload() {
-        return FormUpload;
-    }
-
-    public void setFormUpload(String formUpload) {
-        FormUpload = formUpload;
+    public void setFilePath(String filePath) {
+        FilePath = filePath;
     }
 
     @Override
@@ -81,8 +69,7 @@ public class DownloadsModel {
                 "id=" + id +
                 ", Category='" + Category + '\'' +
                 ", FormName='" + FormName + '\'' +
-                ", FormUrl='" + FormUrl + '\'' +
-                ", FormUpload='" + FormUpload + '\'' +
+                ", FilePath='" + FilePath + '\'' +
                 '}';
     }
 }
