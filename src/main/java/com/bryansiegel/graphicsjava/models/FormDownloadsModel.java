@@ -12,13 +12,12 @@ public class FormDownloadsModel {
     public FormDownloadsModel() {
     }
 
-    public FormDownloadsModel(long id, String formType, String formNumber, String formName, String formUrl, String formUpload, boolean active) {
+    public FormDownloadsModel(long id, String formType, String formNumber, String formName, String filePath, boolean active) {
         this.id = id;
         FormType = formType;
         FormNumber = formNumber;
         FormName = formName;
-        FormUrl = formUrl;
-        FormUpload = formUpload;
+        FilePath = filePath;
         this.active = active;
     }
 
@@ -35,9 +34,7 @@ public class FormDownloadsModel {
     @NotBlank(message = "Form Name is Required")
     private String FormName;
 
-    private String FormUrl;
-
-    private String FormUpload;
+    private String FilePath;
 
     public boolean active = true;
 
@@ -49,44 +46,36 @@ public class FormDownloadsModel {
         this.id = id;
     }
 
-    public String getFormType() {
+    public @NotBlank(message = "Form Type is Required") String getFormType() {
         return FormType;
     }
 
-    public void setFormType(String formType) {
+    public void setFormType(@NotBlank(message = "Form Type is Required") String formType) {
         FormType = formType;
     }
 
-    public String getFormNumber() {
+    public @NotBlank(message = "Form Number is Required") String getFormNumber() {
         return FormNumber;
     }
 
-    public void setFormNumber(String formNumber) {
+    public void setFormNumber(@NotBlank(message = "Form Number is Required") String formNumber) {
         FormNumber = formNumber;
     }
 
-    public String getFormName() {
+    public @NotBlank(message = "Form Name is Required") String getFormName() {
         return FormName;
     }
 
-    public void setFormName(String formName) {
+    public void setFormName(@NotBlank(message = "Form Name is Required") String formName) {
         FormName = formName;
     }
 
-    public String getFormUrl() {
-        return FormUrl;
+    public String getFilePath() {
+        return FilePath;
     }
 
-    public void setFormUrl(String formUrl) {
-        FormUrl = formUrl;
-    }
-
-    public String getFormUpload() {
-        return FormUpload;
-    }
-
-    public void setFormUpload(String formUpload) {
-        FormUpload = formUpload;
+    public void setFilePath(String filePath) {
+        FilePath = filePath;
     }
 
     public boolean isActive() {
@@ -104,8 +93,7 @@ public class FormDownloadsModel {
                 ", FormType='" + FormType + '\'' +
                 ", FormNumber='" + FormNumber + '\'' +
                 ", FormName='" + FormName + '\'' +
-                ", FormUrl='" + FormUrl + '\'' +
-                ", FormUpload='" + FormUpload + '\'' +
+                ", FilePath='" + FilePath + '\'' +
                 ", active=" + active +
                 '}';
     }
