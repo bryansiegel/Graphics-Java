@@ -1,21 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 
-<div th:if="${param.error}">
-    Invalid username and password.
-</div>
-<div th:if="${param.logout}">
-    You have been logged out.
-</div>
-<form th:action="@{/login}" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Sign In"/></div>
-</form>
+<body id="page-top">
+
+<head th:include="public/fragments/head.html"></head>
+
+<nav class="navbar navbar-expand-lg bg-blue text-uppercase fixed-top" id="mainNav" th:include="public/fragments/nav.html"></nav>
+
+
+<section class="page-section" style="margin-top:120px;">
+
+    <div class="container" style="width:40%">
+    <div class="row h-100">
+    <div class="col-sm-12 my-auto">
+        <h1>Login</h1>
+            <div th:if="${param.error}">
+                Invalid username and password.
+            </div>
+            <div th:if="${param.logout}">
+                You have been logged out.
+            </div>
+            <form th:action="@{/login}" method="post">
+                <div class="form-group">
+                    <label> User Name : </label>
+                    <input type="text" name="username" class="form-control"/>
+                </div>
+                <div class="form-group pt-4">
+                    <label> Password:</label>
+                    <input type="password" name="password" class="form-control"/>
+                </div>
+                <div class="form-group pt-4">
+                    <input type="submit" value="Sign In" class="btn btn-primary"/>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    </div>
+
+</section>
+
+
+<footer class="footer" th:insert="public/fragments/sections/footer"></footer>
+
+<div class="copyright py-4 text-center text-white" th:insert="public/fragments/sections/copywrite"></div>
+
+<div th:insert="public/fragments/sections/scripts"></div>
+
 </body>
+
 </html>
