@@ -108,7 +108,7 @@ public class IndexOfFormsController {
 
     //Update
     @PostMapping("/admin/index-of-forms/update/{id}")
-    public String updateIndexOfForms(@Valid @ModelAttribute IndexOfFormsDto indexOfFormsDto, @PathVariable Long id, @RequestParam String formName, IndexOfFormsModel _indexofformsModel, BindingResult result) {
+    public String updateIndexOfForms(@Valid @ModelAttribute IndexOfFormsDto indexOfFormsDto, @PathVariable Long id, @RequestParam String formName, @RequestParam IndexOfFormsModel _indexofformsModel,  BindingResult result) {
 
         if (indexOfFormsDto.getFile().isEmpty()) {
             result.addError(new FieldError("indexOfFormsDto", "file", "The image file is required"));
