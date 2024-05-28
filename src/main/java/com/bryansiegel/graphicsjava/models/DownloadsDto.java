@@ -3,17 +3,19 @@ package com.bryansiegel.graphicsjava.models;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import org.springframework.web.multipart.MultipartFile;
 
 public class DownloadsDto {
 
     public DownloadsDto() {
     }
 
-    public DownloadsDto(Long id, String formName, String filePath, String category, boolean active) {
+    public DownloadsDto(Long id, String formName, String filePath, String category, MultipartFile file, boolean active) {
         this.id = id;
         FormName = formName;
         FilePath = filePath;
         Category = category;
+        File = file;
         this.active = active;
     }
 
@@ -26,6 +28,8 @@ public class DownloadsDto {
     private String FilePath;
 
     private String Category;
+
+    private MultipartFile File;
 
     private boolean active = true;
 
@@ -59,6 +63,14 @@ public class DownloadsDto {
 
     public void setCategory(String category) {
         Category = category;
+    }
+
+    public MultipartFile getFile() {
+        return File;
+    }
+
+    public void setFile(MultipartFile file) {
+        File = file;
     }
 
     public boolean isActive() {
