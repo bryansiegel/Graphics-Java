@@ -157,7 +157,7 @@ public class DownloadsController {
 
     //Delete
     @GetMapping("/admin/downloads/delete/{id}")
-    public String deleteIndexOfForms(@PathVariable Long id) {
+    public String deleteDownloads(@PathVariable Long id) {
         DownloadsModel downloadsModel = repo.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         repo.delete(downloadsModel);
