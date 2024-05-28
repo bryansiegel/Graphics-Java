@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:switch="${downloads}">
+    <h2 th:case="null">No Current Evaluations yet!</h2>
+    <div th:case="*">
+        <h2>Current Evaluations</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Form Name</th>
+                <th>Form Url</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="downloadModel : ${downloads}">
+                <td th:text="${downloadModel.formName}"></td>
+                <td th:text="${downloadModel.filePath}"></td>
+                <td th:text="${downloadModel.category}"></td>
+
+                <td><a th:href="@{/admin/downloads/edit/{id}(id=${downloadModel.id})}">Edit</a></td>
+                <td><a th:href="@{/admin/downloads/delete/{id}(id=${downloadModel.id})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/admin/downloads/create">Add a new Download</a></p>
+</div>
+</body>
+</html>

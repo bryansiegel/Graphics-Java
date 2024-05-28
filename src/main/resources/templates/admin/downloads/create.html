@@ -1,0 +1,43 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Create A Download</h1>
+
+<form th:action="@{/admin/downloads/create}" th:object="${downloadsDto}" method="post" enctype="multipart/form-data">
+
+    <label for="formName">Form Name</label>
+    <input type="text" name="formName" th:field="${downloadsDto.formName}" id="formName"
+           placeholder="Form Name"/>
+    <span th:if="${#fields.hasErrors('formName')}" th:errors="*{downloadsDto.formName}"></span>
+
+<select th:field="*{category}">
+
+    <option th:value="'graphics_arts_work_requests'" th:text="'Graphic Arts Center Work Requests'"></option>
+    <option th:value="'directories'" th:text="Directories"></option>
+    <option th:value="'ccsd_logos'" th:text="'CCSD Logos'"></option>
+    <option th:value="'ccsd_logos_with_leadership'" th:text="'CCSD Logos with Leadership List (Leadership Lockup)'"></option>
+    <option th:value="'ccsd_board_of_trustees'" th:text="'CCSD Board of School Trustees Vision Statement'"></option>
+    <option th:value="'ccsd_letterhead'" th:text="'CCSD Letterhead'"></option>
+    <option th:value="'ccsd_templates'" th:text="'CCSD Templates'"></option>
+    <option th:value="'school_logos'" th:text="'School Logos'"></option>
+    <option th:value="'ccsd_employee_dress_style'" th:text="'CCSD Employee Dress Style Guidelines'"></option>
+
+</select>
+
+
+    <label for="file">Form Upload</label>
+    <input type="file" name="file" th:field="${downloadsDto.file}" id="file" placeholder="Form Upload"
+           accept="application/pdf"/>
+    <span th:if="${#fields.hasErrors('file')}" th:errors="*{downloadsDto.file}"></span>
+
+
+    <input type="submit" value="Add Current Evaluation">
+
+</form>
+</body>
+</html>
