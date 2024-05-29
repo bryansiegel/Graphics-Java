@@ -1,28 +1,73 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Create A Site Based Contract</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head th:include="admin/fragments/head.html"></head>
 
-<form th:action="@{/admin/site-based-contracts/create}" th:object="${siteBasedContractsDto}" method="post" enctype="multipart/form-data">
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <!-- Sidebar -->
+    <ul th:include="admin/fragments/sidebar.html" class="navbar-nav sidebar sidebar-dark accordion"
+        id="accordionSidebar"
+        style="background-color: #417cc0"></ul>
+    <!-- End of Sidebar -->
 
-    <label for="formName">Form Name</label>
-    <input type="text" name="formName" th:field="${siteBasedContractsDto.formName}" id="formName"
-           placeholder="Form Name"/>
-    <span th:if="${#fields.hasErrors('formName')}" th:errors="*{siteBasedContractsDto.formName}"></span>
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
 
-    <label for="file">Form Upload</label>
-    <input type="file" name="file" th:field="${siteBasedContractsDto.file}" id="file" placeholder="Form Upload"
-           accept="application/pdf"/>
-    <span th:if="${#fields.hasErrors('file')}" th:errors="*{siteBasedContractsDto.file}"></span>
+            <!-- Topbar -->
+            <nav th:include="admin/fragments/nav.html"
+                 class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"></nav>
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
 
 
-    <input type="submit" value="Add Site Based Contract">
+                <div class="row">
+                    <div class="container">
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col-md-6 my-auto">
+                                <h1>Create A Site Based Contract</h1>
 
-</form>
+                                <form th:action="@{/admin/site-based-contracts/create}"
+                                      th:object="${siteBasedContractsDto}" method="post" enctype="multipart/form-data">
+
+                                    <div class="form-group">
+                                    <label for="formName">Form Name</label>
+                                    <input type="text" name="formName" th:field="${siteBasedContractsDto.formName}"
+                                           id="formName"
+                                           placeholder="Form Name" class="form-control"/>
+                                    <span th:if="${#fields.hasErrors('formName')}"
+                                          th:errors="*{siteBasedContractsDto.formName}"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                    <label for="file">Form Upload</label>
+                                    <input type="file" name="file" th:field="${siteBasedContractsDto.file}" id="file"
+                                           placeholder="Form Upload"
+                                           accept="application/pdf" class="form-control"/>
+                                    <span th:if="${#fields.hasErrors('file')}"
+                                          th:errors="*{siteBasedContractsDto.file}"></span>
+                                    </div>
+
+                                    <input type="submit" value="Add Site Based Contract" class="btn btn-primary">
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <footer th:include="admin/fragments/footer.html" class="sticky-footer bg-white"></footer>
+    </div>
+</div>
+
+<div th:include="admin/fragments/scripts.html"></div>
+
 </body>
 </html>
