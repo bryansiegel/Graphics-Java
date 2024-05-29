@@ -1,20 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<head th:include="admin/fragments/head.html"></head>
+
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <!-- Sidebar -->
+    <ul th:include="admin/fragments/sidebar.html" class="navbar-nav sidebar sidebar-dark accordion"
+        id="accordionSidebar"
+        style="background-color: #417cc0"></ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <nav th:include="admin/fragments/nav.html" class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"></nav>
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+
+                <div class="row">
 
 <div th:switch="${indexofforms}">
     <h2 th:case="null">No Index Of Forms yet!</h2>
     <div th:case="*">
         <h2>Index Of Forms</h2>
-        <table>
+
+        <p class="pt-4"><a href="/admin/index-of-forms/create" class="btn btn-primary">Add a new Index Of Form</a></p>
+
+
+
+        <table class="table table-striped pt-5 mt-5">
             <thead>
             <tr>
                 <th>Form Name</th>
                 <th>Form Url</th>
+                <th></th>
+
             </tr>
             </thead>
             <tbody>
@@ -22,13 +49,24 @@
                 <td th:text="${IndexOfFormsModel.formName}"></td>
                 <td th:text="${IndexOfFormsModel.filePath}"></td>
 
-                <td><a th:href="@{/admin/index-of-forms/edit/{id}(id=${IndexOfFormsModel.id})}">Edit</a></td>
-                <td><a th:href="@{/admin/index-of-forms/delete/{id}(id=${IndexOfFormsModel.id})}">Delete</a></td>
+                <td><a th:href="@{/admin/index-of-forms/edit/{id}(id=${IndexOfFormsModel.id})}" class="btn btn-info">Edit</a>
+               <a th:href="@{/admin/index-of-forms/delete/{id}(id=${IndexOfFormsModel.id})}" class="btn btn-danger">Delete</a></td>
             </tr>
             </tbody>
         </table>
     </div>
-    <p><a href="/admin/index-of-forms/create">Add a new Index Of Form</a></p>
 </div>
+                </div>
+
+
+
+            </div>
+        </div>
+        <footer th:include="admin/fragments/footer.html" class="sticky-footer bg-white"></footer>
+    </div>
+</div>
+
+<div th:include="admin/fragments/scripts.html"></div>
+
 </body>
 </html>
