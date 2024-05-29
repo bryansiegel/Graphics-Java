@@ -1,43 +1,93 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Create A Download</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head th:include="admin/fragments/head.html"></head>
 
-<form th:action="@{/admin/downloads/create}" th:object="${downloadsDto}" method="post" enctype="multipart/form-data">
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <!-- Sidebar -->
+    <ul th:include="admin/fragments/sidebar.html" class="navbar-nav sidebar sidebar-dark accordion"
+        id="accordionSidebar"
+        style="background-color: #417cc0"></ul>
+    <!-- End of Sidebar -->
 
-    <label for="formName">Form Name</label>
-    <input type="text" name="formName" th:field="${downloadsDto.formName}" id="formName"
-           placeholder="Form Name"/>
-    <span th:if="${#fields.hasErrors('formName')}" th:errors="*{downloadsDto.formName}"></span>
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
 
-<select th:field="*{category}">
+            <!-- Topbar -->
+            <nav th:include="admin/fragments/nav.html"
+                 class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"></nav>
+            <!-- End of Topbar -->
 
-    <option th:value="'graphics_arts_work_requests'" th:text="'Graphic Arts Center Work Requests'"></option>
-    <option th:value="'directories'" th:text="Directories"></option>
-    <option th:value="'ccsd_logos'" th:text="'CCSD Logos'"></option>
-    <option th:value="'ccsd_logos_with_leadership'" th:text="'CCSD Logos with Leadership List (Leadership Lockup)'"></option>
-    <option th:value="'ccsd_board_of_trustees'" th:text="'CCSD Board of School Trustees Vision Statement'"></option>
-    <option th:value="'ccsd_letterhead'" th:text="'CCSD Letterhead'"></option>
-    <option th:value="'ccsd_templates'" th:text="'CCSD Templates'"></option>
-    <option th:value="'school_logos'" th:text="'School Logos'"></option>
-    <option th:value="'ccsd_employee_dress_style'" th:text="'CCSD Employee Dress Style Guidelines'"></option>
-
-</select>
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
 
 
-    <label for="file">Form Upload</label>
-    <input type="file" name="file" th:field="${downloadsDto.file}" id="file" placeholder="Form Upload"
-           accept="application/pdf"/>
-    <span th:if="${#fields.hasErrors('file')}" th:errors="*{downloadsDto.file}"></span>
+                <div class="row">
+                    <div class="container">
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col-md-6 my-auto">
+                                <h1>Create A Download</h1>
+
+                                <form th:action="@{/admin/downloads/create}" th:object="${downloadsDto}" method="post"
+                                      enctype="multipart/form-data">
+
+                                    <div class="form-group">
+                                    <label for="formName">Form Name</label>
+                                    <input type="text" name="formName" th:field="${downloadsDto.formName}" id="formName"
+                                           placeholder="Form Name" class="form-control"/>
+                                    <span th:if="${#fields.hasErrors('formName')}"
+                                          th:errors="*{downloadsDto.formName}"></span>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="category">Category</label>
+                                    <select th:field="*{category}" class="form-control">
+
+                                        <option th:value="'graphics_arts_work_requests'"
+                                                th:text="'Graphic Arts Center Work Requests'"></option>
+                                        <option th:value="'directories'" th:text="Directories"></option>
+                                        <option th:value="'ccsd_logos'" th:text="'CCSD Logos'"></option>
+                                        <option th:value="'ccsd_logos_with_leadership'"
+                                                th:text="'CCSD Logos with Leadership List (Leadership Lockup)'"></option>
+                                        <option th:value="'ccsd_board_of_trustees'"
+                                                th:text="'CCSD Board of School Trustees Vision Statement'"></option>
+                                        <option th:value="'ccsd_letterhead'" th:text="'CCSD Letterhead'"></option>
+                                        <option th:value="'ccsd_templates'" th:text="'CCSD Templates'"></option>
+                                        <option th:value="'school_logos'" th:text="'School Logos'"></option>
+                                        <option th:value="'ccsd_employee_dress_style'"
+                                                th:text="'CCSD Employee Dress Style Guidelines'"></option>
+
+                                    </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                    <label for="file">Form Upload</label>
+                                    <input type="file" name="file" th:field="${downloadsDto.file}" id="file"
+                                           placeholder="Form Upload"
+                                           accept="application/pdf" class="form-control"/>
+                                    <span th:if="${#fields.hasErrors('file')}" th:errors="*{downloadsDto.file}"></span>
+                                    </div>
+
+                                    <input type="submit" value="Add Current Evaluation" class="btn btn-primary">
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
-    <input type="submit" value="Add Current Evaluation">
+            </div>
+        </div>
+        <footer th:include="admin/fragments/footer.html" class="sticky-footer bg-white"></footer>
+    </div>
+</div>
 
-</form>
+<div th:include="admin/fragments/scripts.html"></div>
+
 </body>
 </html>
