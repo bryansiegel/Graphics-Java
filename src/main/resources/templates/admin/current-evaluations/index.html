@@ -1,34 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<head th:include="admin/fragments/head.html"></head>
 
-<div th:switch="${currentEvaluations}">
-    <h2 th:case="null">No Current Evaluations yet!</h2>
-    <div th:case="*">
-        <h2>Current Evaluations</h2>
-        <table>
-            <thead>
-            <tr>
-                <th>Form Name</th>
-                <th>Form Url</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="currentEvaluationModel : ${currentEvaluations}">
-                <td th:text="${currentEvaluationModel.formName}"></td>
-                <td th:text="${currentEvaluationModel.filePath}"></td>
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <!-- Sidebar -->
+    <ul th:include="admin/fragments/sidebar.html" class="navbar-nav sidebar sidebar-dark accordion"
+        id="accordionSidebar"
+        style="background-color: #417cc0"></ul>
+    <!-- End of Sidebar -->
 
-                <td><a th:href="@{/admin/current-evaluations/edit/{id}(id=${currentEvaluationModel.id})}">Edit</a></td>
-                <td><a th:href="@{/admin/current-evaluations/delete/{id}(id=${currentEvaluationModel.id})}">Delete</a></td>
-            </tr>
-            </tbody>
-        </table>
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <nav th:include="admin/fragments/nav.html"
+                 class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"></nav>
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+
+                <div class="row">
+
+                    <div th:switch="${currentEvaluations}">
+                        <h2 th:case="null">No Current Evaluations yet!</h2>
+                        <div th:case="*">
+                            <h2>Current Evaluations</h2>
+                            <p><a href="/admin/current-evaluations/create" class="btn btn-primary">Add a new Current Evaluation</a></p>
+
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Form Name</th>
+                                    <th>Form Url</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="currentEvaluationModel : ${currentEvaluations}">
+                                    <td th:text="${currentEvaluationModel.formName}"></td>
+                                    <td th:text="${currentEvaluationModel.filePath}"></td>
+
+                                    <td>
+                                        <a th:href="@{/admin/current-evaluations/edit/{id}(id=${currentEvaluationModel.id})}" class="btn btn-info">Edit</a>
+
+                                        <a th:href="@{/admin/current-evaluations/delete/{id}(id=${currentEvaluationModel.id})}" class="btn btn-danger">Delete</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <footer th:include="admin/fragments/footer.html" class="sticky-footer bg-white"></footer>
     </div>
-    <p><a href="/admin/current-evaluations/create">Add a new Current Evaluation</a></p>
 </div>
+
+<div th:include="admin/fragments/scripts.html"></div>
+
 </body>
 </html>
