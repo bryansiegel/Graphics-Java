@@ -1,6 +1,5 @@
 package com.bryansiegel.graphicsjava.controllers;
 
-import com.bryansiegel.graphicsjava.models.IndexOfFormsModel;
 import com.bryansiegel.graphicsjava.repositories.currentEvaluationsRepository;
 import com.bryansiegel.graphicsjava.repositories.formDownloadsRepository;
 import com.bryansiegel.graphicsjava.repositories.indexOfFormsRepository;
@@ -14,7 +13,6 @@ import org.springframework.ui.Model;
 @Controller
 public class PagesController {
 
-
     private final indexOfFormsRepository _indexofFormsRepository;
     private final formDownloadsRepository _formDownloadsRepository;
     private final siteBasedContractsRepository _siteBasedContractsRepository;
@@ -27,9 +25,6 @@ public class PagesController {
         this._siteBasedContractsRepository = _siteBasedContractsRepository;
         this._currentEvaluationsRepository = _currentEvaluationsRepository;
     }
-
-
-
 
     @GetMapping("/")
     public String home() {
