@@ -45,7 +45,11 @@
                                 <tbody>
                                 <tr th:each="downloadModel : ${downloads}">
                                     <td th:text="${downloadModel.formName}"></td>
-                                    <td th:text="${downloadModel.filePath}"></td>
+                                    <td>
+                                        <a th:href="${'http://localhost:8080/' + downloadModel.filePath}" target="_blank">
+                                            <span th:text="${downloadModel.filePath}"></span>
+                                        </a>
+                                    </td>
                                     <td th:text="${downloadModel.category}"></td>
 
                                     <td><a th:href="@{/admin/downloads/edit/{id}(id=${downloadModel.id})}" class="btn btn-info">Edit</a>
