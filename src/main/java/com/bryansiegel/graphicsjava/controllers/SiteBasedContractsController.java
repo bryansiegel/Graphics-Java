@@ -2,7 +2,7 @@ package com.bryansiegel.graphicsjava.controllers;
 
 
 
-import com.bryansiegel.graphicsjava.models.SiteBasedContractsDto;
+import com.bryansiegel.graphicsjava.dtos.SiteBasedContractsDto;
 import com.bryansiegel.graphicsjava.models.SiteBasedContractsModel;
 import com.bryansiegel.graphicsjava.repositories.siteBasedContractsRepository;
 import jakarta.validation.Valid;

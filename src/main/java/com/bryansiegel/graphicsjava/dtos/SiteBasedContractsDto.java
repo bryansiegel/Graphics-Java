@@ -1,4 +1,4 @@
-package com.bryansiegel.graphicsjava.models;
+package com.bryansiegel.graphicsjava.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.web.multipart.MultipartFile;

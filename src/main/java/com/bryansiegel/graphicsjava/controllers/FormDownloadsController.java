@@ -1,6 +1,6 @@
 package com.bryansiegel.graphicsjava.controllers;
 
-import com.bryansiegel.graphicsjava.models.FormDownloadsDto;
+import com.bryansiegel.graphicsjava.dtos.FormDownloadsDto;
 import com.bryansiegel.graphicsjava.models.FormDownloadsModel;
 import com.bryansiegel.graphicsjava.repositories.formDownloadsRepository;
 import jakarta.validation.Valid;

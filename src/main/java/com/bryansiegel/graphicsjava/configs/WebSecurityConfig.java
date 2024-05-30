@@ -1,4 +1,4 @@
-package com.bryansiegel.graphicsjava;
+package com.bryansiegel.graphicsjava.configs;
 
 
 import org.springframework.context.annotation.Bean;
