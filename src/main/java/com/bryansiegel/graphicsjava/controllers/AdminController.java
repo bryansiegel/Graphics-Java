@@ -1,10 +1,6 @@
 package com.bryansiegel.graphicsjava.controllers;
 
-import com.bryansiegel.graphicsjava.impls.indexOfFormsRepositoryImpl;
-import com.bryansiegel.graphicsjava.repositories.currentEvaluationsRepository;
-import com.bryansiegel.graphicsjava.repositories.formDownloadsRepository;
-import com.bryansiegel.graphicsjava.repositories.indexOfFormsRepository;
-import com.bryansiegel.graphicsjava.repositories.siteBasedContractsRepository;
+import com.bryansiegel.graphicsjava.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,19 +12,21 @@ import org.springframework.ui.Model;
 @Controller
 public class AdminController {
 
+    Pageable limit = PageRequest.of(0,3);
+
     private final indexOfFormsRepository indexOfFormsRepository;
-    private final formDownloadsRepository downloadsRepository;
+    private final formDownloadsRepository formdownloadsRepository;
     private final siteBasedContractsRepository siteBasedContractsRepository;
     private final currentEvaluationsRepository currentEvaluationsRepository;
-    private final indexOfFormsRepositoryImpl indexOfFormsRepositoryImpl;
+    private final downloadsRepository downloadsRepository;
 
     @Autowired
-    public AdminController(com.bryansiegel.graphicsjava.repositories.indexOfFormsRepository indexOfFormsRepository, formDownloadsRepository downloadsRepository, com.bryansiegel.graphicsjava.repositories.siteBasedContractsRepository siteBasedContractsRepository, com.bryansiegel.graphicsjava.repositories.currentEvaluationsRepository currentEvaluationsRepository, com.bryansiegel.graphicsjava.impls.indexOfFormsRepositoryImpl indexOfFormsRepositoryImpl) {
+    public AdminController(com.bryansiegel.graphicsjava.repositories.indexOfFormsRepository indexOfFormsRepository, formDownloadsRepository downloadsRepository, com.bryansiegel.graphicsjava.repositories.siteBasedContractsRepository siteBasedContractsRepository, com.bryansiegel.graphicsjava.repositories.currentEvaluationsRepository currentEvaluationsRepository, com.bryansiegel.graphicsjava.repositories.downloadsRepository downloadsRepository1) {
         this.indexOfFormsRepository = indexOfFormsRepository;
-        this.downloadsRepository = downloadsRepository;
+        this.formdownloadsRepository = downloadsRepository;
         this.siteBasedContractsRepository = siteBasedContractsRepository;
         this.currentEvaluationsRepository = currentEvaluationsRepository;
-        this.indexOfFormsRepositoryImpl = indexOfFormsRepositoryImpl;
+        this.downloadsRepository = downloadsRepository1;
     }
 
 
@@ -39,9 +37,11 @@ public class AdminController {
 
     @GetMapping("/admin/dashboard")
     String dashboard(Model model) {
-//        model.addAttribute("indexofforms", indexOfFormsRepositoryImpl.latestFiveResults(5));
-        Pageable limit = PageRequest.of(0,3);
         model.addAttribute("indexofforms", indexOfFormsRepository.findAll(limit));
+        model.addAttribute("formdownloads", formdownloadsRepository.findAll(limit));
+        model.addAttribute("sitebasedcontracts", siteBasedContractsRepository.findAll(limit));
+        model.addAttribute("currentevaluations", currentEvaluationsRepository.findAll(limit));
+        model.addAttribute("downloads", downloadsRepository.findAll(limit));
 
         return "admin/dashboard";
     }

@@ -1,10 +1,11 @@
 <div class="row">
+    <h1 class="pb-3">Dashboard</h1>
     <!-- Content Column -->
     <div class="col-lg-6 mb-4">
         <!-- Project Card Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Latest Index Of Forms</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Index Of Forms</h6>
             </div>
             <div class="card-body">
                 <div th:each="indexofforms : ${indexofforms}">
@@ -15,9 +16,6 @@
                 </p>
                 </a>
                 </div>
-
-
-
             </div>
         </div>
 
@@ -32,10 +30,89 @@
                 </h6>
             </div>
             <div class="card-body">
-
+                <div th:each="formdownloads : ${formdownloads}">
+                    <a th:href="${formdownloads.filePath}">
+                        <p>
+                            <i class="fa-solid fa-circle-arrow-right"></i>
+                            <span  th:text="${formdownloads.formName}"></span>
+                        </p>
+                    </a>
+                </div>
             </div>
         </div>
 
 
     </div>
+</div>
+
+
+<div class="row">
+    <!-- Content Column -->
+    <div class="col-lg-6 mb-4">
+        <!-- Project Card Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Site Based Contracts</h6>
+            </div>
+            <div class="card-body">
+                <div th:each="sitebasedcontracts : ${sitebasedcontracts}">
+                    <a th:href="${sitebasedcontracts.filePath}">
+                        <p>
+                            <i class="fa-solid fa-circle-arrow-right"></i>
+                            <span  th:text="${sitebasedcontracts.formName}"></span>
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-lg-6 mb-4">
+        <!-- Illustrations -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    Current Evaluations
+                </h6>
+            </div>
+            <div class="card-body">
+                <div th:each="currentevaluations : ${currentevaluations}">
+                    <a th:href="${currentevaluations.filePath}">
+                        <p>
+                            <i class="fa-solid fa-circle-arrow-right"></i>
+                            <span  th:text="${currentevaluations.formName}"></span>
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<div class="row">
+    <!-- Content Column -->
+    <div class="col-lg-6 mb-4">
+        <!-- Project Card Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Downloads</h6>
+            </div>
+            <div class="card-body">
+                <div th:each="downloads : ${downloads}">
+                    <a th:href="${downloads.filePath}">
+                        <p>
+                            <i class="fa-solid fa-circle-arrow-right"></i>
+                            <span  th:text="${downloads.formName}"></span>
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
 </div>
