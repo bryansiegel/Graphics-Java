@@ -31,9 +31,9 @@
                         <h2 th:case="null">No Site Based Contracts yet!</h2>
                         <div th:case="*">
                             <h2>Site Based Contracts</h2>
-                            <p><a href="/admin/site-based-contracts/create" class="btn btn-primary">Add a new Site Based Contract</a></p>
+                            <p class="pt-2 pb-3"><a href="/admin/site-based-contracts/create" class="btn btn-primary">Add a new Site Based Contract</a></p>
 
-                            <table class="table table-striped">
+                            <table  id="adminTable" class="table table-striped">
                                 <thead>
                                 <tr>
                                     <th>Form Name</th>
