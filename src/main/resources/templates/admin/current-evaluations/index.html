@@ -31,7 +31,7 @@
                         <h2 th:case="null">No Current Evaluations yet!</h2>
                         <div th:case="*">
                             <h2>Current Evaluations</h2>
-                            <p class="pt-2 pb-3"><a href="/admin/current-evaluations/create" class="btn btn-primary">Add a new Current Evaluation</a></p>
+                            <p class="pt-2 pb-3"><a href="/admin/current-evaluations/create" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add a new Current Evaluation</a></p>
 
                             <table  id="adminTable" class="table table-striped">
                                 <thead>
@@ -51,9 +51,9 @@
                                     </td>
 
                                     <td>
-                                        <a th:href="@{/admin/current-evaluations/edit/{id}(id=${currentEvaluationModel.id})}" class="btn btn-info">Edit</a>
+                                        <a th:href="@{/admin/current-evaluations/edit/{id}(id=${currentEvaluationModel.id})}" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
 
-                                        <a th:href="@{/admin/current-evaluations/delete/{id}(id=${currentEvaluationModel.id})}" class="btn btn-danger">Delete</a>
+                                        <a th:href="@{/admin/current-evaluations/delete/{id}(id=${currentEvaluationModel.id})}" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i> Delete</a>
                                     </td>
                                 </tr>
                                 </tbody>
