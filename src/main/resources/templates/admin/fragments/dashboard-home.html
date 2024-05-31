@@ -9,7 +9,7 @@
             </div>
             <div class="card-body">
                 <div th:each="indexofforms : ${indexofforms}">
-                <a th:href="${indexofforms.filePath}">
+                <a th:href="${'http://localhost:8080/' + indexofforms.filePath}" target="_blank">
                     <p>
                         <i class="fa-solid fa-circle-arrow-right"></i>
                     <span  th:text="${indexofforms.formName}"></span>
@@ -31,7 +31,7 @@
             </div>
             <div class="card-body">
                 <div th:each="formdownloads : ${formdownloads}">
-                    <a th:href="${formdownloads.filePath}">
+                    <a th:href="${'http://localhost:8080/' + formdownloads.filePath}" target="_blank">
                         <p>
                             <i class="fa-solid fa-circle-arrow-right"></i>
                             <span  th:text="${formdownloads.formName}"></span>
@@ -56,7 +56,7 @@
             </div>
             <div class="card-body">
                 <div th:each="sitebasedcontracts : ${sitebasedcontracts}">
-                    <a th:href="${sitebasedcontracts.filePath}">
+                    <a th:href="${'http://localhost:8080/' + sitebasedcontracts.filePath}" target="_blank">
                         <p>
                             <i class="fa-solid fa-circle-arrow-right"></i>
                             <span  th:text="${sitebasedcontracts.formName}"></span>
@@ -78,7 +78,7 @@
             </div>
             <div class="card-body">
                 <div th:each="currentevaluations : ${currentevaluations}">
-                    <a th:href="${currentevaluations.filePath}">
+                    <a th:href="${'http://localhost:8080/' + currentevaluations.filePath}" target="_blank">
                         <p>
                             <i class="fa-solid fa-circle-arrow-right"></i>
                             <span  th:text="${currentevaluations.formName}"></span>
@@ -102,7 +102,7 @@
             </div>
             <div class="card-body">
                 <div th:each="downloads : ${downloads}">
-                    <a th:href="${downloads.filePath}">
+                    <a th:href="${'http://localhost:8080/' + downloads.filePath}" target="_blank">
                         <p>
                             <i class="fa-solid fa-circle-arrow-right"></i>
                             <span  th:text="${downloads.formName}"></span>
