@@ -23,21 +23,15 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-
-
                 <div class="row">
-                    @RenderBody()
+                    <div th:include="admin/fragments/dashboard-home"></div>
 
                 </div>
-
-
             </div>
         </div>
         <footer th:include="admin/fragments/footer.html" class="sticky-footer bg-white"></footer>
     </div>
 </div>
-
 <div th:include="admin/fragments/scripts.html"></div>
-
 </body>
 </html>
