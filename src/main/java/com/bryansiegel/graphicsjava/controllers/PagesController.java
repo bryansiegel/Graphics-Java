@@ -1,9 +1,6 @@
 package com.bryansiegel.graphicsjava.controllers;
 
-import com.bryansiegel.graphicsjava.repositories.currentEvaluationsRepository;
-import com.bryansiegel.graphicsjava.repositories.formDownloadsRepository;
-import com.bryansiegel.graphicsjava.repositories.indexOfFormsRepository;
-import com.bryansiegel.graphicsjava.repositories.siteBasedContractsRepository;
+import com.bryansiegel.graphicsjava.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,13 +14,15 @@ public class PagesController {
     private final formDownloadsRepository _formDownloadsRepository;
     private final siteBasedContractsRepository _siteBasedContractsRepository;
     private final currentEvaluationsRepository _currentEvaluationsRepository;
+    private final downloadsRepository _downloadsRepository;
 
     @Autowired
-    public PagesController(indexOfFormsRepository _indexofFormsRepository, formDownloadsRepository _formDownloadsRepository, siteBasedContractsRepository _siteBasedContractsRepository, currentEvaluationsRepository _currentEvaluationsRepository) {
+    public PagesController(indexOfFormsRepository _indexofFormsRepository, formDownloadsRepository _formDownloadsRepository, siteBasedContractsRepository _siteBasedContractsRepository, currentEvaluationsRepository _currentEvaluationsRepository, downloadsRepository downloadsRepository) {
         this._indexofFormsRepository = _indexofFormsRepository;
         this._formDownloadsRepository = _formDownloadsRepository;
         this._siteBasedContractsRepository = _siteBasedContractsRepository;
         this._currentEvaluationsRepository = _currentEvaluationsRepository;
+        _downloadsRepository = downloadsRepository;
     }
 
     @GetMapping("/")
@@ -42,7 +41,9 @@ public class PagesController {
     }
 
     @GetMapping("/templates-logos")
-    public String templatesLogos() {
+    public String templatesLogos(Model model)
+    {
+        model.addAttribute("downloads", _downloadsRepository.findAll());
         return "public/templates-logos";
     }
 }
