@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 @Controller
 public class AdminController {
 
+    //set limit on results
     Pageable limit = PageRequest.of(0,3);
 
     private final indexOfFormsRepository indexOfFormsRepository;
