@@ -35,50 +35,53 @@
                                       enctype="multipart/form-data">
 
                                     <div class="form-group">
-                                    <label for="formName">Form Name</label>
-                                    <input type="text" name="formName" th:field="${downloadsDto.formName}" id="formName"
-                                           placeholder="Form Name" class="form-control"/>
-                                    <span th:if="${#fields.hasErrors('formName')}"
-                                          th:errors="*{downloadsDto.formName}"></span>
+                                        <label for="formName">Form Name</label>
+                                        <input type="text" name="formName" th:field="${downloadsDto.formName}"
+                                               id="formName"
+                                               placeholder="Form Name" class="form-control"/>
+                                        <span th:if="${#fields.hasErrors('formName')}"
+                                              th:errors="*{downloadsDto.formName}"></span>
 
                                     </div>
 
                                     <div class="form-group">
                                         <label for="category">Category</label>
-                                    <select th:field="*{category}" class="form-control">
+                                        <select th:field="*{category}" class="form-control">
 
-                                        <option th:value="'graphics_arts_work_requests'"
-                                                th:text="'Graphic Arts Center Work Requests'"></option>
-                                        <option th:value="'directories'" th:text="Directories"></option>
-                                        <option th:value="'ccsd_logos'" th:text="'CCSD Logos'"></option>
-<!--                                        <option th:value="'ccsd_logos_with_leadership'"-->
-<!--                                                th:text="'CCSD Logos with Leadership List (Leadership Lockup)'"></option>-->
-                                        <option th:value="'ccsd_logos_with_leadership_English_png_files'"
-                                                th:text="'CCSD Logos with Leadership List (Leadership Lockup) English png Files'"></option>
-                                        <option th:value="'ccsd_logos_with_leadership_english_jpg_files'"
-                                                th:text="'CCSD Logos with Leadership List (Leadership Lockup) English jpg files'"></option>
-                                        <option th:value="'ccsd_logos_with_leadership_spanish_png_files'"
-                                                th:text="'CCSD Logos with Leadership List (Leadership Lockup) Spanish png files'"></option>
-                                        <option th:value="'ccsd_logos_with_leadership_spanish_jpg_files'"
-                                                th:text="'CCSD Logos with Leadership List (Leadership Lockup) Spanish jpg files'"></option>
-                                        <option th:value="'ccsd_board_of_trustees'"
-                                                th:text="'CCSD Board of School Trustees Vision Statement'"></option>
-                                        <option th:value="'ccsd_letterhead'" th:text="'CCSD Letterhead'"></option>
-                                        <option th:value="'ccsd_letterhead_dept_at_sahara'" th:text="'CCSD Letterhead For Departments Located at 5100 W. Sahara ONLY:'"></option>
-                                        <option th:value="'ccsd_templates'" th:text="'CCSD Templates'"></option>
-                                        <option th:value="'school_logos'" th:text="'School Logos'"></option>
-                                        <option th:value="'ccsd_employee_dress_style'"
-                                                th:text="'CCSD Employee Dress Style Guidelines'"></option>
+                                            <option th:value="'graphics_arts_work_requests'"
+                                                    th:text="'Graphic Arts Center Work Requests'"></option>
+                                            <option th:value="'directories'" th:text="Directories"></option>
+                                            <option th:value="'ccsd_logos'" th:text="'CCSD Logos'"></option>
+                                            <!--                                        <option th:value="'ccsd_logos_with_leadership'"-->
+                                            <!--                                                th:text="'CCSD Logos with Leadership List (Leadership Lockup)'"></option>-->
+                                            <option th:value="'ccsd_logos_with_leadership_English_png_files'"
+                                                    th:text="'CCSD Logos with Leadership List (Leadership Lockup) English png Files'"></option>
+                                            <option th:value="'ccsd_logos_with_leadership_english_jpg_files'"
+                                                    th:text="'CCSD Logos with Leadership List (Leadership Lockup) English jpg files'"></option>
+                                            <option th:value="'ccsd_logos_with_leadership_spanish_png_files'"
+                                                    th:text="'CCSD Logos with Leadership List (Leadership Lockup) Spanish png files'"></option>
+                                            <option th:value="'ccsd_logos_with_leadership_spanish_jpg_files'"
+                                                    th:text="'CCSD Logos with Leadership List (Leadership Lockup) Spanish jpg files'"></option>
+                                            <option th:value="'ccsd_board_of_trustees'"
+                                                    th:text="'CCSD Board of School Trustees Vision Statement'"></option>
+                                            <option th:value="'ccsd_letterhead'" th:text="'CCSD Letterhead'"></option>
+                                            <option th:value="'ccsd_letterhead_dept_at_sahara'"
+                                                    th:text="'CCSD Letterhead For Departments Located at 5100 W. Sahara ONLY:'"></option>
+                                            <option th:value="'ccsd_templates'" th:text="'CCSD Templates'"></option>
+                                            <option th:value="'school_logos'" th:text="'School Logos'"></option>
+                                            <option th:value="'ccsd_employee_dress_style'"
+                                                    th:text="'CCSD Employee Dress Style Guidelines'"></option>
 
-                                    </select>
+                                        </select>
                                     </div>
 
                                     <div class="form-group">
-                                    <label for="file">Form Upload</label>
-                                    <input type="file" name="file" th:field="${downloadsDto.file}" id="file"
-                                           placeholder="Form Upload"
-                                           accept="application/pdf" class="form-control"/>
-                                    <span th:if="${#fields.hasErrors('file')}" th:errors="*{downloadsDto.file}"></span>
+                                        <label for="file">Form Upload</label>
+                                        <input type="file" name="file" th:field="${downloadsDto.file}" id="file"
+                                               placeholder="Form Upload"
+                                               accept="application/pdf" class="form-control"/>
+                                        <span th:if="${#fields.hasErrors('file')}"
+                                              th:errors="*{downloadsDto.file}"></span>
                                     </div>
 
                                     <input type="submit" value="Add Current Evaluation" class="btn btn-primary">
