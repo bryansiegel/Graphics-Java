@@ -15,14 +15,16 @@ public class PagesController {
     private final siteBasedContractsRepository _siteBasedContractsRepository;
     private final currentEvaluationsRepository _currentEvaluationsRepository;
     private final downloadsRepository _downloadsRepository;
+    private final schoolLogosRepository _schoolLogosRepository;
 
     @Autowired
-    public PagesController(indexOfFormsRepository _indexofFormsRepository, formDownloadsRepository _formDownloadsRepository, siteBasedContractsRepository _siteBasedContractsRepository, currentEvaluationsRepository _currentEvaluationsRepository, downloadsRepository downloadsRepository) {
+    public PagesController(indexOfFormsRepository _indexofFormsRepository, formDownloadsRepository _formDownloadsRepository, siteBasedContractsRepository _siteBasedContractsRepository, currentEvaluationsRepository _currentEvaluationsRepository, downloadsRepository downloadsRepository, schoolLogosRepository schoolLogosRepository) {
         this._indexofFormsRepository = _indexofFormsRepository;
         this._formDownloadsRepository = _formDownloadsRepository;
         this._siteBasedContractsRepository = _siteBasedContractsRepository;
         this._currentEvaluationsRepository = _currentEvaluationsRepository;
         _downloadsRepository = downloadsRepository;
+        _schoolLogosRepository = schoolLogosRepository;
     }
 
     @GetMapping("/")
@@ -49,10 +51,10 @@ public class PagesController {
 
     //School Logos
     //Elementary Schools
-    @GetMapping("public/elementary-school-logos")
-    public String elementarySchoolLogos()
+    @GetMapping("/elementary-school-logos")
+    public String elementarySchoolLogos(Model model)
     {
-
-        return "public/elementarySchoolLogos";
+        model.addAttribute("elementarySchoolLogos", _schoolLogosRepository.findAll());
+        return "public/elementary-school-logos";
     }
 }

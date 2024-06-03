@@ -31,7 +31,6 @@
                                 <h1>Edit School Logo</h1>
                                 <form th:action="@{/admin/school-logos/update/{id}(id=${schoollogos.id})}"
                                       th:object="${schoollogos}" method="post" enctype="multipart/form-data">
-                                    <!--    <input type="hidden" th:field="${downloads.id}" />-->
 
                                     <div class="form-group">
                                     <label for="formName">Form Name</label>

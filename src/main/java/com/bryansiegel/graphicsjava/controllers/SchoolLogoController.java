@@ -1,8 +1,6 @@
 package com.bryansiegel.graphicsjava.controllers;
 
-import com.bryansiegel.graphicsjava.dtos.CurrentEvaluationsDto;
 import com.bryansiegel.graphicsjava.dtos.SchoolLogosDto;
-import com.bryansiegel.graphicsjava.models.CurrentEvaluationsModel;
 import com.bryansiegel.graphicsjava.models.SchoolLogosModel;
 import com.bryansiegel.graphicsjava.repositories.schoolLogosRepository;
 import jakarta.validation.Valid;
