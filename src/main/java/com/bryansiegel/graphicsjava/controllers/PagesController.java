@@ -46,4 +46,13 @@ public class PagesController {
         model.addAttribute("downloads", _downloadsRepository.findAll());
         return "public/templates-logos";
     }
+
+    //School Logos
+    //Elementary Schools
+    @GetMapping("public/elementary-school-logos")
+    public String elementarySchoolLogos()
+    {
+
+        return "public/elementarySchoolLogos";
+    }
 }

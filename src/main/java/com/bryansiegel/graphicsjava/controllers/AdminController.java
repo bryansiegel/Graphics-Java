@@ -46,4 +46,5 @@ public class AdminController {
 
         return "admin/dashboard";
     }
+
 }
