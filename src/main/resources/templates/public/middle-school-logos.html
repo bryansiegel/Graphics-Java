@@ -25,8 +25,9 @@
 
                 </tr>
                 </thead>
-                <tbody >
-                <tr th:if="${middleSchoolLogos.category == 'middle_school'}" th:each="middleSchoolLogos : ${middleSchoolLogos}">
+                <tbody>
+                <tr th:if="${middleSchoolLogos.category == 'middle_school'}"
+                    th:each="middleSchoolLogos : ${middleSchoolLogos}">
                     <td>
 
                         <a th:href="${'http://localhost:8080' + middleSchoolLogos.filePath}">
@@ -38,8 +39,7 @@
                 </tbody>
             </table>
         </div>
-
-
+    </div>
 </section>
 
 <section class="page-section" id="contact" style="background-color: #f9f9f9"

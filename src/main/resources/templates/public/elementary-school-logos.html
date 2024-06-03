@@ -25,13 +25,14 @@
 
                 </tr>
                 </thead>
-                <tbody >
-                <tr th:if="${elementarySchoolLogos.category == 'elementary_school'}" th:each="elementarySchoolLogos : ${elementarySchoolLogos}">
+                <tbody>
+                <tr th:if="${elementarySchoolLogos.category == 'elementary_school'}"
+                    th:each="elementarySchoolLogos : ${elementarySchoolLogos}">
                     <td>
 
                         <a th:href="${'http://localhost:8080' + elementarySchoolLogos.filePath}">
-                        <span th:text="${elementarySchoolLogos.formName}"></span>
-                    </a>
+                            <span th:text="${elementarySchoolLogos.formName}"></span>
+                        </a>
                     </td>
                     <td th:text="${elementarySchoolLogos.category}"></td>
                 </tr>
