@@ -63,4 +63,12 @@ public class PagesController {
         model.addAttribute("middleSchoolLogos", _schoolLogosRepository.findAll());
         return "public/middle-school-logos";
     }
+
+    //High Schools
+    @GetMapping("/high-school-logos")
+    public String highSchoolLogos(Model model)
+    {
+        model.addAttribute("highSchoolLogos", _schoolLogosRepository.findAll());
+        return "public/high-school-logos";
+    }
 }
