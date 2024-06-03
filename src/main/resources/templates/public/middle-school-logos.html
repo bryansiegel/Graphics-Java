@@ -14,7 +14,7 @@
 <section class="page-section" id="district-forms">
 
     <div class="container">
-        <h2 class="text-center">Elementary School Logos</h2>
+        <h2 class="text-center">Middle School Logos</h2>
         <div class="row">
 
             <table id="downloadsTable" class="table table-bordered table-striped shadow" style="width:100%;">
@@ -26,14 +26,14 @@
                 </tr>
                 </thead>
                 <tbody >
-                <tr th:if="${elementarySchoolLogos.category == 'elementary_school'}" th:each="elementarySchoolLogos : ${elementarySchoolLogos}">
+                <tr th:if="${middleSchoolLogos.category == 'middle_school'}" th:each="middleSchoolLogos : ${middleSchoolLogos}">
                     <td>
 
-                        <a th:href="${'http://localhost:8080' + elementarySchoolLogos.filePath}">
-                        <span th:text="${elementarySchoolLogos.formName}"></span>
-                    </a>
+                        <a th:href="${'http://localhost:8080' + middleSchoolLogos.filePath}">
+                            <span th:text="${middleSchoolLogos.formName}"></span>
+                        </a>
                     </td>
-                    <td th:text="${elementarySchoolLogos.category}"></td>
+                    <td th:text="${middleSchoolLogos.category}"></td>
                 </tr>
                 </tbody>
             </table>

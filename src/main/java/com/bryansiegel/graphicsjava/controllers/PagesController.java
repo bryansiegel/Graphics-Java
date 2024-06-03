@@ -33,8 +33,7 @@ public class PagesController {
     }
 
     @GetMapping("/forms-archives")
-    public String formsArchives(Model model)
-    {
+    public String formsArchives(Model model) {
         model.addAttribute("indexOfForms", _indexofFormsRepository.findAll());
         model.addAttribute("formDownloads", _formDownloadsRepository.findAll());
         model.addAttribute("siteBasedContracts", _siteBasedContractsRepository.findAll());
@@ -43,18 +42,25 @@ public class PagesController {
     }
 
     @GetMapping("/templates-logos")
-    public String templatesLogos(Model model)
-    {
+    public String templatesLogos(Model model) {
         model.addAttribute("downloads", _downloadsRepository.findAll());
         return "public/templates-logos";
     }
 
-    //School Logos
+    /* School Logos */
+
     //Elementary Schools
     @GetMapping("/elementary-school-logos")
-    public String elementarySchoolLogos(Model model)
-    {
+    public String elementarySchoolLogos(Model model) {
         model.addAttribute("elementarySchoolLogos", _schoolLogosRepository.findAll());
         return "public/elementary-school-logos";
+    }
+
+    //MIddle Schools
+    @GetMapping("/middle-school-logos")
+    public String middleSchoolLogos(Model model)
+    {
+        model.addAttribute("middleSchoolLogos", _schoolLogosRepository.findAll());
+        return "public/middle-school-logos";
     }
 }
