@@ -16,15 +16,17 @@ public class PagesController {
     private final currentEvaluationsRepository _currentEvaluationsRepository;
     private final downloadsRepository _downloadsRepository;
     private final schoolLogosRepository _schoolLogosRepository;
+    private final workRequestsRepository _workRequestRepository;
 
     @Autowired
-    public PagesController(indexOfFormsRepository _indexofFormsRepository, formDownloadsRepository _formDownloadsRepository, siteBasedContractsRepository _siteBasedContractsRepository, currentEvaluationsRepository _currentEvaluationsRepository, downloadsRepository downloadsRepository, schoolLogosRepository schoolLogosRepository) {
+    public PagesController(indexOfFormsRepository _indexofFormsRepository, formDownloadsRepository _formDownloadsRepository, siteBasedContractsRepository _siteBasedContractsRepository, currentEvaluationsRepository _currentEvaluationsRepository, downloadsRepository downloadsRepository, schoolLogosRepository schoolLogosRepository, workRequestsRepository workRequestRepository) {
         this._indexofFormsRepository = _indexofFormsRepository;
         this._formDownloadsRepository = _formDownloadsRepository;
         this._siteBasedContractsRepository = _siteBasedContractsRepository;
         this._currentEvaluationsRepository = _currentEvaluationsRepository;
         _downloadsRepository = downloadsRepository;
         _schoolLogosRepository = schoolLogosRepository;
+        _workRequestRepository = workRequestRepository;
     }
 
     @GetMapping("/")
@@ -70,5 +72,12 @@ public class PagesController {
     {
         model.addAttribute("highSchoolLogos", _schoolLogosRepository.findAll());
         return "public/high-school-logos";
+    }
+
+    //Work Requests
+    @GetMapping("/work-requests")
+    public String workRequests(Model model) {
+        model.addAttribute("workRequests", _workRequestRepository.findAll());
+        return "public/work-requests/index.html";
     }
 }

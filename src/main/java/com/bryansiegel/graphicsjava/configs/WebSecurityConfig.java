@@ -19,7 +19,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/home", "/forms-archives", "templates-logos", "/css/**", "/img/**", "/js/**", "/lib/** ", "/assets/**", "/files/**").permitAll()
+                        .requestMatchers("/", "/home", "/forms-archives", "templates-logos", "/css/**", "/img/**", "/js/**", "/lib/** ", "/assets/**", "/files/**", "/work-requests/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
