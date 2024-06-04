@@ -61,7 +61,7 @@ public class PagesController {
         return "public/elementary-school-logos";
     }
 
-    //MIddle Schools
+    //Middle Schools
     @GetMapping("/middle-school-logos")
     public String middleSchoolLogos(Model model)
     {
