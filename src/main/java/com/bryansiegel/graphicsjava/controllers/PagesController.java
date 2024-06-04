@@ -30,7 +30,8 @@ public class PagesController {
     }
 
     @GetMapping("/")
-    public String home() {
+    public String home(Model model) {
+        model.addAttribute("workRequests", _workRequestRepository.findAll());
         return "public/home";
     }
 
@@ -40,12 +41,14 @@ public class PagesController {
         model.addAttribute("formDownloads", _formDownloadsRepository.findAll());
         model.addAttribute("siteBasedContracts", _siteBasedContractsRepository.findAll());
         model.addAttribute("currentEvaluations", _currentEvaluationsRepository.findAll());
+        model.addAttribute("workrequests", _workRequestRepository.findAll());
         return "public/forms-archives";
     }
 
     @GetMapping("/templates-logos")
     public String templatesLogos(Model model) {
         model.addAttribute("downloads", _downloadsRepository.findAll());
+        model.addAttribute("workrequests", _workRequestRepository.findAll());
         return "public/templates-logos";
     }
 
@@ -74,10 +77,4 @@ public class PagesController {
         return "public/high-school-logos";
     }
 
-    //Work Requests
-    @GetMapping("/work-requests")
-    public String workRequests(Model model) {
-        model.addAttribute("workRequests", _workRequestRepository.findAll());
-        return "public/work-requests/index.html";
-    }
 }

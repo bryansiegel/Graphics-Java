@@ -4,12 +4,12 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
-public class WorkRequests {
+public class WorkRequestsModel {
 
-    public WorkRequests() {
+    public WorkRequestsModel() {
     }
 
-    public WorkRequests(Long id, String fullName, String emailAddress, String phoneNumber, String locationDepartmentName, String projectName, String googleDriveLink, String message, String filePath, boolean active) {
+    public WorkRequestsModel(Long id, String fullName, String emailAddress, String phoneNumber, String locationDepartmentName, String projectName, String googleDriveLink, String message, String filePath, boolean active) {
         this.id = id;
         FullName = fullName;
         EmailAddress = emailAddress;
@@ -134,7 +134,7 @@ public class WorkRequests {
 
     @Override
     public String toString() {
-        return "WorkRequests{" +
+        return "WorkRequestsModel{" +
                 "id=" + id +
                 ", FullName='" + FullName + '\'' +
                 ", EmailAddress='" + EmailAddress + '\'' +
