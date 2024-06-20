@@ -44,7 +44,6 @@ public class WorkRequestsController {
     public String showWorkRequests(Model model) {
         WorkRequestsDto workRequestsDto = new WorkRequestsDto();
         model.addAttribute("workRequestsDto", workRequestsDto);
-//        model.addAttribute("workRequests", repo.findAll());
         return "admin/work-requests/create.html";
     }
 
