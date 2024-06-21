@@ -34,16 +34,16 @@
 
             <div class="col-lg-8 col-xl-7">
 
-                <form id="contact-form" method="post" action="contact-form-thank-you.php" enctype="multipart/form-data">
+                <form id="contact-form" method="post" th:action="@{/contact}" enctype="multipart/form-data">
 
 
                     <!-- Name input-->
                     <div class="form-floating mb-3">
-                        <input class="form-control shadow" id="name" name="name" type="text" placeholder="Enter your name..." required
+                        <input class="form-control shadow" id="full_name" name="full_name" type="text" placeholder="Enter your name..." required
                                oninvalid="this.setCustomValidity('Full Name Is Required')"
                                oninput="this.setCustomValidity('')"
                         />
-                        <label for="name">Full name</label>
+                        <label for="full_name">Full name</label>
                     </div>
                     <!-- Email address input-->
                     <div class="form-floating mb-3">
@@ -79,14 +79,14 @@
                     </div>
                     <div class="mb-3 p-3 shadow" style="background-color:#d9d8d6; border-radius: 5px;">
                         <p style="font-weight:bold;color:red;">1. Upload Your GAC Work Request Form</p>
-                        <label for="attachment"><strong>Upload Your GAC Request Form</strong></label>
-                        <input type="file" name="attachment[]" class="form-control shadow" id="attachment" multiple required/>
+                        <label for="GAC_work_request_form"><strong>Upload Your GAC Request Form</strong></label>
+                        <input type="file" name="GAC_work_request_form[]" class="form-control shadow" id="GAC_work_request_form" multiple required/>
                     </div>
                     <!--                    Google Drive Link-->
                     <div class="mb-3 p-3 shadow" style="background-color:#d9d8d6; border-radius: 5px;">
                         <p style="font-weight:bold;color:red;">2. Upload Files Releated to your Project (limit 5 files)</p>
-                        <label for="attachment"><strong>Upload The Files Related To Your Project</strong></label>
-                        <input type="file" name="attachment[]" class="form-control shadow" id="attachment" multiple/>
+                        <label for="file_uploads"><strong>Upload The Files Related To Your Project</strong></label>
+                        <input type="file" name="file_uploads[]" class="form-control shadow" id="file_uploads" multiple/>
                     </div>
                     <p style="font-weight:bold;color:red;">If you need to <span style="background-color:red;color:white;padding:5px;">more than 5 files</span>. Please upload the files to Google Drive and insert the share link in the text box below.</p>
                     <div class="form-floating mb-3">

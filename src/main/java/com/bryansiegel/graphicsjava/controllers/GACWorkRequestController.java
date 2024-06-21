@@ -3,9 +3,9 @@ package com.bryansiegel.graphicsjava.controllers;
 import com.bryansiegel.graphicsjava.dtos.GACWorkRequestDto;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.InputStreamSource;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
@@ -24,12 +24,13 @@ import java.nio.file.Paths;
 @Controller
 public class GACWorkRequestController {
 
+    @Autowired
     private JavaMailSender mailSender;
 
-    @GetMapping("/contact")
-    public String Contact() {
-        return "contact";
-    }
+//    @GetMapping("/contact")
+//    public String Contact() {
+//        return "contact";
+//    }
 
     @PostMapping("/contact")
     public String PostContact(@ModelAttribute GACWorkRequestDto gacWorkRequestDto, Model model) {
@@ -50,14 +51,14 @@ public class GACWorkRequestController {
         } catch (MessagingException | IOException e) {
             e.printStackTrace();
             model.addAttribute("error", "An error occurred while sending the email.");
-            return "contact";
+            return "public/forms/thank-you.html";
         }
 
         // Save the GAC_work_request_form to a directory
         if (!GAC_work_request_form.isEmpty()) {
             try {
                 byte[] bytes = GAC_work_request_form.getBytes();
-                Path path = Paths.get("uploads/" + GAC_work_request_form.getOriginalFilename());
+                Path path = Paths.get("src/main/resources/static/files/GAC-work-requests" + GAC_work_request_form.getOriginalFilename());
                 Files.write(path, bytes);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -68,23 +69,28 @@ public class GACWorkRequestController {
         if (!file_uploads.isEmpty()) {
             try {
                 byte[] bytes = file_uploads.getBytes();
-                Path path = Paths.get("uploads/" + file_uploads.getOriginalFilename());
+                Path path = Paths.get("src/main/resources/static/files/GAC-work-requests" + file_uploads.getOriginalFilename());
                 Files.write(path, bytes);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
-        return "contact";
+        return "public/forms/thank-you.html";
     }
 
-    private void sendEmail(String full_name, String email, String phone, String location_department, String project_name, String google_drive_link, String message, MultipartFile GAC_work_request_form, MultipartFile upload_files) throws MessagingException, IOException {
+    @GetMapping("/thank-you")
+    public String ThankYou() {
+        return "public/forms/thank-you.html";
+    }
+
+    private void sendEmail(String full_name, String email, String phone, String location_department, String project_name, String google_drive_link, String message, MultipartFile GAC_work_request_form, MultipartFile file_uploads) throws MessagingException, IOException {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 
-        helper.setFrom("your-email@gmail.com");
-        helper.setTo("recipient-email@example.com");
-        helper.setSubject("New Contact Form Submission");
+        helper.setFrom("ccsdcommsunit@gmail.com");
+        helper.setTo("siegebm@nv.ccsd.net");
+        helper.setSubject("GAC Work Request Form Submission");
         helper.setText("Name: " + full_name + "\nEmail: " + email + "\nMessage: " + message);
 
         if (!GAC_work_request_form.isEmpty()) {
@@ -93,9 +99,9 @@ public class GACWorkRequestController {
         }
 
 
-        if (!upload_files.isEmpty()) {
-            InputStreamSource attachmentSource = new ByteArrayResource(upload_files.getBytes());
-            helper.addAttachment(upload_files.getOriginalFilename(), attachmentSource);
+        if (!file_uploads.isEmpty()) {
+            InputStreamSource attachmentSource = new ByteArrayResource(file_uploads.getBytes());
+            helper.addAttachment(file_uploads.getOriginalFilename(), attachmentSource);
         }
 
         mailSender.send(mimeMessage);
