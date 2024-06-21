@@ -97,13 +97,9 @@ public class CurrentEvaluationsController {
     //Edit
     @GetMapping("/admin/current-evaluations/edit/{id}")
     public String editCurrentEvaluations(@PathVariable Long id, Model model) {
-
         CurrentEvaluationsModel currentEvaluations = currentEvaluationsRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-
-
         model.addAttribute("currentEvaluations", currentEvaluations);
-
 
         return "admin/current-evaluations/edit.html";
     }
@@ -125,7 +121,6 @@ public class CurrentEvaluationsController {
         Date createdAt = new Date();
         String storageFileName = createdAt.getTime() + "_" + file.getOriginalFilename();
 
-
         //SET FilePath
         String filePath = UPLOAD_DIR + storageFileName;
 
@@ -143,7 +138,6 @@ public class CurrentEvaluationsController {
                 CurrentEvaluationsModel _currentEvaluations = currentEvaluationsRepository.findById(id)
                         .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
 
-
                 _currentEvaluationsModel.setFormName(formName);
                 _currentEvaluationsModel.setFilePath(filePath);
 
@@ -152,6 +146,7 @@ public class CurrentEvaluationsController {
         } catch (Exception ex) {
             System.out.println("Exception: " + ex.getMessage());
         }
+
         return "redirect:/admin/current-evaluations/";
     }
 
@@ -161,7 +156,7 @@ public class CurrentEvaluationsController {
         CurrentEvaluationsModel currentEvaluations = currentEvaluationsRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         currentEvaluationsRepository.delete(currentEvaluations);
-        return "redirect:/admin/current-evaluations/";
 
+        return "redirect:/admin/current-evaluations/";
     }
 }
