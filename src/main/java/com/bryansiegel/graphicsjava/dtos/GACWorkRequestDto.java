@@ -12,7 +12,7 @@ public class GACWorkRequestDto {
     private String message;
 
     private MultipartFile GAC_work_request_form;
-    private MultipartFile file_uploads;
+    private MultipartFile[] file_uploads;
 
     public String getFull_name() {
         return full_name;
@@ -78,11 +78,11 @@ public class GACWorkRequestDto {
         this.GAC_work_request_form = GAC_work_request_form;
     }
 
-    public MultipartFile getFile_uploads() {
+    public MultipartFile[] getFile_uploads() {
         return file_uploads;
     }
 
-    public void setFile_uploads(MultipartFile file_uploads) {
+    public void setFile_uploads(MultipartFile[] file_uploads) {
         this.file_uploads = file_uploads;
     }
 }

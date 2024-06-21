@@ -43,7 +43,7 @@ public class GACWorkRequestController {
         String google_drive_link = gacWorkRequestDto.getGoogle_drive_link();
         String message = gacWorkRequestDto.getMessage();
         MultipartFile GAC_work_request_form = gacWorkRequestDto.getGAC_work_request_form();
-        MultipartFile file_uploads = gacWorkRequestDto.getFile_uploads();
+        MultipartFile[] file_uploads = gacWorkRequestDto.getFile_uploads();
 
         // Send the email
         try {
@@ -66,15 +66,15 @@ public class GACWorkRequestController {
         }
 
         // Save the GAC_work_request_form to a directory
-        if (!file_uploads.isEmpty()) {
-            try {
-                byte[] bytes = file_uploads.getBytes();
-                Path path = Paths.get("src/main/resources/static/files/GAC-work-requests" + file_uploads.getOriginalFilename());
-                Files.write(path, bytes);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+//        if (!file_uploads.isEmpty()) {
+//            try {
+//                byte[] bytes = file_uploads.getBytes();
+//                Path path = Paths.get("src/main/resources/static/files/GAC-work-requests" + file_uploads.getOriginalFilename());
+//                Files.write(path, bytes);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
 
         return "public/forms/thank-you.html";
     }
@@ -84,7 +84,7 @@ public class GACWorkRequestController {
         return "public/forms/thank-you.html";
     }
 
-    private void sendEmail(String full_name, String email, String phone, String location_department, String project_name, String google_drive_link, String message, MultipartFile GAC_work_request_form, MultipartFile file_uploads) throws MessagingException, IOException {
+    private void sendEmail(String full_name, String email, String phone, String location_department, String project_name, String google_drive_link, String message, MultipartFile GAC_work_request_form, MultipartFile[] file_uploads) throws MessagingException, IOException {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 
@@ -99,9 +99,16 @@ public class GACWorkRequestController {
         }
 
 
-        if (!file_uploads.isEmpty()) {
-            InputStreamSource attachmentSource = new ByteArrayResource(file_uploads.getBytes());
-            helper.addAttachment(file_uploads.getOriginalFilename(), attachmentSource);
+//        if (!file_uploads.isEmpty()) {
+//            InputStreamSource attachmentSource = new ByteArrayResource(file_uploads.getBytes());
+//            helper.addAttachment(file_uploads.getOriginalFilename(), attachmentSource);
+//        }
+
+        for (MultipartFile attachment : file_uploads) {
+            if (!attachment.isEmpty()) {
+                InputStreamSource attachmentSource = new ByteArrayResource(attachment.getBytes());
+                helper.addAttachment(attachment.getOriginalFilename(), attachmentSource);
+            }
         }
 
         mailSender.send(mimeMessage);
