@@ -17,6 +17,7 @@ public class FormDownloadsDto {
     private String FormType;
     private String FormNumber;
     private String FormName;
+    private String FormMessage;
     private MultipartFile File;
 
     public String getFormType() {
@@ -41,6 +42,14 @@ public class FormDownloadsDto {
 
     public void setFormName(String formName) {
         FormName = formName;
+    }
+
+    public String getFormMessage() {
+        return FormMessage;
+    }
+
+    public void setFormMessage(String formMessage) {
+        FormMessage = formMessage;
     }
 
     public MultipartFile getFile() {

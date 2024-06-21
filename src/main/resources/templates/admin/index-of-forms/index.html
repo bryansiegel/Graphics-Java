@@ -50,13 +50,9 @@
 
 
                                     <td>
-                                        <span th:if="${IndexOfFormsModel.filePath != null}">
                                         <a th:href="${'http://localhost:8080/' + IndexOfFormsModel.filePath}" target="_blank">
                                             <span th:text="${IndexOfFormsModel.filePath}"></span>
                                         </a>
-                                        </span>
-                                        <span th:if="${IndexOfFormsModel.formMessage != null}">
-                                            <span th:text="${IndexOfFormsModel.formMessage}"></span>
                                     </td>
 
                                     <td><a th:href="@{/admin/index-of-forms/edit/{id}(id=${IndexOfFormsModel.id})}"

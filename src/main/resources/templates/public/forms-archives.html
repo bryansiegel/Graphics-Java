@@ -29,9 +29,10 @@
                 </thead>
                 <tbody>
                 <tr th:each="_indexOfForms : ${indexOfForms}">
-                    <td><a th:href="${_indexOfForms.filePath}" target="_blank">
-                        <span th:text="${_indexOfForms.formName}">"></span>
-                    </a>
+                    <td>
+                        <a th:href="${_indexOfForms.filePath}" target="_blank">
+                            <span th:text="${_indexOfForms.formName}">"></span>
+                        </a>
                     </td>
                 </tr>
                 </tbody>
@@ -51,9 +52,15 @@
                 <tr th:each="_formDownloadsRepository : ${formDownloads}">
                     <td th:text="${_formDownloadsRepository.formType}"></td>
                     <td th:text="${_formDownloadsRepository.formNumber}"></td>
-                    <td><a th:href="${_formDownloadsRepository.filePath}" target="_blank">
+                    <td>
+                        <span th:if="${_formDownloadsRepository.filePath != null}">
+                        <a th:href="${_formDownloadsRepository.filePath}" target="_blank">
                         <span th:text="${_formDownloadsRepository.formName}">"></span>
                     </a>
+                            </span>
+                        <span th:if="${_formDownloadsRepository.formMessage}">
+                        <span th:text="${_formDownloadsRepository.formMessage}">"></span>
+                        </span>
                     </td>
                 </tr>
                 </tbody>

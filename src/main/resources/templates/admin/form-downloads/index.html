@@ -48,9 +48,13 @@
                                     <td th:text="${formDownloadsModel.formNumber}"></td>
                                     <td th:text="${formDownloadsModel.formName}"></td>
                                     <td>
+                                        <span th:if="${formDownloadsModel.filePath != null}">
                                         <a th:href="${'http://localhost:8080/' + formDownloadsModel.filePath}" target="_blank">
                                             <span th:text="${formDownloadsModel.filePath}"></span>
                                         </a>
+                                        </span>
+                                        <span th:if="${formDownloadsModel.formMessage != null}">
+                                            <span th:text="${formDownloadsModel.formMessage}"></span>
                                     </td>
 
                                     <td><a th:href="@{/admin/form-downloads/edit/{id}(id=${formDownloadsModel.id})}" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i> Edit</a>

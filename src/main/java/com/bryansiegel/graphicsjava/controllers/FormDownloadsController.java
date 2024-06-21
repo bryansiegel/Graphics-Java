@@ -48,46 +48,57 @@ public class FormDownloadsController {
 
     //POST create
     @PostMapping("/admin/form-downloads/create")
-    public String createFormDownload(@Valid @ModelAttribute FormDownloadsDto formDownloadsDto, @RequestParam String formName, @RequestParam String formType, @RequestParam String formNumber, FormDownloadsModel _formDownloadsModel, BindingResult result) {
+    public String createFormDownload(@Valid @ModelAttribute FormDownloadsDto formDownloadsDto, @RequestParam String formName, @RequestParam String formType, @RequestParam String formNumber, String formMessage, FormDownloadsModel _formDownloadsModel, BindingResult result) {
 
-        if (formDownloadsDto.getFile().isEmpty()) {
-            result.addError(new FieldError("formDownloadsDto", "file", "The image file is required"));
-        }
+//        if (formDownloadsDto.getFile().isEmpty()) {
+//            result.addError(new FieldError("formDownloadsDto", "file", "The image file is required"));
+//        }
 
         if (result.hasErrors()) {
             return "admin/form-downloads/create.html";
         }
 
-        //save file
-        MultipartFile file = formDownloadsDto.getFile();
-        Date createdAt = new Date();
-        String storageFileName = createdAt.getTime() + "_" + file.getOriginalFilename();
+        if (!formDownloadsDto.getFile().isEmpty()) {
+            //save file
+            MultipartFile file = formDownloadsDto.getFile();
+            Date createdAt = new Date();
+            String storageFileName = createdAt.getTime() + "_" + file.getOriginalFilename();
 
 
-        //SET FilePath
-        String filePath = "files/form-downloads/" + storageFileName;
+            //SET FilePath
+            String filePath = "files/form-downloads/" + storageFileName;
 
-        try {
-            Path uploadPath = Paths.get(UPLOAD_DIR);
+            try {
+                Path uploadPath = Paths.get(UPLOAD_DIR);
 
-            if (!Files.exists(uploadPath)) {
-                Files.createDirectories(uploadPath);
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
+                }
+
+                try (InputStream inputStream = file.getInputStream()) {
+                    Files.copy(inputStream, Paths.get(UPLOAD_DIR + storageFileName), StandardCopyOption.REPLACE_EXISTING);
+
+                    //Save to db
+                    _formDownloadsModel = new FormDownloadsModel();
+                    _formDownloadsModel.setFormName(formName);
+                    _formDownloadsModel.setFilePath(filePath);
+                    _formDownloadsModel.setFormType(formType);
+                    _formDownloadsModel.setFormNumber(formNumber);
+
+                    repo.save(_formDownloadsModel);
+                }
+            } catch (Exception ex) {
+                System.out.println("Exception: " + ex.getMessage());
             }
+        } else {
+            //Save to db
+            _formDownloadsModel = new FormDownloadsModel();
+            _formDownloadsModel.setFormName(formName);
+            _formDownloadsModel.setFormMessage(formMessage);
+            _formDownloadsModel.setFormType(formType);
+            _formDownloadsModel.setFormNumber(formNumber);
 
-            try (InputStream inputStream = file.getInputStream()) {
-                Files.copy(inputStream, Paths.get(UPLOAD_DIR + storageFileName), StandardCopyOption.REPLACE_EXISTING);
-
-                //Save to db
-                _formDownloadsModel = new FormDownloadsModel();
-                _formDownloadsModel.setFormName(formName);
-                _formDownloadsModel.setFilePath(filePath);
-                _formDownloadsModel.setFormType(formType);
-                _formDownloadsModel.setFormNumber(formNumber);
-
-                repo.save(_formDownloadsModel);
-            }
-        } catch (Exception ex) {
-            System.out.println("Exception: " + ex.getMessage());
+            repo.save(_formDownloadsModel);
         }
 
         return "redirect:/admin/form-downloads/";

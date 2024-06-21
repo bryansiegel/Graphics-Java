@@ -61,8 +61,24 @@
 
                                     </div>
 
-
                                     <div class="form-group">
+                                        <label for="formOptions">Form Options</label>
+                                        <p><strong><i>Select whether you would like to display a message or upload a file.</i></strong></p>
+                                        <select name="formOptions" id="formOptions" class="form-control">
+                                            <option name="defaultMessage" value="defaultMessage">Please Select A Value Below</option>
+                                            <option name="formMessageOption" value="formMessageOption">Form Message</option>
+                                            <option name="formUploadOption" value="formUploadOption">Form Upload</option>
+                                        </select>
+                                    </div>
+
+                                    <div id="formMessageInput" class="form-group">
+                                        <label for="formMessage">Form Message</label>
+                                        <textarea type="text" name="formMessage" th:field="${formDownloadsDto.formMessage}" id="formMessage"
+                                                  placeholder="Form Message" class="form-control"></textarea>
+                                        <span th:if="${#fields.hasErrors('formMessage')}" th:errors="*{formDownloadsDto.formMessage}"></span>
+                                    </div>
+
+                                    <div id="formFileInput" class="form-group">
                                     <label for="file">Form Upload</label>
                                     <input type="file" name="file" th:field="${formDownloadsDto.file}" id="file"
                                            placeholder="Form Upload"
@@ -86,6 +102,23 @@
 </div>
 
 <div th:include="admin/fragments/scripts.html"></div>
+<script>
+    //show/hide select option fields
+    $(function() {
+        $('#formFileInput').hide();
+        $('#formMessageInput').hide();
 
+        $('#formOptions').change(function(){
+            if($('#formOptions').val() == 'formMessageOption') {
+                $('#formMessageInput').show();
+                $('#formFileInput').hide();
+            }
+            if($('#formOptions').val() == 'formUploadOption') {
+                $('#formFileInput').show();
+                $('#formMessageInput').hide();
+            }
+        });
+    });
+</script>
 </body>
 </html>

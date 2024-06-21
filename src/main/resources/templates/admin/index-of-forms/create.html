@@ -42,23 +42,6 @@
                         <span th:if="${#fields.hasErrors('formName')}" th:errors="*{indexOfFormsDto.formName}"></span>
                         </div>
 
-                        <div class="form-group">
-                            <label for="formOptions">Form Options</label>
-                            <p><strong><i>Select whether you would like to display a message or upload a file.</i></strong></p>
-                            <select name="formOptions" id="formOptions" class="form-control">
-                                <option name="defaultMessage" value="defaultMessage">Please Select A Value Below</option>
-                                <option name="formMessageOption" value="formMessageOption">Form Message</option>
-                                <option name="formUploadOption" value="formUploadOption">Form Upload</option>
-                            </select>
-                        </div>
-
-                        <div id="formMessageInput" class="form-group">
-                            <label for="formMessage">Form Message</label>
-                            <input type="text" name="formMessage" th:field="${indexOfFormsDto.formMessage}" id="formMessage"
-                                   placeholder="Form Message" class="form-control"/>
-                            <span th:if="${#fields.hasErrors('formMessage')}" th:errors="*{indexOfFormsDto.formMessage}"></span>
-                        </div>
-
                         <div id="formFileInput" class="form-group">
                         <label for="file">Form Upload</label>
                         <input type="file" name="file" th:field="${indexOfFormsDto.file}" id="file"
@@ -85,24 +68,7 @@
 
 <div th:include="admin/fragments/scripts.html"></div>
 
-<script>
-    //show/hide select option fields
-    $(function() {
-        $('#formFileInput').hide();
-        $('#formMessageInput').hide();
 
-        $('#formOptions').change(function(){
-            if($('#formOptions').val() == 'formMessageOption') {
-                $('#formMessageInput').show();
-                $('#formFileInput').hide();
-            }
-            if($('#formOptions').val() == 'formUploadOption') {
-                $('#formFileInput').show();
-                $('#formMessageInput').hide();
-            }
-        });
-    });
-</script>
 
 </body>
 </html>

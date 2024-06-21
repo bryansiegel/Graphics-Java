@@ -12,12 +12,13 @@ public class FormDownloadsModel {
     public FormDownloadsModel() {
     }
 
-    public FormDownloadsModel(long id, String formType, String formNumber, String formName, String filePath, boolean active) {
+    public FormDownloadsModel(long id, String formType, String formNumber, String formName, String filePath, String formMessage, boolean active) {
         this.id = id;
         FormType = formType;
         FormNumber = formNumber;
         FormName = formName;
         FilePath = filePath;
+        FormMessage = formMessage;
         this.active = active;
     }
 
@@ -35,6 +36,8 @@ public class FormDownloadsModel {
     private String FormName;
 
     private String FilePath;
+
+    private String FormMessage;
 
     public boolean active = true;
 
@@ -78,6 +81,14 @@ public class FormDownloadsModel {
         FilePath = filePath;
     }
 
+    public String getFormMessage() {
+        return FormMessage;
+    }
+
+    public void setFormMessage(String formMessage) {
+        FormMessage = formMessage;
+    }
+
     public boolean isActive() {
         return active;
     }
@@ -94,6 +105,7 @@ public class FormDownloadsModel {
                 ", FormNumber='" + FormNumber + '\'' +
                 ", FormName='" + FormName + '\'' +
                 ", FilePath='" + FilePath + '\'' +
+                ", FormMessage='" + FormMessage + '\'' +
                 ", active=" + active +
                 '}';
     }
