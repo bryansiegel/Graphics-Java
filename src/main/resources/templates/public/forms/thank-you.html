@@ -1,10 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Thank you</title>
-</head>
-<body>
-<h1>Thank you</h1>
+
+<body id="page-top">
+<head th:include="public/fragments/head.html"></head>
+
+<nav class="navbar navbar-expand-lg bg-blue text-uppercase fixed-top" id="mainNav" th:include="public/fragments/nav.html"></nav>
+
+<section class="page-section center-block">
+    <div class="container">
+        <div class="row " style="min-height:400px;">
+
+            <h1 class="text-center page-section-heading text-center text-uppercase" style="margin-top:180px;">Your Graphic Arts Center Request Has Been Submitted</h1>
+            <h2 class="text-center" style="color:black !important;">Please Allow 24 hours for us to answer your inquiry</h2>
+        </div>
+    </div>
+
+</section>
+
+<footer class="footer" th:insert="public/fragments/sections/footer"></footer>
+
+<div class="copyright py-4 text-center text-white" th:insert="public/fragments/sections/copywrite"></div>
+
+
 </body>
+
 </html>
