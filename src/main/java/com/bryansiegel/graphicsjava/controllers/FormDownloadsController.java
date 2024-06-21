@@ -12,12 +12,15 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Date;
+import java.util.Optional;
 
 @Controller
 public class FormDownloadsController {
@@ -121,50 +124,52 @@ public class FormDownloadsController {
 
     //Update
     @PostMapping("/admin/form-downloads/update/{id}")
-    public String updateFormDownloads(@Valid @ModelAttribute FormDownloadsDto formDownloadsDto, @PathVariable Long id, @RequestParam String formName, @RequestParam String formType, @RequestParam String formNumber, FormDownloadsModel _formDownloadsModel, BindingResult result) {
+    public String updateFormDownloads(@Valid @ModelAttribute FormDownloadsDto formDownloadsDto, @PathVariable Long id, @RequestParam String formName, @RequestParam String formType, @RequestParam String formNumber, @RequestParam String formMessage, @RequestParam("file") MultipartFile file, FormDownloadsModel _formDownloadsModel, BindingResult result) throws IOException {
 
-        if (formDownloadsDto.getFile().isEmpty()) {
-            result.addError(new FieldError("formDownloadsDto", "file", "The image file is required"));
-        }
+        Optional<FormDownloadsModel> optionalFormDownloads = repo.findById(id);
 
-        if (result.hasErrors()) {
-            return "admin/form-downloads/edit.html";
-        }
+        if (optionalFormDownloads.isPresent() && formDownloadsDto.getFile().isEmpty()) {
+            FormDownloadsModel formDownloads = optionalFormDownloads.get();
+            formDownloads.setFormName(formName);
+            formDownloads.setFormType(formType);
+            formDownloads.setFormNumber(formNumber);
+            formDownloads.setFormMessage(formMessage);
+            formDownloads.setFilePath(null);
 
-        //save file
-        MultipartFile file = formDownloadsDto.getFile();
-        Date createdAt = new Date();
-        String storageFileName = createdAt.getTime() + "_" + file.getOriginalFilename();
+            repo.save(formDownloads);
+        } else if (optionalFormDownloads.isPresent() && !formDownloadsDto.getFile().isEmpty()) {
+            Date createdAt = new Date();
+            String storageFileName = createdAt.getTime() + "_" + file.getOriginalFilename();
 
 
-        //SET FilePath
-        String filePath = UPLOAD_DIR + storageFileName;
+            //SET FilePath
+            String filePath = "files/form-downloads/" + storageFileName;
 
-        try {
-            Path uploadPath = Paths.get(UPLOAD_DIR);
+            try {
+                Path uploadPath = Paths.get(UPLOAD_DIR);
 
-            if (!Files.exists(uploadPath)) {
-                Files.createDirectories(uploadPath);
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
+                }
+
+                try (InputStream inputStream = file.getInputStream()) {
+                    Files.copy(inputStream, Paths.get(UPLOAD_DIR + storageFileName), StandardCopyOption.REPLACE_EXISTING);
+
+                    //Save to db with message
+                    FormDownloadsModel formDownloads = optionalFormDownloads.get();
+                    formDownloads.setFormName(formName);
+                    formDownloads.setFormType(formType);
+                    formDownloads.setFormNumber(formNumber);
+                    formDownloads.setFormMessage(null);
+                    formDownloads.setFilePath(filePath);
+
+                    repo.save(formDownloads);
+                }
+            } catch (Exception ex) {
+                System.out.println("Exception: " + ex.getMessage());
             }
-
-            try (InputStream inputStream = file.getInputStream()) {
-                Files.copy(inputStream, Paths.get(UPLOAD_DIR + storageFileName), StandardCopyOption.REPLACE_EXISTING);
-
-                //Save to db
-                FormDownloadsModel _formdownloadsModel= repo.findById(id)
-                        .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-
-
-                _formdownloadsModel.setFormName(formName);
-                _formdownloadsModel.setFilePath(filePath);
-                _formdownloadsModel.setFormType(formType);
-                _formdownloadsModel.setFormNumber(formNumber);
-
-                repo.save(_formdownloadsModel);
-            }
-        } catch (Exception ex) {
-            System.out.println("Exception: " + ex.getMessage());
         }
+
         return "redirect:/admin/form-downloads/";
     }
 

@@ -35,14 +35,14 @@
 
                                     <div class="form-group">
                                         <label for="formType">Form Type</label>
-                                        <input type="text" name="formType" th:field="${formDownloads.formName}" id="formType"
+                                        <input type="text" name="formType" th:field="${formDownloads.formType}" id="formType"
                                                placeholder="Form Type" class="form-control"/>
                                         <span th:if="${#fields.hasErrors('formType')}"
                                               th:errors="*{formDownloads.formType}"></span>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="formNumber">Form Type</label>
+                                        <label for="formNumber">Form Number</label>
                                         <input type="text" name="formNumber" th:field="${formDownloads.formNumber}" id="formNumber"
                                                placeholder="Form Number" class="form-control"/>
                                         <span th:if="${#fields.hasErrors('formNumber')}"
@@ -55,6 +55,14 @@
                                            placeholder="Form Name" class="form-control"/>
                                     <span th:if="${#fields.hasErrors('formName')}"
                                           th:errors="*{formDownloads.formName}"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="formMessage">Form Message</label>
+                                        <input type="text" name="formMessage" th:field="${formDownloads.formMessage}" id="formMessage"
+                                               placeholder="Form Message" class="form-control"/>
+                                        <span th:if="${#fields.hasErrors('formMessage')}"
+                                              th:errors="*{formDownloads.formMessage}"></span>
                                     </div>
 
 
