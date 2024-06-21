@@ -64,7 +64,7 @@
                                     <div class="form-group">
                                         <label for="formOptions">Form Options</label>
                                         <p><strong><i>Select whether you would like to display a message or upload a file.</i></strong></p>
-                                        <select name="formOptions" id="formOptions" class="form-control">
+                                        <select name="formOptions" id="formOptions" class="form-select">
                                             <option name="defaultMessage" value="defaultMessage">Please Select A Value Below</option>
                                             <option name="formMessageOption" value="formMessageOption">Form Message</option>
                                             <option name="formUploadOption" value="formUploadOption">Form Upload</option>
@@ -115,6 +115,10 @@
             }
             if($('#formOptions').val() == 'formUploadOption') {
                 $('#formFileInput').show();
+                $('#formMessageInput').hide();
+            }
+            if($('#formOptions').val() == 'defaultMessage') {
+                $('#formFileInput').hide();
                 $('#formMessageInput').hide();
             }
         });

@@ -126,6 +126,7 @@ public class FormDownloadsController {
     @PostMapping("/admin/form-downloads/update/{id}")
     public String updateFormDownloads(@Valid @ModelAttribute FormDownloadsDto formDownloadsDto, @PathVariable Long id, @RequestParam String formName, @RequestParam String formType, @RequestParam String formNumber, @RequestParam String formMessage, @RequestParam("file") MultipartFile file, FormDownloadsModel _formDownloadsModel, BindingResult result) throws IOException {
 
+        //Empty file with form message
         Optional<FormDownloadsModel> optionalFormDownloads = repo.findById(id);
 
         if (optionalFormDownloads.isPresent() && formDownloadsDto.getFile().isEmpty()) {
@@ -137,6 +138,8 @@ public class FormDownloadsController {
             formDownloads.setFilePath(null);
 
             repo.save(formDownloads);
+
+            //Message and no file upload
         } else if (optionalFormDownloads.isPresent() && !formDownloadsDto.getFile().isEmpty()) {
             Date createdAt = new Date();
             String storageFileName = createdAt.getTime() + "_" + file.getOriginalFilename();
