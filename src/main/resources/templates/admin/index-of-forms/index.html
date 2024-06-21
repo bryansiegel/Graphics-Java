@@ -23,16 +23,13 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-
-
                 <div class="row">
-
                     <div th:switch="${indexofforms}">
                         <h2 th:case="null">No Index Of Forms yet!</h2>
                         <div th:case="*">
                             <h2>Index Of Forms</h2>
-
-                            <p class="pt-2 pb-3"><a href="/admin/index-of-forms/create" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add a new
+                            <p class="pt-2 pb-3"><a href="/admin/index-of-forms/create" class="btn btn-primary"><i
+                                    class="fa-solid fa-plus"></i> Add a new
                                 Index Of Form</a></p>
 
                             <table id="adminTable" class="table table-striped" style="width:100%">
@@ -41,16 +38,14 @@
                                     <th>Form Name</th>
                                     <th>Form Url/Message</th>
                                     <th></th>
-
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr th:each="IndexOfFormsModel : ${indexofforms}">
                                     <td th:text="${IndexOfFormsModel.formName}"></td>
-
-
                                     <td>
-                                        <a th:href="${'http://localhost:8080/' + IndexOfFormsModel.filePath}" target="_blank">
+                                        <a th:href="${'http://localhost:8080/' + IndexOfFormsModel.filePath}"
+                                           target="_blank">
                                             <span th:text="${IndexOfFormsModel.filePath}"></span>
                                         </a>
                                     </td>
@@ -65,8 +60,6 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
         <footer th:include="admin/fragments/footer.html" class="sticky-footer bg-white"></footer>
