@@ -66,6 +66,23 @@
 </div>
 
 <div th:include="admin/fragments/scripts.html"></div>
+<script>
+    //show/hide select option fields
+    $(function() {
+        $('#formFileInput').hide();
+        $('#formMessageInput').hide();
 
+        $('#formOptions').change(function(){
+            if($('#formOptions').val() == 'formMessageOption') {
+                $('#formMessageInput').show();
+                $('#formFileInput').hide();
+            }
+            if($('#formOptions').val() == 'formUploadOption') {
+                $('#formFileInput').show();
+                $('#formMessageInput').hide();
+            }
+        });
+    });
+</script>
 </body>
 </html>

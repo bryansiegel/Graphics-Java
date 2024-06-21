@@ -49,7 +49,7 @@ public class IndexOfFormsController {
 
     //POST create
     @PostMapping("/admin/index-of-forms/create")
-    public String createIndexOfForm(@Valid @ModelAttribute IndexOfFormsDto indexOfFormsDto, @RequestParam String formName, IndexOfFormsModel _indexOfFormsModel, BindingResult result) {
+    public String createIndexOfForm(@Valid @ModelAttribute IndexOfFormsDto indexOfFormsDto, @RequestParam String formName, String formMessage, IndexOfFormsModel _indexOfFormsModel, BindingResult result) {
 
         if (indexOfFormsDto.getFile().isEmpty()) {
             result.addError(new FieldError("indexofforms", "file", "The image file is required"));
@@ -80,6 +80,7 @@ public class IndexOfFormsController {
 
                 //Save to db
                 _indexOfFormsModel = new IndexOfFormsModel();
+                _indexOfFormsModel.setFormMessage(formMessage);
                 _indexOfFormsModel.setFormName(formName);
                 _indexOfFormsModel.setFilePath(filePath);
 
@@ -108,7 +109,7 @@ public class IndexOfFormsController {
 
     //Update
     @PostMapping("/admin/index-of-forms/update/{id}")
-    public String updateIndexOfForms(@Valid @ModelAttribute IndexOfFormsDto indexOfFormsDto, @PathVariable Long id, @RequestParam String formName,  BindingResult result) {
+    public String updateIndexOfForms(@Valid @ModelAttribute IndexOfFormsDto indexOfFormsDto, @PathVariable Long id, @RequestParam String formName, String formMessage,  BindingResult result) {
 
         if (indexOfFormsDto.getFile().isEmpty()) {
             result.addError(new FieldError("indexOfFormsDto", "file", "The image file is required"));
@@ -143,6 +144,7 @@ public class IndexOfFormsController {
 
 
                 _indexofforms.setFormName(formName);
+                _indexofforms.setFormMessage(formMessage);
                 _indexofforms.setFilePath(filePath);
 
                 repo.save(_indexofforms);

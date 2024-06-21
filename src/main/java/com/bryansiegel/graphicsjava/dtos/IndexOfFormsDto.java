@@ -18,6 +18,8 @@ public class IndexOfFormsDto {
 
     private MultipartFile File;
 
+    private String FormMessage;
+
     public String getFormName() {
         return FormName;
     }
@@ -32,5 +34,13 @@ public class IndexOfFormsDto {
 
     public void setFile(MultipartFile file) {
         File = file;
+    }
+
+    public String getFormMessage() {
+        return FormMessage;
+    }
+
+    public void setFormMessage(String formMessage) {
+        FormMessage = formMessage;
     }
 }

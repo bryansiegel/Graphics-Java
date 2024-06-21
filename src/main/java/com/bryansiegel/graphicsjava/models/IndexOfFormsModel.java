@@ -27,6 +27,8 @@ public class IndexOfFormsModel {
 
     private String FilePath;
 
+    private String FormMessage;
+
     private boolean active = true;
 
     public Long getId() {
@@ -53,6 +55,14 @@ public class IndexOfFormsModel {
         FilePath = filePath;
     }
 
+    public String getFormMessage() {
+        return FormMessage;
+    }
+
+    public void setFormMessage(String formMessage) {
+        FormMessage = formMessage;
+    }
+
     public boolean isActive() {
         return active;
     }
@@ -67,6 +77,7 @@ public class IndexOfFormsModel {
                 "id=" + id +
                 ", FormName='" + FormName + '\'' +
                 ", FilePath='" + FilePath + '\'' +
+                ", FormMessage='" + FormMessage + '\'' +
                 ", active=" + active +
                 '}';
     }
