@@ -51,44 +51,60 @@ public class IndexOfFormsController {
     @PostMapping("/admin/index-of-forms/create")
     public String createIndexOfForm(@Valid @ModelAttribute IndexOfFormsDto indexOfFormsDto, @RequestParam String formName, String formMessage, IndexOfFormsModel _indexOfFormsModel, BindingResult result) {
 
-        if (indexOfFormsDto.getFile().isEmpty()) {
-            result.addError(new FieldError("indexofforms", "file", "The image file is required"));
-        }
+//        if (indexOfFormsDto.getFile().isEmpty()) {
+//            result.addError(new FieldError("indexofforms", "file", "The image file is required"));
+//        }
 
         if (result.hasErrors()) {
             return "admin/index-of-forms/create.html";
         }
 
-        //save file
-        MultipartFile file = indexOfFormsDto.getFile();
-        Date createdAt = new Date();
-        String storageFileName = createdAt.getTime() + "_" + file.getOriginalFilename();
 
 
-        //SET FilePath
-        String filePath = "files/index-of-forms/" + storageFileName;
+        if (!indexOfFormsDto.getFile().isEmpty()) {
+            //save file
+            MultipartFile file = indexOfFormsDto.getFile();
+            Date createdAt = new Date();
+            String storageFileName = createdAt.getTime() + "_" + file.getOriginalFilename();
 
-        try {
-            Path uploadPath = Paths.get(UPLOAD_DIR);
 
-            if (!Files.exists(uploadPath)) {
-                Files.createDirectories(uploadPath);
-            }
+            //SET FilePath
+            String filePath = "files/index-of-forms/" + storageFileName;
 
-            try (InputStream inputStream = file.getInputStream()) {
-                Files.copy(inputStream, Paths.get(UPLOAD_DIR + storageFileName), StandardCopyOption.REPLACE_EXISTING);
+
+            try {
+                Path uploadPath = Paths.get(UPLOAD_DIR);
+
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
+                }
+
+                try (InputStream inputStream = file.getInputStream()) {
+                    Files.copy(inputStream, Paths.get(UPLOAD_DIR + storageFileName), StandardCopyOption.REPLACE_EXISTING);
+
+                }
 
                 //Save to db
                 _indexOfFormsModel = new IndexOfFormsModel();
-                _indexOfFormsModel.setFormMessage(formMessage);
+//                _indexOfFormsModel.setFormMessage(formMessage);
                 _indexOfFormsModel.setFormName(formName);
                 _indexOfFormsModel.setFilePath(filePath);
 
                 repo.save(_indexOfFormsModel);
+
+            } catch (Exception ex) {
+                System.out.println("Exception: " + ex.getMessage());
             }
-        } catch (Exception ex) {
-            System.out.println("Exception: " + ex.getMessage());
+        } else {
+            //Save to db
+            _indexOfFormsModel = new IndexOfFormsModel();
+            _indexOfFormsModel.setFormMessage(formMessage);
+            _indexOfFormsModel.setFormName(formName);
+//            _indexOfFormsModel.setFilePath(filePath);
+
+            repo.save(_indexOfFormsModel);
         }
+
 
         return "redirect:/admin/index-of-forms/";
     }
