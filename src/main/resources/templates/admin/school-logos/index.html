@@ -35,9 +35,9 @@
                             <table id="adminTable" class="table table-striped">
                                 <thead>
                                 <tr>
-                                    <th>Form Name</th>
-                                    <th>Form Url</th>
-                                    <th>Category</th>
+                                    <th>School Logo Name</th>
+                                    <th>School Logo</th>
+                                    <th>Grade Level</th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -45,9 +45,9 @@
                                 <tr th:each="schoollogos : ${schoollogos}">
                                     <td th:text="${schoollogos.formName}"></td>
                                     <td>
-                                        <a th:href="${'http://localhost:8080/' + schoollogos.filePath}" target="_blank">
-                                            <span th:text="${schoollogos.filePath}"></span>
-                                        </a>
+                                        <img th:src="${'http://localhost:8080/' + schoollogos.filePath}" target="_blank" height="50" width="50"/>
+
+
                                     </td>
                                     <td>
                                         <span th:if="${schoollogos.category == 'elementary_school'}">

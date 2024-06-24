@@ -221,8 +221,9 @@
                 <table class="table table-striped">
                     <thead>
                     <tr>
-                        <td>Form Name</td>
-                        <td>Category</td>
+                        <td>School Logo Name</td>
+                        <td>School Logo Image</td>
+                        <td>Grade Level</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -231,6 +232,9 @@
                             <a th:href="${'http://localhost:8080/' + schoollogos.filePath}" target="_blank">
                                 <span  th:text="${schoollogos.formName}"></span>
                             </a>
+                        </td>
+                        <td>
+                            <img th:src="${'http://localhost:8080/' + schoollogos.filePath}" height="50" width="50" />
                         </td>
                         <td>
                             <span th:if="${schoollogos.category == 'elementary_school'}">

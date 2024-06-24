@@ -20,8 +20,8 @@
             <table id="downloadsTable" class="table table-bordered table-striped shadow" style="width:100%;">
                 <thead>
                 <tr>
-                    <th>Form Name</th>
-                    <th>Category</th>
+                    <th>School Logo Name</th>
+                    <th>School Logo Image</th>
 
                 </tr>
                 </thead>
@@ -30,11 +30,16 @@
                     th:each="highSchoolLogos : ${highSchoolLogos}">
                     <td>
 
-                        <a th:href="${'http://localhost:8080' + highSchoolLogos.filePath}">
+                        <a th:href="${'http://localhost:8080/' + highSchoolLogos.filePath}" target="_blank">
                             <span th:text="${highSchoolLogos.formName}"></span>
                         </a>
                     </td>
-                    <td>High School</td>
+                    <td>
+                        <a th:href="${'http://localhost:8080/' + highSchoolLogos.filePath}" target="_blank">
+                            <img th:src="${'http://localhost:8080/' + highSchoolLogos.filePath}" height="50"
+                                 width="50"/>
+                        </a>
+                    </td>
                 </tr>
                 </tbody>
             </table>
