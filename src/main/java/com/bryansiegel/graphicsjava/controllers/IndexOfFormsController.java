@@ -134,7 +134,7 @@ public class IndexOfFormsController {
 
 
             //SET FilePath
-            String filePath = "files/form-downloads/" + storageFileName;
+            String filePath = "files/index-of-forms/" + storageFileName;
 
             try {
                 Path uploadPath = Paths.get(UPLOAD_DIR);
