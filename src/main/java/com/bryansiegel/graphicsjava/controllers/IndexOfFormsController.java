@@ -118,9 +118,6 @@ public class IndexOfFormsController {
     @PostMapping("/admin/index-of-forms/update/{id}")
     public String updateIndexOfForms(@Valid @ModelAttribute IndexOfFormsDto indexOfFormsDto, @PathVariable Long id, @RequestParam String formName, @RequestParam("file") MultipartFile file, BindingResult result) {
 
-//        if (indexOfFormsDto.getFile().isEmpty()) {
-//            result.addError(new FieldError("indexOfFormsDto", "file", "The image file is required"));
-//        }
 
         if (result.hasErrors()) {
             return "admin/index-of-forms/edit.html";
@@ -157,39 +154,6 @@ public class IndexOfFormsController {
                 System.out.println("Exception: " + ex.getMessage());
             }
         }
-
-        //save file
-//        MultipartFile file = indexOfFormsDto.getFile();
-//        Date createdAt = new Date();
-//        String storageFileName = createdAt.getTime() + "_" + file.getOriginalFilename();
-//
-//
-//        //SET FilePath
-//        String filePath = UPLOAD_DIR + storageFileName;
-//
-//        try {
-//            Path uploadPath = Paths.get(UPLOAD_DIR);
-//
-//            if (!Files.exists(uploadPath)) {
-//                Files.createDirectories(uploadPath);
-//            }
-//
-//            try (InputStream inputStream = file.getInputStream()) {
-//                Files.copy(inputStream, Paths.get(UPLOAD_DIR + storageFileName), StandardCopyOption.REPLACE_EXISTING);
-//
-//                //Save to db
-//                IndexOfFormsModel _indexofforms = repo.findById(id)
-//                        .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-//
-//
-//                _indexofforms.setFormName(formName);
-//                _indexofforms.setFilePath(filePath);
-//
-//                repo.save(_indexofforms);
-//            }
-//        } catch (Exception ex) {
-//            System.out.println("Exception: " + ex.getMessage());
-//        }
 
 
         return "redirect:/admin/index-of-forms/";
