@@ -13,21 +13,23 @@ import org.springframework.ui.Model;
 public class AdminController {
 
     //set limit on results
-    Pageable limit = PageRequest.of(0,3);
+    Pageable limit = PageRequest.of(0,5);
 
     private final indexOfFormsRepository indexOfFormsRepository;
     private final formDownloadsRepository formdownloadsRepository;
     private final siteBasedContractsRepository siteBasedContractsRepository;
     private final currentEvaluationsRepository currentEvaluationsRepository;
     private final downloadsRepository downloadsRepository;
+    private final schoolLogosRepository schoolLogosRepository;
 
     @Autowired
-    public AdminController(com.bryansiegel.graphicsjava.repositories.indexOfFormsRepository indexOfFormsRepository, formDownloadsRepository downloadsRepository, com.bryansiegel.graphicsjava.repositories.siteBasedContractsRepository siteBasedContractsRepository, com.bryansiegel.graphicsjava.repositories.currentEvaluationsRepository currentEvaluationsRepository, com.bryansiegel.graphicsjava.repositories.downloadsRepository downloadsRepository1) {
+    public AdminController(com.bryansiegel.graphicsjava.repositories.indexOfFormsRepository indexOfFormsRepository, formDownloadsRepository downloadsRepository, com.bryansiegel.graphicsjava.repositories.siteBasedContractsRepository siteBasedContractsRepository, com.bryansiegel.graphicsjava.repositories.currentEvaluationsRepository currentEvaluationsRepository, com.bryansiegel.graphicsjava.repositories.downloadsRepository downloadsRepository1, com.bryansiegel.graphicsjava.repositories.schoolLogosRepository schoolLogosRepository) {
         this.indexOfFormsRepository = indexOfFormsRepository;
         this.formdownloadsRepository = downloadsRepository;
         this.siteBasedContractsRepository = siteBasedContractsRepository;
         this.currentEvaluationsRepository = currentEvaluationsRepository;
         this.downloadsRepository = downloadsRepository1;
+        this.schoolLogosRepository = schoolLogosRepository;
     }
 
 
@@ -43,6 +45,7 @@ public class AdminController {
         model.addAttribute("sitebasedcontracts", siteBasedContractsRepository.findAll(limit));
         model.addAttribute("currentevaluations", currentEvaluationsRepository.findAll(limit));
         model.addAttribute("downloads", downloadsRepository.findAll(limit));
+        model.addAttribute("schoollogos", schoolLogosRepository.findAll(limit));
 
         return "admin/dashboard";
     }

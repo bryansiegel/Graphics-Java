@@ -8,14 +8,23 @@
                 <h6 class="m-0 font-weight-bold text-primary">Index Of Forms</h6>
             </div>
             <div class="card-body">
-                <div th:each="indexofforms : ${indexofforms}">
-                <a th:href="${'http://localhost:8080/' + indexofforms.filePath}" target="_blank">
-                    <p>
-                        <i class="fa-solid fa-circle-arrow-right"></i>
-                    <span  th:text="${indexofforms.formName}"></span>
-                </p>
-                </a>
-                </div>
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <td>Form Name</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="indexofforms : ${indexofforms}">
+                            <td>
+                                <a th:href="${'http://localhost:8080/' + indexofforms.filePath}" target="_blank">
+                                        <span  th:text="${indexofforms.formName}"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
@@ -30,16 +39,31 @@
                 </h6>
             </div>
             <div class="card-body">
-                <div th:each="formdownloads : ${formdownloads}">
-                    <a th:href="${'http://localhost:8080/' + formdownloads.filePath}" target="_blank">
-                        <p>
-                            <i class="fa-solid fa-circle-arrow-right"></i>
-                            <span  th:text="${formdownloads.formName}"></span>
-                        </p>
-                    </a>
+
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <td>Form Type</td>
+                        <td>Form Number</td>
+                        <td>Form Name</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr th:each="formdownloads : ${formdownloads}">
+                        <td th:text="${formdownloads.formType}"></td>
+                        <td th:text="${formdownloads.formNumber}"></td>
+                        <td>
+                            <a th:href="${'http://localhost:8080/' + formdownloads.filePath}" target="_blank">
+                                <span  th:text="${formdownloads.formName}"></span>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
                 </div>
             </div>
-        </div>
 
 
     </div>
@@ -55,14 +79,23 @@
                 <h6 class="m-0 font-weight-bold text-primary">Site Based Contracts</h6>
             </div>
             <div class="card-body">
-                <div th:each="sitebasedcontracts : ${sitebasedcontracts}">
-                    <a th:href="${'http://localhost:8080/' + sitebasedcontracts.filePath}" target="_blank">
-                        <p>
-                            <i class="fa-solid fa-circle-arrow-right"></i>
-                            <span  th:text="${sitebasedcontracts.formName}"></span>
-                        </p>
-                    </a>
-                </div>
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <td>Form Name</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="sitebasedcontracts : ${sitebasedcontracts}">
+                        <td>
+                            <a th:href="${'http://localhost:8080/' + sitebasedcontracts.filePath}" target="_blank">
+                                    <span  th:text="${sitebasedcontracts.formName}"></span>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
@@ -77,14 +110,23 @@
                 </h6>
             </div>
             <div class="card-body">
-                <div th:each="currentevaluations : ${currentevaluations}">
-                    <a th:href="${'http://localhost:8080/' + currentevaluations.filePath}" target="_blank">
-                        <p>
-                            <i class="fa-solid fa-circle-arrow-right"></i>
-                            <span  th:text="${currentevaluations.formName}"></span>
-                        </p>
-                    </a>
-                </div>
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <td>Form Name</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="currentevaluations : ${currentevaluations}">
+                        <td>
+                            <a th:href="${'http://localhost:8080/' + currentevaluations.filePath}" target="_blank">
+                                    <span  th:text="${currentevaluations.formName}"></span>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
@@ -101,18 +143,60 @@
                 <h6 class="m-0 font-weight-bold text-primary">Downloads</h6>
             </div>
             <div class="card-body">
-                <div th:each="downloads : ${downloads}">
-                    <a th:href="${'http://localhost:8080/' + downloads.filePath}" target="_blank">
-                        <p>
-                            <i class="fa-solid fa-circle-arrow-right"></i>
-                            <span  th:text="${downloads.formName}"></span>
-                        </p>
-                    </a>
-                </div>
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <td>Form Name</td>
+                        <td>Category</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="downloads : ${downloads}">
+                        <td>
+                            <a th:href="${'http://localhost:8080/' + downloads.filePath}" target="_blank">
+                                    <span  th:text="${downloads.formName}"></span>
+                            </a>
+                        </td>
+                        <td th:text="${downloads.category}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+
             </div>
         </div>
 
     </div>
+    <div class="col-lg-6 mb-4">
+        <!-- Illustrations -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                    School Logos
+                </h6>
+            </div>
+            <div class="card-body">
 
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <td>Form Name</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="schoollogos : ${schoollogos}">
+                        <td>
+                            <a th:href="${'http://localhost:8080/' + schoollogos.filePath}" target="_blank">
+                                <span  th:text="${schoollogos.formName}"></span>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
 
 </div>
