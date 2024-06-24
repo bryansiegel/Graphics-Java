@@ -47,7 +47,8 @@
                                     <div class="form-group">
                                         <label for="category">Category</label>
                                         <select th:field="*{category}" class="form-control">
-
+                                            <option th:value="'default_select'"
+                                                    th:text="'Select A Category'"></option>
                                             <option th:value="'graphics_arts_work_requests'"
                                                     th:text="'Graphic Arts Center Work Requests'"></option>
                                             <option th:value="'directories'" th:text="Directories"></option>
