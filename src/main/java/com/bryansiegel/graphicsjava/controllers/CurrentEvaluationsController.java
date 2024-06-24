@@ -3,6 +3,7 @@ package com.bryansiegel.graphicsjava.controllers;
 import com.bryansiegel.graphicsjava.dtos.CurrentEvaluationsDto;
 import com.bryansiegel.graphicsjava.models.CurrentEvaluationsModel;
 import com.bryansiegel.graphicsjava.models.IndexOfFormsModel;
+import com.bryansiegel.graphicsjava.models.SiteBasedContractsModel;
 import com.bryansiegel.graphicsjava.repositories.currentEvaluationsRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,9 +111,6 @@ public class CurrentEvaluationsController {
     @PostMapping("/admin/current-evaluations/update/{id}")
     public String updateCurrentEvaluations(@Valid @ModelAttribute CurrentEvaluationsDto currentEvaluationDto, @PathVariable Long id, @RequestParam String formName,@RequestParam("file") MultipartFile file, CurrentEvaluationsModel _currentEvaluationsModel, BindingResult result) {
 
-//        if (currentEvaluationDto.getFile().isEmpty()) {
-//            result.addError(new FieldError("currentEvaluationDto", "file", "The image file is required"));
-//        }
 
         if (result.hasErrors()) {
             return "admin/current-evaluations/edit.html";
@@ -120,10 +118,10 @@ public class CurrentEvaluationsController {
 
         Optional<CurrentEvaluationsModel> optionalCurrentEvaluationsModel = currentEvaluationsRepository.findById(id);
 
-        if (optionalCurrentEvaluationsModel.isPresent()) {
+        //no file change on edit
+        if (optionalCurrentEvaluationsModel.isPresent() && !currentEvaluationDto.getFile().isEmpty()) {
             Date createdAt = new Date();
             String storageFileName = createdAt.getTime() + "_" + file.getOriginalFilename();
-
 
             //SET FilePath
             String filePath = "files/current-evaluations/" + storageFileName;
@@ -145,9 +143,17 @@ public class CurrentEvaluationsController {
 
                     currentEvaluationsRepository.save(currentEvaluationsModel);
                 }
+
             } catch (Exception ex) {
                 System.out.println("Exception: " + ex.getMessage());
             }
+
+        } else if(optionalCurrentEvaluationsModel.isPresent()) {
+            //Save to db
+            CurrentEvaluationsModel currentEvaluationsModel = optionalCurrentEvaluationsModel.get();
+            currentEvaluationsModel.setFormName(formName);
+
+            currentEvaluationsRepository.save(currentEvaluationsModel);
         }
 
 

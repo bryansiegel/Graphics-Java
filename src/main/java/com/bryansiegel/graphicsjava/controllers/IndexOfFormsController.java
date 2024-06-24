@@ -125,10 +125,10 @@ public class IndexOfFormsController {
 
         Optional<IndexOfFormsModel> optionalIndexOfFormsModel = repo.findById(id);
 
-        if (optionalIndexOfFormsModel.isPresent()) {
+        //no file change on edit
+        if (optionalIndexOfFormsModel.isPresent() && !indexOfFormsDto.getFile().isEmpty()) {
             Date createdAt = new Date();
             String storageFileName = createdAt.getTime() + "_" + file.getOriginalFilename();
-
 
             //SET FilePath
             String filePath = "files/index-of-forms/" + storageFileName;
@@ -150,10 +150,19 @@ public class IndexOfFormsController {
 
                     repo.save(indexOfFormsModel);
                 }
+
             } catch (Exception ex) {
                 System.out.println("Exception: " + ex.getMessage());
             }
+
+        } else if(optionalIndexOfFormsModel.isPresent()) {
+            //Save to db
+            IndexOfFormsModel indexOfFormsModel = optionalIndexOfFormsModel.get();
+            indexOfFormsModel.setFormName(formName);
+
+            repo.save(indexOfFormsModel);
         }
+
 
 
         return "redirect:/admin/index-of-forms/";

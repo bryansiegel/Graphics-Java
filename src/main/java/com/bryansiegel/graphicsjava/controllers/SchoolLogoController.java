@@ -1,7 +1,6 @@
 package com.bryansiegel.graphicsjava.controllers;
 
 import com.bryansiegel.graphicsjava.dtos.SchoolLogosDto;
-import com.bryansiegel.graphicsjava.models.DownloadsModel;
 import com.bryansiegel.graphicsjava.models.SchoolLogosModel;
 import com.bryansiegel.graphicsjava.repositories.schoolLogosRepository;
 import jakarta.validation.Valid;
@@ -125,10 +124,10 @@ private final schoolLogosRepository repo;
 
         Optional<SchoolLogosModel> optionalSchoolLogosModel = repo.findById(id);
 
-        if (optionalSchoolLogosModel.isPresent()) {
+        //no file change on edit
+        if (optionalSchoolLogosModel.isPresent() && !schoolLogosDto.getFile().isEmpty()) {
             Date createdAt = new Date();
             String storageFileName = createdAt.getTime() + "_" + file.getOriginalFilename();
-
 
             //SET FilePath
             String filePath = "files/school-logos/" + storageFileName;
@@ -144,16 +143,23 @@ private final schoolLogosRepository repo;
                     Files.copy(inputStream, Paths.get(UPLOAD_DIR + storageFileName), StandardCopyOption.REPLACE_EXISTING);
 
                     //Save to db
-                    SchoolLogosModel schoolLogosModel = optionalSchoolLogosModel.get();
+                    SchoolLogosModel schoolLogosModel  = optionalSchoolLogosModel.get();
                     schoolLogosModel.setFormName(formName);
                     schoolLogosModel.setFilePath(filePath);
-                    schoolLogosModel.setCategory(category);
 
                     repo.save(schoolLogosModel);
                 }
+
             } catch (Exception ex) {
                 System.out.println("Exception: " + ex.getMessage());
             }
+
+        } else if(optionalSchoolLogosModel.isPresent()) {
+            //Save to db
+            SchoolLogosModel schoolLogosModel = optionalSchoolLogosModel.get();
+            schoolLogosModel.setFormName(formName);
+
+            repo.save(schoolLogosModel);
         }
 
         return "redirect:/admin/school-logos/";
