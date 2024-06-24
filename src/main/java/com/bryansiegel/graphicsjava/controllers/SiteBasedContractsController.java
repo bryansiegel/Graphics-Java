@@ -3,6 +3,7 @@ package com.bryansiegel.graphicsjava.controllers;
 
 
 import com.bryansiegel.graphicsjava.dtos.SiteBasedContractsDto;
+import com.bryansiegel.graphicsjava.models.IndexOfFormsModel;
 import com.bryansiegel.graphicsjava.models.SiteBasedContractsModel;
 import com.bryansiegel.graphicsjava.repositories.siteBasedContractsRepository;
 import jakarta.validation.Valid;
@@ -20,6 +21,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Date;
+import java.util.Optional;
 
 @Controller
 public class SiteBasedContractsController {
@@ -108,48 +110,82 @@ public class SiteBasedContractsController {
 
     //Update
     @PostMapping("/admin/site-based-contracts/update/{id}")
-    public String updateSiteBasedContracts(@Valid @ModelAttribute SiteBasedContractsDto siteBasedContractsDto, @PathVariable Long id, @RequestParam String formName, SiteBasedContractsModel _siteBasedContractsModel, BindingResult result) {
+    public String updateSiteBasedContracts(@Valid @ModelAttribute SiteBasedContractsDto siteBasedContractsDto, @PathVariable Long id, @RequestParam String formName, @RequestParam("file") MultipartFile file, SiteBasedContractsModel _siteBasedContractsModel, BindingResult result) {
 
-        if (siteBasedContractsDto.getFile().isEmpty()) {
-            result.addError(new FieldError("siteBasedContractsDto", "file", "The image file is required"));
-        }
+//        if (siteBasedContractsDto.getFile().isEmpty()) {
+//            result.addError(new FieldError("siteBasedContractsDto", "file", "The image file is required"));
+//        }
 
         if (result.hasErrors()) {
             return "admin/site-based-contracts/edit.html";
         }
 
-        //save file
-        MultipartFile file = siteBasedContractsDto.getFile();
-        Date createdAt = new Date();
-        String storageFileName = createdAt.getTime() + "_" + file.getOriginalFilename();
+        Optional<SiteBasedContractsModel> optionalSiteBasedContractsModel = repo.findById(id);
+
+        if (optionalSiteBasedContractsModel.isPresent()) {
+            Date createdAt = new Date();
+            String storageFileName = createdAt.getTime() + "_" + file.getOriginalFilename();
 
 
-        //SET FilePath
-        String filePath = "files/site-based-contracts/" + storageFileName;
+            //SET FilePath
+            String filePath = "files/site-based-contracts/" + storageFileName;
 
-        try {
-            Path uploadPath = Paths.get(UPLOAD_DIR);
+            try {
+                Path uploadPath = Paths.get(UPLOAD_DIR);
 
-            if (!Files.exists(uploadPath)) {
-                Files.createDirectories(uploadPath);
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
+                }
+
+                try (InputStream inputStream = file.getInputStream()) {
+                    Files.copy(inputStream, Paths.get(UPLOAD_DIR + storageFileName), StandardCopyOption.REPLACE_EXISTING);
+
+                    //Save to db
+                    SiteBasedContractsModel siteBasedContractsModel = optionalSiteBasedContractsModel.get();
+                    siteBasedContractsModel.setFormName(formName);
+                    siteBasedContractsModel.setFilePath(filePath);
+
+                    repo.save(siteBasedContractsModel);
+                }
+            } catch (Exception ex) {
+                System.out.println("Exception: " + ex.getMessage());
             }
-
-            try (InputStream inputStream = file.getInputStream()) {
-                Files.copy(inputStream, Paths.get(UPLOAD_DIR + storageFileName), StandardCopyOption.REPLACE_EXISTING);
-
-                //Save to db
-                SiteBasedContractsModel _sitebasedcontracts = repo.findById(id)
-                        .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-
-
-                _sitebasedcontracts.setFormName(formName);
-                _sitebasedcontracts.setFilePath(filePath);
-
-                repo.save(_sitebasedcontracts);
-            }
-        } catch (Exception ex) {
-            System.out.println("Exception: " + ex.getMessage());
         }
+
+//        //save file
+//        MultipartFile file = siteBasedContractsDto.getFile();
+//        Date createdAt = new Date();
+//        String storageFileName = createdAt.getTime() + "_" + file.getOriginalFilename();
+//
+//
+//        //SET FilePath
+//        String filePath = "files/site-based-contracts/" + storageFileName;
+//
+//        try {
+//            Path uploadPath = Paths.get(UPLOAD_DIR);
+//
+//            if (!Files.exists(uploadPath)) {
+//                Files.createDirectories(uploadPath);
+//            }
+//
+//            try (InputStream inputStream = file.getInputStream()) {
+//                Files.copy(inputStream, Paths.get(UPLOAD_DIR + storageFileName), StandardCopyOption.REPLACE_EXISTING);
+//
+//                //Save to db
+//                SiteBasedContractsModel _sitebasedcontracts = repo.findById(id)
+//                        .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+//
+//
+//                _sitebasedcontracts.setFormName(formName);
+//                _sitebasedcontracts.setFilePath(filePath);
+//
+//                repo.save(_sitebasedcontracts);
+//            }
+//        } catch (Exception ex) {
+//            System.out.println("Exception: " + ex.getMessage());
+//        }
+
+
         return "redirect:/admin/site-based-contracts/";
     }
 
