@@ -150,36 +150,6 @@ public class CurrentEvaluationsController {
             }
         }
 
-        //save file
-//        MultipartFile file = currentEvaluationDto.getFile();
-//        Date createdAt = new Date();
-//        String storageFileName = createdAt.getTime() + "_" + file.getOriginalFilename();
-//
-//        //SET FilePath
-//        String filePath = UPLOAD_DIR + storageFileName;
-//
-//        try {
-//            Path uploadPath = Paths.get(UPLOAD_DIR);
-//
-//            if (!Files.exists(uploadPath)) {
-//                Files.createDirectories(uploadPath);
-//            }
-//
-//            try (InputStream inputStream = file.getInputStream()) {
-//                Files.copy(inputStream, Paths.get(UPLOAD_DIR + storageFileName), StandardCopyOption.REPLACE_EXISTING);
-//
-//                //Save to db
-//                CurrentEvaluationsModel _currentEvaluations = currentEvaluationsRepository.findById(id)
-//                        .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-//
-//                _currentEvaluationsModel.setFormName(formName);
-//                _currentEvaluationsModel.setFilePath(filePath);
-//
-//                currentEvaluationsRepository.save(_currentEvaluationsModel);
-//            }
-//        } catch (Exception ex) {
-//            System.out.println("Exception: " + ex.getMessage());
-//        }
 
         return "redirect:/admin/current-evaluations/";
     }
