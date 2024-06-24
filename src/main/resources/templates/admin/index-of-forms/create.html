@@ -38,7 +38,11 @@
                                         <label for="formName">Form Name</label>
                                         <input type="text" name="formName" th:field="${indexOfFormsDto.formName}"
                                                id="formName"
-                                               placeholder="Form Name" class="form-control"/>
+                                               placeholder="Form Name" class="form-control"
+                                               required
+                                               oninvalid="this.setCustomValidity('Form Name is Required')"
+                                               oninput="this.setCustomValidity('')"
+                                        />
                                         <span th:if="${#fields.hasErrors('formName')}"
                                               th:errors="*{indexOfFormsDto.formName}"></span>
                                     </div>
@@ -47,7 +51,11 @@
                                         <label for="file">Form Upload</label>
                                         <input type="file" name="file" th:field="${indexOfFormsDto.file}" id="file"
                                                placeholder="Form Upload"
-                                               accept="application/pdf" class="form-control"/>
+                                               accept="application/pdf" class="form-control"
+                                               required
+                                               oninvalid="this.setCustomValidity('Form Upload Is Required')"
+                                               oninput="this.setCustomValidity('')"
+                                        />
                                         <span th:if="${#fields.hasErrors('file')}"
                                               th:errors="*{indexOfFormsDto.file}"></span>
                                     </div>

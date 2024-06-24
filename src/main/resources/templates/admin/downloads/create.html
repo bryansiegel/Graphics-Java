@@ -38,7 +38,11 @@
                                         <label for="formName">Form Name</label>
                                         <input type="text" name="formName" th:field="${downloadsDto.formName}"
                                                id="formName"
-                                               placeholder="Form Name" class="form-control"/>
+                                               placeholder="Form Name" class="form-control"
+                                               required
+                                               oninvalid="this.setCustomValidity('Form Name Is Required')"
+                                               oninput="this.setCustomValidity('')"
+                                        />
                                         <span th:if="${#fields.hasErrors('formName')}"
                                               th:errors="*{downloadsDto.formName}"></span>
 
@@ -46,8 +50,8 @@
 
                                     <div class="form-group">
                                         <label for="category">Category</label>
-                                        <select th:field="*{category}" class="form-control">
-                                            <option th:value="'default_select'"
+                                        <select th:field="*{category}" id="category" class="form-control" required>
+                                            <option th:value="''"
                                                     th:text="'Select A Category'"></option>
                                             <option th:value="'graphics_arts_work_requests'"
                                                     th:text="'Graphic Arts Center Work Requests'"></option>
@@ -80,7 +84,11 @@
                                         <label for="file">Form Upload</label>
                                         <input type="file" name="file" th:field="${downloadsDto.file}" id="file"
                                                placeholder="Form Upload"
-                                               accept="application/pdf" class="form-control"/>
+                                               accept="application/pdf" class="form-control"
+                                               required
+                                               oninvalid="this.setCustomValidity('Form Upload Is Required')"
+                                               oninput="this.setCustomValidity('')"
+                                        />
                                         <span th:if="${#fields.hasErrors('file')}"
                                               th:errors="*{downloadsDto.file}"></span>
                                     </div>

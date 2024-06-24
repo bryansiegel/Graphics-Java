@@ -37,7 +37,11 @@
                                     <div class="form-group">
                                         <label for="formName">Form Type</label>
                                         <input type="text" name="formType" th:field="${formDownloadsDto.formType}" id="formType"
-                                               placeholder="Form Type" class="form-control"/>
+                                               placeholder="Form Type" class="form-control"
+                                               required
+                                               oninvalid="this.setCustomValidity('Form Type Is Required')"
+                                               oninput="this.setCustomValidity('')"
+                                        />
                                         <span th:if="${#fields.hasErrors('formType')}"
                                               th:errors="*{formDownloadsDto.formType}"></span>
 
@@ -46,7 +50,11 @@
                                     <div class="form-group">
                                         <label for="formNumber">Form Number</label>
                                         <input type="text" name="formNumber" th:field="${formDownloadsDto.formNumber}" id="formNumber"
-                                               placeholder="Form Number" class="form-control"/>
+                                               placeholder="Form Number" class="form-control"
+                                               required
+                                               oninvalid="this.setCustomValidity('Form Number Is Required')"
+                                               oninput="this.setCustomValidity('')"
+                                        />
                                         <span th:if="${#fields.hasErrors('formNumber')}"
                                               th:errors="*{formDownloadsDto.formNumber}"></span>
 
@@ -55,7 +63,11 @@
                                     <div class="form-group">
                                     <label for="formName">Form Name</label>
                                     <input type="text" name="formName" th:field="${formDownloadsDto.formName}" id="formName"
-                                           placeholder="Form Name" class="form-control"/>
+                                           placeholder="Form Name" class="form-control"
+                                           required
+                                           oninvalid="this.setCustomValidity('Form Name Is Required')"
+                                           oninput="this.setCustomValidity('')"
+                                    />
                                     <span th:if="${#fields.hasErrors('formName')}"
                                           th:errors="*{formDownloadsDto.formName}"></span>
 
