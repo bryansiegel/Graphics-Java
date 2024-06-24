@@ -55,6 +55,7 @@
                                         </span>
                                         <span th:if="${formDownloadsModel.formMessage != null}">
                                             <span th:text="${formDownloadsModel.formMessage}"></span>
+                                        </span>
                                     </td>
 
                                     <td><a th:href="@{/admin/form-downloads/edit/{id}(id=${formDownloadsModel.id})}" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i> Edit</a>

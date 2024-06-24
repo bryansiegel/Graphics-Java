@@ -49,7 +49,48 @@
                                             <span th:text="${downloadModel.filePath}"></span>
                                         </a>
                                     </td>
-                                    <td th:text="${downloadModel.category}"></td>
+                                    <td>
+                                       <span th:if="${downloadModel.category == 'graphics_arts_work_requests'}">
+                                           Graphic Arts Center Work Requests
+                                       </span>
+                                        <span th:if="${downloadModel.category == 'directories'}">
+                                            Directories
+                                        </span>
+                                        <span th:if="${downloadModel.category == 'ccsd_logos'}">
+                                            CCSD Logos
+                                        </span>
+                                        <span th:if="${downloadModel.category == 'ccsd_logos_with_leadership_English_png_files'}">
+                                            CCSD Logos with Leadership List (Leadership Lockup) English png Files
+                                        </span>
+                                        <span th:if="${downloadModel.category == 'ccsd_logos_with_leadership_english_jpg_files'}">
+                                            CCSD Logos with Leadership List (Leadership Lockup) English jpg files
+                                        </span>
+                                        <span th:if="${downloadModel.category == 'ccsd_logos_with_leadership_spanish_png_files'}">
+                                            CCSD Logos with Leadership List (Leadership Lockup) Spanish png files
+                                        </span>
+                                        <span th:if="${downloadModel.category == 'ccsd_logos_with_leadership_spanish_jpg_files'}">
+                                            CCSD Logos with Leadership List (Leadership Lockup) Spanish jpg files
+                                        </span>
+                                        <span th:if="${downloadModel.category == 'ccsd_board_of_trustees'}">
+                                            CCSD Board of School Trustees Vision Statement
+                                        </span>
+                                        <span th:if="${downloadModel.category == 'ccsd_letterhead'}">
+                                            CCSD Letterhead
+                                        </span>
+                                        <span th:if="${downloadModel.category == 'ccsd_letterhead_dept_at_sahara'}">
+                                            CCSD Letterhead For Departments Located at 5100 W. Sahara ONLY:
+                                        </span>
+                                        <span th:if="${downloadModel.category == 'ccsd_templates'}">
+                                            CCSD Templates
+                                        </span>
+                                        <span th:if="${downloadModel.category == 'school_logos'}">
+                                            School Logos
+                                        </span>
+                                        <span th:if="${downloadModel.category == 'ccsd_employee_dress_style'}">
+                                            CCSD Employee Dress Style Guidelines
+                                        </span>
+
+                                    </td>
 
                                     <td><a th:href="@{/admin/downloads/edit/{id}(id=${downloadModel.id})}" class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
                                     <a th:href="@{/admin/downloads/delete/{id}(id=${downloadModel.id})}" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i>  Delete</a>
