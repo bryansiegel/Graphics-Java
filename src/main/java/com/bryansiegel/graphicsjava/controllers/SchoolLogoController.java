@@ -1,6 +1,7 @@
 package com.bryansiegel.graphicsjava.controllers;
 
 import com.bryansiegel.graphicsjava.dtos.SchoolLogosDto;
+import com.bryansiegel.graphicsjava.models.DownloadsModel;
 import com.bryansiegel.graphicsjava.models.SchoolLogosModel;
 import com.bryansiegel.graphicsjava.repositories.schoolLogosRepository;
 import jakarta.validation.Valid;
@@ -18,6 +19,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Date;
+import java.util.Optional;
 
 @Controller
 public class SchoolLogoController {
@@ -110,48 +112,50 @@ private final schoolLogosRepository repo;
 
     //Update
     @PostMapping("/admin/school-logos/update/{id}")
-    public String updateSchoolLogos(@Valid @ModelAttribute SchoolLogosDto schoolLogosDto, @PathVariable Long id, @RequestParam String formName, SchoolLogosModel _schoolLogosModel, BindingResult result) {
+    public String updateSchoolLogos(@Valid @ModelAttribute SchoolLogosDto schoolLogosDto, @PathVariable Long id, @RequestParam String formName, @RequestParam String category, @RequestParam("file") MultipartFile file, SchoolLogosModel _schoolLogosModel, BindingResult result) {
 
-        if (schoolLogosDto.getFile().isEmpty()) {
-            result.addError(new FieldError("schoollogos", "file", "The image file is required"));
-        }
+//        if (schoolLogosDto.getFile().isEmpty()) {
+//            result.addError(new FieldError("schoollogos", "file", "The image file is required"));
+//        }
 
         if (result.hasErrors()) {
             return "admin/school-logos/edit.html";
         }
 
-        //save file
-        MultipartFile file = schoolLogosDto.getFile();
-        Date createdAt = new Date();
-        String storageFileName = createdAt.getTime() + "_" + file.getOriginalFilename();
+
+        Optional<SchoolLogosModel> optionalSchoolLogosModel = repo.findById(id);
+
+        if (optionalSchoolLogosModel.isPresent()) {
+            Date createdAt = new Date();
+            String storageFileName = createdAt.getTime() + "_" + file.getOriginalFilename();
 
 
-        //SET FilePath
-        String filePath = UPLOAD_DIR + storageFileName;
+            //SET FilePath
+            String filePath = "files/school-logos/" + storageFileName;
 
-        try {
-            Path uploadPath = Paths.get(UPLOAD_DIR);
+            try {
+                Path uploadPath = Paths.get(UPLOAD_DIR);
 
-            if (!Files.exists(uploadPath)) {
-                Files.createDirectories(uploadPath);
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
+                }
+
+                try (InputStream inputStream = file.getInputStream()) {
+                    Files.copy(inputStream, Paths.get(UPLOAD_DIR + storageFileName), StandardCopyOption.REPLACE_EXISTING);
+
+                    //Save to db
+                    SchoolLogosModel schoolLogosModel = optionalSchoolLogosModel.get();
+                    schoolLogosModel.setFormName(formName);
+                    schoolLogosModel.setFilePath(filePath);
+                    schoolLogosModel.setCategory(category);
+
+                    repo.save(schoolLogosModel);
+                }
+            } catch (Exception ex) {
+                System.out.println("Exception: " + ex.getMessage());
             }
-
-            try (InputStream inputStream = file.getInputStream()) {
-                Files.copy(inputStream, Paths.get(UPLOAD_DIR + storageFileName), StandardCopyOption.REPLACE_EXISTING);
-
-                //Save to db
-                SchoolLogosModel _schoollogos = repo.findById(id)
-                        .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-
-
-                _schoollogos.setFormName(formName);
-                _schoollogos.setFilePath(filePath);
-
-                repo.save(_schoollogos);
-            }
-        } catch (Exception ex) {
-            System.out.println("Exception: " + ex.getMessage());
         }
+
         return "redirect:/admin/school-logos/";
     }
 

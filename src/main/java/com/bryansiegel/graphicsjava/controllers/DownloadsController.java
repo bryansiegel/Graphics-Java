@@ -2,6 +2,7 @@ package com.bryansiegel.graphicsjava.controllers;
 
 import com.bryansiegel.graphicsjava.dtos.DownloadsDto;
 import com.bryansiegel.graphicsjava.models.DownloadsModel;
+import com.bryansiegel.graphicsjava.models.IndexOfFormsModel;
 import com.bryansiegel.graphicsjava.repositories.downloadsRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Date;
+import java.util.Optional;
 
 @Controller
 public class DownloadsController {
@@ -109,48 +111,83 @@ public class DownloadsController {
 
     //Update
     @PostMapping("/admin/downloads/update/{id}")
-    public String updateDownloads(@Valid @ModelAttribute DownloadsDto downloadsDto, @PathVariable Long id, @RequestParam String formName, @RequestParam String category, DownloadsModel _downloadsModel, BindingResult result) {
+    public String updateDownloads(@Valid @ModelAttribute DownloadsDto downloadsDto, @PathVariable Long id, @RequestParam String formName, @RequestParam String category, @RequestParam("file") MultipartFile file, DownloadsModel _downloadsModel, BindingResult result) {
 
-        if (downloadsDto.getFile().isEmpty()) {
-            result.addError(new FieldError("downloadsDto", "file", "The image file is required"));
-        }
+//        if (downloadsDto.getFile().isEmpty()) {
+//            result.addError(new FieldError("downloadsDto", "file", "The image file is required"));
+//        }
 
         if (result.hasErrors()) {
             return "admin/downloads/edit.html";
         }
 
-        //save file
-        MultipartFile file = downloadsDto.getFile();
-        Date createdAt = new Date();
-        String storageFileName = createdAt.getTime() + "_" + file.getOriginalFilename();
+        Optional<DownloadsModel> optionalDownloadsModel = repo.findById(id);
 
-        //SET FilePath
-        String filePath = UPLOAD_DIR + storageFileName;
+        if (optionalDownloadsModel.isPresent()) {
+            Date createdAt = new Date();
+            String storageFileName = createdAt.getTime() + "_" + file.getOriginalFilename();
 
-        try {
-            Path uploadPath = Paths.get(UPLOAD_DIR);
 
-            if (!Files.exists(uploadPath)) {
-                Files.createDirectories(uploadPath);
+            //SET FilePath
+            String filePath = "files/downloads/" + storageFileName;
+
+            try {
+                Path uploadPath = Paths.get(UPLOAD_DIR);
+
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
+                }
+
+                try (InputStream inputStream = file.getInputStream()) {
+                    Files.copy(inputStream, Paths.get(UPLOAD_DIR + storageFileName), StandardCopyOption.REPLACE_EXISTING);
+
+                    //Save to db
+                    DownloadsModel downloadsModel = optionalDownloadsModel.get();
+                    downloadsModel.setFormName(formName);
+                    downloadsModel.setFilePath(filePath);
+                    downloadsModel.setCategory(category);
+
+                    repo.save(downloadsModel);
+                }
+            } catch (Exception ex) {
+                System.out.println("Exception: " + ex.getMessage());
             }
-
-            try (InputStream inputStream = file.getInputStream()) {
-                Files.copy(inputStream, Paths.get(UPLOAD_DIR + storageFileName), StandardCopyOption.REPLACE_EXISTING);
-
-                //Save to db
-                DownloadsModel _downloads = repo.findById(id)
-                        .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-
-
-                _downloads.setFormName(formName);
-                _downloads.setFilePath(filePath);
-                _downloads.setCategory(category);
-
-                repo.save(_downloads);
-            }
-        } catch (Exception ex) {
-            System.out.println("Exception: " + ex.getMessage());
         }
+
+        //save file
+//        MultipartFile file = downloadsDto.getFile();
+//        Date createdAt = new Date();
+//        String storageFileName = createdAt.getTime() + "_" + file.getOriginalFilename();
+//
+//        //SET FilePath
+//        String filePath = UPLOAD_DIR + storageFileName;
+//
+//        try {
+//            Path uploadPath = Paths.get(UPLOAD_DIR);
+//
+//            if (!Files.exists(uploadPath)) {
+//                Files.createDirectories(uploadPath);
+//            }
+//
+//            try (InputStream inputStream = file.getInputStream()) {
+//                Files.copy(inputStream, Paths.get(UPLOAD_DIR + storageFileName), StandardCopyOption.REPLACE_EXISTING);
+//
+//                //Save to db
+//                DownloadsModel _downloads = repo.findById(id)
+//                        .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+//
+//
+//                _downloads.setFormName(formName);
+//                _downloads.setFilePath(filePath);
+//                _downloads.setCategory(category);
+//
+//                repo.save(_downloads);
+//            }
+//        } catch (Exception ex) {
+//            System.out.println("Exception: " + ex.getMessage());
+//        }
+
+
         return "redirect:/admin/downloads/";
     }
 
