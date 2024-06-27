@@ -2,8 +2,6 @@ package com.bryansiegel.graphicsjava.controllers;
 
 import com.bryansiegel.graphicsjava.dtos.CurrentEvaluationsDto;
 import com.bryansiegel.graphicsjava.models.CurrentEvaluationsModel;
-import com.bryansiegel.graphicsjava.models.IndexOfFormsModel;
-import com.bryansiegel.graphicsjava.models.SiteBasedContractsModel;
 import com.bryansiegel.graphicsjava.repositories.currentEvaluationsRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

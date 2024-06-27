@@ -161,23 +161,6 @@ public class WorkRequestsController {
             try (InputStream inputStream = file.getInputStream()) {
                 Files.copy(inputStream, Paths.get(UPLOAD_DIR + storageFileName), StandardCopyOption.REPLACE_EXISTING);
 
-                //Save to db
-//                WorkRequestsModel _workRequests = repo.findById(id)
-//                        .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-
-
-
-//                _workRequestsModelModel = new WorkRequestsModel();
-//                _workRequestsModelModel.setFullName(fullName);
-//                _workRequestsModelModel.setEmailAddress(emailAddress);
-//                _workRequestsModelModel.setPhoneNumber(phoneNumber);
-//                _workRequestsModelModel.setLocationDepartmentName(locationDepartmentName);
-//                _workRequestsModelModel.setProjectName(projectName);
-//                _workRequestsModelModel.setGoogleDriveLink(googleDriveLink);
-//                _workRequestsModelModel.setMessage(message);
-//                _workRequestsModelModel.setFilePath(filePath);
-
-//                _workRequestsModelModel.save(_workRequests);
             }
         } catch (Exception ex) {
             System.out.println("Exception: " + ex.getMessage());
