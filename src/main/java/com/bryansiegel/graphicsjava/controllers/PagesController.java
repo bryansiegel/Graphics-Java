@@ -6,9 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @Controller
 public class PagesController {
+
 
     private final indexOfFormsRepository _indexofFormsRepository;
     private final formDownloadsRepository _formDownloadsRepository;
@@ -57,7 +59,11 @@ public class PagesController {
     //Elementary Schools
     @GetMapping("/elementary-school-logos")
     public String elementarySchoolLogos(Model model) {
+
+        //get current main url
+        String currentUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/";
         model.addAttribute("elementarySchoolLogos", _schoolLogosRepository.findAll());
+        model.addAttribute("currentUrl", currentUrl);
         return "public/elementary-school-logos";
     }
 
@@ -65,7 +71,11 @@ public class PagesController {
     @GetMapping("/middle-school-logos")
     public String middleSchoolLogos(Model model)
     {
+        //get current main url
+        String currentUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/";
+
         model.addAttribute("middleSchoolLogos", _schoolLogosRepository.findAll());
+        model.addAttribute("currentUrl", currentUrl);
         return "public/middle-school-logos";
     }
 
@@ -73,7 +83,11 @@ public class PagesController {
     @GetMapping("/high-school-logos")
     public String highSchoolLogos(Model model)
     {
+        //get current main url
+        String currentUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/";
+
         model.addAttribute("highSchoolLogos", _schoolLogosRepository.findAll());
+        model.addAttribute("currentUrl", currentUrl);
         return "public/high-school-logos";
     }
 

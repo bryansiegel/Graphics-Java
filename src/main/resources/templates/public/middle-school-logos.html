@@ -57,13 +57,13 @@
                     th:each="middleSchoolLogos : ${middleSchoolLogos}">
                     <td>
 
-                        <a th:href="${'http://localhost:8080/' + middleSchoolLogos.filePath}" target="_blank">
+                        <a th:href="${currentUrl + middleSchoolLogos.filePath}" target="_blank">
                             <span th:text="${middleSchoolLogos.formName}"></span>
                         </a>
                     </td>
                     <td>
-                        <a th:href="${'http://localhost:8080/' + middleSchoolLogos.filePath}" target="_blank">
-                        <img th:src="${'http://localhost:8080/' + middleSchoolLogos.filePath}" height="50" width="50" />
+                        <a th:href="${currentUrl + middleSchoolLogos.filePath}" target="_blank">
+                        <img th:src="${currentUrl + middleSchoolLogos.filePath}" height="50" width="50" />
                         </a>
                     </td>
                 </tr>
