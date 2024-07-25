@@ -45,7 +45,7 @@
                                 <tr th:each="currentEvaluationModel : ${currentEvaluations}">
                                     <td th:text="${currentEvaluationModel.formName}"></td>
                                     <td>
-                                        <a th:href="${'http://localhost:8080/' + currentEvaluationModel.filePath}" target="_blank">
+                                        <a th:href="${currentUrl + currentEvaluationModel.filePath}" target="_blank">
                                             <span th:text="${currentEvaluationModel.filePath}"></span>
                                         </a>
                                     </td>

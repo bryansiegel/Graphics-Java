@@ -44,7 +44,7 @@
                                 <tr th:each="IndexOfFormsModel : ${indexofforms}">
                                     <td th:text="${IndexOfFormsModel.formName}"></td>
                                     <td>
-                                        <a th:href="${'http://localhost:8080/' + IndexOfFormsModel.filePath}"
+                                        <a th:href="${currentUrl + IndexOfFormsModel.filePath}"
                                            target="_blank">
                                             <span th:text="${IndexOfFormsModel.filePath}"></span>
                                         </a>

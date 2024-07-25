@@ -38,7 +38,12 @@ private final schoolLogosRepository repo;
     //index
     @GetMapping("/admin/school-logos/")
     public String schoolLogos(Model model) {
+
+    //get current main url
+        String currentUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/";
+
         model.addAttribute("schoollogos", repo.findAll());
+        model.addAttribute("currentUrl", currentUrl);
         return "admin/school-logos/index.html";
     }
 

@@ -11,6 +11,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -38,7 +39,12 @@ public class CurrentEvaluationsController {
     //index
     @GetMapping("/admin/current-evaluations/")
     public String currentEvaluations(Model model) {
+
+        //get current main url
+        String currentUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/";
+
         model.addAttribute("currentEvaluations", currentEvaluationsRepository.findAll());
+        model.addAttribute("currentUrl", currentUrl);
         return "admin/current-evaluations/index.html";
     }
 

@@ -45,7 +45,7 @@
                                 <tr th:each="schoollogos : ${schoollogos}">
                                     <td th:text="${schoollogos.formName}"></td>
                                     <td>
-                                        <img th:src="${'http://localhost:8080/' + schoollogos.filePath}" target="_blank" height="50" width="50"/>
+                                        <img th:src="${currentUrl + schoollogos.filePath}" target="_blank" height="50" width="50"/>
 
 
                                     </td>

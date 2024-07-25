@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -36,7 +37,12 @@ public class IndexOfFormsController {
     //index
     @GetMapping("/admin/index-of-forms/")
     public String indexOfForms(Model model) {
+
+        //get current main url
+        String currentUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/";
+
         model.addAttribute("indexofforms", repo.findAll());
+        model.addAttribute("currentUrl", currentUrl);
         return "admin/index-of-forms/index.html";
     }
 

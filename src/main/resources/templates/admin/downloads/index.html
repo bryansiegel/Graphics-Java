@@ -45,7 +45,7 @@
                                 <tr th:each="downloadModel : ${downloads}">
                                     <td th:text="${downloadModel.formName}"></td>
                                     <td>
-                                        <a th:href="${'http://localhost:8080/' + downloadModel.filePath}" target="_blank">
+                                        <a th:href="${currentUrl + downloadModel.filePath}" target="_blank">
                                             <span th:text="${downloadModel.filePath}"></span>
                                         </a>
                                     </td>

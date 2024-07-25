@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -38,7 +39,12 @@ public class SiteBasedContractsController {
     //index
     @GetMapping("/admin/site-based-contracts/")
     public String siteBasedContracts(Model model) {
+
+        //get current main url
+        String currentUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/";
+
         model.addAttribute("sitebasedcontracts", repo.findAll());
+        model.addAttribute("currentUrl", currentUrl);
         return "admin/site-based-contracts/index.html";
     }
 

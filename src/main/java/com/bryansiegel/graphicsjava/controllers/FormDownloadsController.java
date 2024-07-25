@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -34,7 +36,12 @@ public class FormDownloadsController {
     //index
     @GetMapping("/admin/form-downloads/")
     public String formDownloads(Model model) {
+
+        //get current main url
+        String currentUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/";
+
         model.addAttribute("formdownloads", repo.findAll());
+        model.addAttribute("currentUrl", currentUrl);
         return "admin/form-downloads/index.html";
     }
 

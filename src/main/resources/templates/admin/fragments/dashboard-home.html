@@ -18,7 +18,7 @@
                     <tbody>
                         <tr th:each="indexofforms : ${indexofforms}">
                             <td>
-                                <a th:href="${'http://localhost:8080/' + indexofforms.filePath}" target="_blank">
+                                <a th:href="${currentUrl + indexofforms.filePath}" target="_blank">
                                         <span  th:text="${indexofforms.formName}"></span>
                                 </a>
                             </td>
@@ -55,7 +55,7 @@
                         <td th:text="${formdownloads.formType}"></td>
                         <td th:text="${formdownloads.formNumber}"></td>
                         <td>
-                            <a th:href="${'http://localhost:8080/' + formdownloads.filePath}" target="_blank">
+                            <a th:href="${currentUrl + formdownloads.filePath}" target="_blank">
                                 <span  th:text="${formdownloads.formName}"></span>
                             </a>
                         </td>
@@ -89,7 +89,7 @@
                     <tbody>
                     <tr th:each="sitebasedcontracts : ${sitebasedcontracts}">
                         <td>
-                            <a th:href="${'http://localhost:8080/' + sitebasedcontracts.filePath}" target="_blank">
+                            <a th:href="${currentUrl + sitebasedcontracts.filePath}" target="_blank">
                                     <span  th:text="${sitebasedcontracts.formName}"></span>
                             </a>
                         </td>
@@ -120,7 +120,7 @@
                     <tbody>
                     <tr th:each="currentevaluations : ${currentevaluations}">
                         <td>
-                            <a th:href="${'http://localhost:8080/' + currentevaluations.filePath}" target="_blank">
+                            <a th:href="${currentUrl + currentevaluations.filePath}" target="_blank">
                                     <span  th:text="${currentevaluations.formName}"></span>
                             </a>
                         </td>
@@ -154,7 +154,7 @@
                     <tbody>
                     <tr th:each="downloads : ${downloads}">
                         <td>
-                            <a th:href="${'http://localhost:8080/' + downloads.filePath}" target="_blank">
+                            <a th:href="${currentUrl + downloads.filePath}" target="_blank">
                                     <span  th:text="${downloads.formName}"></span>
                             </a>
                         </td>
@@ -229,12 +229,12 @@
                     <tbody>
                     <tr th:each="schoollogos : ${schoollogos}">
                         <td>
-                            <a th:href="${'http://localhost:8080/' + schoollogos.filePath}" target="_blank">
+                            <a th:href="${currentUrl + schoollogos.filePath}" target="_blank">
                                 <span  th:text="${schoollogos.formName}"></span>
                             </a>
                         </td>
                         <td>
-                            <img th:src="${'http://localhost:8080/' + schoollogos.filePath}" height="50" width="50" />
+                            <img th:src="${currentUrl + schoollogos.filePath}" height="50" width="50" />
                         </td>
                         <td>
                             <span th:if="${schoollogos.category == 'elementary_school'}">

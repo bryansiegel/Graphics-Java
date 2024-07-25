@@ -49,7 +49,7 @@
                                     <td th:text="${formDownloadsModel.formName}"></td>
                                     <td>
                                         <span th:if="${formDownloadsModel.filePath != null}">
-                                        <a th:href="${'http://localhost:8080/' + formDownloadsModel.filePath}" target="_blank">
+                                        <a th:href="${currentUrl + formDownloadsModel.filePath}" target="_blank">
                                             <span th:text="${formDownloadsModel.filePath}"></span>
                                         </a>
                                         </span>

@@ -45,7 +45,7 @@
                                 <tr th:each="SiteBasedContractsModel : ${sitebasedcontracts}">
                                     <td th:text="${SiteBasedContractsModel.formName}"></td>
                                     <td>
-                                        <a th:href="${'http://localhost:8080/' + SiteBasedContractsModel.filePath}" target="_blank">
+                                        <a th:href="${currentUrl + SiteBasedContractsModel.filePath}" target="_blank">
                                             <span th:text="${SiteBasedContractsModel.filePath}"></span>
                                         </a>
                                     </td>

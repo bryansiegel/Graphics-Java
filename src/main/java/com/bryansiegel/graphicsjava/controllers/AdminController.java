@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 
 @Controller
@@ -40,13 +41,17 @@ public class AdminController {
 
     @GetMapping("/admin/dashboard")
     String dashboard(Model model) {
+        //return current main url
+        String currentUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/";
+
+
         model.addAttribute("indexofforms", indexOfFormsRepository.findAll(limit));
         model.addAttribute("formdownloads", formdownloadsRepository.findAll(limit));
         model.addAttribute("sitebasedcontracts", siteBasedContractsRepository.findAll(limit));
         model.addAttribute("currentevaluations", currentEvaluationsRepository.findAll(limit));
         model.addAttribute("downloads", downloadsRepository.findAll(limit));
         model.addAttribute("schoollogos", schoolLogosRepository.findAll(limit));
-
+        model.addAttribute("currentUrl", currentUrl);
         return "admin/dashboard";
     }
 
