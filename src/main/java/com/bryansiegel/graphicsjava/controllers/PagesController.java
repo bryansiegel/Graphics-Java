@@ -33,24 +33,36 @@ public class PagesController {
 
     @GetMapping("/")
     public String home(Model model) {
+        //get current main url
+        String currentUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/";
+
         model.addAttribute("workRequests", _workRequestRepository.findAll());
+        model.addAttribute("currentUrl", currentUrl);
         return "public/home";
     }
 
     @GetMapping("/forms-archives")
     public String formsArchives(Model model) {
+        //get current main url
+        String currentUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/";
+
         model.addAttribute("indexOfForms", _indexofFormsRepository.findAll());
         model.addAttribute("formDownloads", _formDownloadsRepository.findAll());
         model.addAttribute("siteBasedContracts", _siteBasedContractsRepository.findAll());
         model.addAttribute("currentEvaluations", _currentEvaluationsRepository.findAll());
         model.addAttribute("workrequests", _workRequestRepository.findAll());
+        model.addAttribute("currentUrl", currentUrl);
         return "public/forms-archives";
     }
 
     @GetMapping("/templates-logos")
     public String templatesLogos(Model model) {
+        //get current main url
+        String currentUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/";
+
         model.addAttribute("downloads", _downloadsRepository.findAll());
         model.addAttribute("workrequests", _workRequestRepository.findAll());
+        model.addAttribute("currentUrl", currentUrl);
         return "public/templates-logos";
     }
 
