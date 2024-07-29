@@ -71,10 +71,8 @@ public class IndexOfFormsController {
             Date createdAt = new Date();
             String storageFileName = createdAt.getTime() + "_" + file.getOriginalFilename();
 
-
             //SET FilePath
             String filePath = "files/index-of-forms/" + storageFileName;
-
 
             try {
                 Path uploadPath = Paths.get(UPLOAD_DIR);
@@ -85,12 +83,10 @@ public class IndexOfFormsController {
 
                 try (InputStream inputStream = file.getInputStream()) {
                     Files.copy(inputStream, Paths.get(UPLOAD_DIR + storageFileName), StandardCopyOption.REPLACE_EXISTING);
-
                 }
 
                 //Save to db
                 _indexOfFormsModel = new IndexOfFormsModel();
-//                _indexOfFormsModel.setFormMessage(formMessage);
                 _indexOfFormsModel.setFormName(formName);
                 _indexOfFormsModel.setFilePath(filePath);
 
@@ -99,9 +95,6 @@ public class IndexOfFormsController {
             } catch (Exception ex) {
                 System.out.println("Exception: " + ex.getMessage());
             }
-
-
-
         return "redirect:/admin/index-of-forms/";
     }
 
@@ -112,9 +105,7 @@ public class IndexOfFormsController {
         IndexOfFormsModel indexofforms = repo.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
 
-
         model.addAttribute("indexofforms", indexofforms);
-
 
         return "admin/index-of-forms/edit.html";
     }
@@ -122,7 +113,6 @@ public class IndexOfFormsController {
     //Update
     @PostMapping("/admin/index-of-forms/update/{id}")
     public String updateIndexOfForms(@Valid @ModelAttribute IndexOfFormsDto indexOfFormsDto, @PathVariable Long id, @RequestParam String formName, @RequestParam("file") MultipartFile file, BindingResult result) {
-
 
         if (result.hasErrors()) {
             return "admin/index-of-forms/edit.html";
@@ -167,9 +157,6 @@ public class IndexOfFormsController {
 
             repo.save(indexOfFormsModel);
         }
-
-
-
         return "redirect:/admin/index-of-forms/";
     }
 
@@ -182,5 +169,4 @@ public class IndexOfFormsController {
         return "redirect:/admin/index-of-forms/";
 
     }
-
 }

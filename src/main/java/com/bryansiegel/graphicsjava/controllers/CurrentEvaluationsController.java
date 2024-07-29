@@ -24,17 +24,16 @@ import java.util.Optional;
 
 @Controller
 public class CurrentEvaluationsController {
+
     //file upload dir
     String UPLOAD_DIR = "src/main/resources/static/files/current-evaluations/";
 
     @Autowired
     private final currentEvaluationsRepository currentEvaluationsRepository;
 
-
     public CurrentEvaluationsController(currentEvaluationsRepository currentEvaluationsRepository) {
         this.currentEvaluationsRepository = currentEvaluationsRepository;
     }
-
 
     //index
     @GetMapping("/admin/current-evaluations/")
@@ -115,7 +114,6 @@ public class CurrentEvaluationsController {
     @PostMapping("/admin/current-evaluations/update/{id}")
     public String updateCurrentEvaluations(@Valid @ModelAttribute CurrentEvaluationsDto currentEvaluationDto, @PathVariable Long id, @RequestParam String formName,@RequestParam("file") MultipartFile file, CurrentEvaluationsModel _currentEvaluationsModel, BindingResult result) {
 
-
         if (result.hasErrors()) {
             return "admin/current-evaluations/edit.html";
         }
@@ -159,7 +157,6 @@ public class CurrentEvaluationsController {
 
             currentEvaluationsRepository.save(currentEvaluationsModel);
         }
-
 
         return "redirect:/admin/current-evaluations/";
     }

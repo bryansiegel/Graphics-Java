@@ -54,7 +54,7 @@ public class WorkRequestsController {
             @ModelAttribute WorkRequestsDto workRequestsDto,
             @RequestParam String fullName,
             @RequestParam String emailAddress,
-            @RequestParam String  phoneNumber,
+            @RequestParam String phoneNumber,
             @RequestParam String locationDepartmentName,
             @RequestParam String projectName,
             @RequestParam String googleDriveLink,
@@ -126,7 +126,7 @@ public class WorkRequestsController {
             @ModelAttribute WorkRequestsDto workRequestsDto,
             @RequestParam String fullName,
             @RequestParam String emailAddress,
-            @RequestParam String  phoneNumber,
+            @RequestParam String phoneNumber,
             @RequestParam String locationDepartmentName,
             @RequestParam String projectName,
             @RequestParam String googleDriveLink,
@@ -175,6 +175,5 @@ public class WorkRequestsController {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         repo.delete(workRequestsModel);
         return "redirect:/admin/work-requests/";
-
     }
 }

@@ -71,7 +71,6 @@ public class DownloadsController {
         Date createdAt = new Date();
         String storageFileName = createdAt.getTime() + "_" + file.getOriginalFilename();
 
-
         //SET FilePath
         String filePath = "files/downloads/" + storageFileName;
 
@@ -107,9 +106,7 @@ public class DownloadsController {
         DownloadsModel downloadsModel = repo.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
 
-
         model.addAttribute("downloads", downloadsModel);
-
 
         return "admin/downloads/edit.html";
     }
@@ -165,7 +162,6 @@ public class DownloadsController {
 
             repo.save(downloadsModel);
         }
-
         return "redirect:/admin/downloads/";
     }
 

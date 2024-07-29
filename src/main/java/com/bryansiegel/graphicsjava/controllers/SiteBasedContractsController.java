@@ -1,7 +1,6 @@
 package com.bryansiegel.graphicsjava.controllers;
 
 
-
 import com.bryansiegel.graphicsjava.dtos.SiteBasedContractsDto;
 import com.bryansiegel.graphicsjava.models.SiteBasedContractsModel;
 import com.bryansiegel.graphicsjava.repositories.siteBasedContractsRepository;
@@ -73,7 +72,6 @@ public class SiteBasedContractsController {
         Date createdAt = new Date();
         String storageFileName = createdAt.getTime() + "_" + file.getOriginalFilename();
 
-
         //SET FilePath
         String filePath = "files/site-based-contracts/" + storageFileName;
 
@@ -117,7 +115,6 @@ public class SiteBasedContractsController {
     @PostMapping("/admin/site-based-contracts/update/{id}")
     public String updateSiteBasedContracts(@Valid @ModelAttribute SiteBasedContractsDto siteBasedContractsDto, @PathVariable Long id, @RequestParam String formName, @RequestParam("file") MultipartFile file, SiteBasedContractsModel _siteBasedContractsModel, BindingResult result) {
 
-
         if (result.hasErrors()) {
             return "admin/site-based-contracts/edit.html";
         }
@@ -154,15 +151,13 @@ public class SiteBasedContractsController {
                 System.out.println("Exception: " + ex.getMessage());
             }
 
-        } else if(optionalSiteBasedContractsModel.isPresent()) {
+        } else if (optionalSiteBasedContractsModel.isPresent()) {
             //Save to db
             SiteBasedContractsModel siteBasedContractsModel = optionalSiteBasedContractsModel.get();
             siteBasedContractsModel.setFormName(formName);
 
             repo.save(siteBasedContractsModel);
         }
-
-
         return "redirect:/admin/site-based-contracts/";
     }
 
@@ -174,5 +169,4 @@ public class SiteBasedContractsController {
         repo.delete(sitebasedcontracts);
         return "redirect:/admin/site-based-contracts/";
     }
-
 }

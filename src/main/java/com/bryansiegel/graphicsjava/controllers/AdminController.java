@@ -33,7 +33,6 @@ public class AdminController {
         this.schoolLogosRepository = schoolLogosRepository;
     }
 
-
     @GetMapping("/login")
     String login() {
         return "admin/login";
@@ -41,9 +40,9 @@ public class AdminController {
 
     @GetMapping("/admin/dashboard")
     String dashboard(Model model) {
+
         //return current main url
         String currentUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/";
-
 
         model.addAttribute("indexofforms", indexOfFormsRepository.findAll(limit));
         model.addAttribute("formdownloads", formdownloadsRepository.findAll(limit));
@@ -54,5 +53,4 @@ public class AdminController {
         model.addAttribute("currentUrl", currentUrl);
         return "admin/dashboard";
     }
-
 }

@@ -71,7 +71,6 @@ public class FormDownloadsController {
             Date createdAt = new Date();
             String storageFileName = createdAt.getTime() + "_" + file.getOriginalFilename();
 
-
             //SET FilePath
             String filePath = "files/form-downloads/" + storageFileName;
 
@@ -111,7 +110,6 @@ public class FormDownloadsController {
         return "redirect:/admin/form-downloads/";
     }
 
-
     //Edit
     @GetMapping("/admin/form-downloads/edit/{id}")
     public String editFormDownloads(@PathVariable Long id, Model model) {
@@ -119,9 +117,7 @@ public class FormDownloadsController {
         FormDownloadsModel formDownloads = repo.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
 
-
         model.addAttribute("formDownloads", formDownloads);
-
 
         return "admin/form-downloads/edit.html";
     }
@@ -147,7 +143,6 @@ public class FormDownloadsController {
         } else if (optionalFormDownloads.isPresent() && !formDownloadsDto.getFile().isEmpty()) {
             Date createdAt = new Date();
             String storageFileName = createdAt.getTime() + "_" + file.getOriginalFilename();
-
 
             //SET FilePath
             String filePath = "files/form-downloads/" + storageFileName;
@@ -176,7 +171,6 @@ public class FormDownloadsController {
                 System.out.println("Exception: " + ex.getMessage());
             }
         }
-
         return "redirect:/admin/form-downloads/";
     }
 

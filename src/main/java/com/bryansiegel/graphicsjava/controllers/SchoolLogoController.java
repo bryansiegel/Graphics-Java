@@ -24,13 +24,12 @@ import java.util.Optional;
 @Controller
 public class SchoolLogoController {
 
+    //file upload dir
     String UPLOAD_DIR = "src/main/resources/static/files/school-logos/";
 
+    private final schoolLogosRepository repo;
 
-private final schoolLogosRepository repo;
-
-@Autowired
-
+    @Autowired
     public SchoolLogoController(schoolLogosRepository repo) {
         this.repo = repo;
     }
@@ -39,7 +38,7 @@ private final schoolLogosRepository repo;
     @GetMapping("/admin/school-logos/")
     public String schoolLogos(Model model) {
 
-    //get current main url
+        //get current main url
         String currentUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString() + "/";
 
         model.addAttribute("schoollogos", repo.findAll());
@@ -71,7 +70,6 @@ private final schoolLogosRepository repo;
         MultipartFile file = schoolLogosDto.getFile();
         Date createdAt = new Date();
         String storageFileName = createdAt.getTime() + "_" + file.getOriginalFilename();
-
 
         //SET FilePath
         String filePath = "files/school-logos/" + storageFileName;
@@ -108,9 +106,7 @@ private final schoolLogosRepository repo;
         SchoolLogosModel schoolLogosModel = repo.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
 
-
         model.addAttribute("schoollogos", schoolLogosModel);
-
 
         return "admin/school-logos/edit.html";
     }
@@ -126,7 +122,6 @@ private final schoolLogosRepository repo;
         if (result.hasErrors()) {
             return "admin/school-logos/edit.html";
         }
-
 
         Optional<SchoolLogosModel> optionalSchoolLogosModel = repo.findById(id);
 
@@ -149,7 +144,7 @@ private final schoolLogosRepository repo;
                     Files.copy(inputStream, Paths.get(UPLOAD_DIR + storageFileName), StandardCopyOption.REPLACE_EXISTING);
 
                     //Save to db
-                    SchoolLogosModel schoolLogosModel  = optionalSchoolLogosModel.get();
+                    SchoolLogosModel schoolLogosModel = optionalSchoolLogosModel.get();
                     schoolLogosModel.setFormName(formName);
                     schoolLogosModel.setFilePath(filePath);
 
@@ -160,14 +155,13 @@ private final schoolLogosRepository repo;
                 System.out.println("Exception: " + ex.getMessage());
             }
 
-        } else if(optionalSchoolLogosModel.isPresent()) {
+        } else if (optionalSchoolLogosModel.isPresent()) {
             //Save to db
             SchoolLogosModel schoolLogosModel = optionalSchoolLogosModel.get();
             schoolLogosModel.setFormName(formName);
 
             repo.save(schoolLogosModel);
         }
-
         return "redirect:/admin/school-logos/";
     }
 
@@ -180,5 +174,4 @@ private final schoolLogosRepository repo;
         return "redirect:/admin/school-logos/";
 
     }
-
 }

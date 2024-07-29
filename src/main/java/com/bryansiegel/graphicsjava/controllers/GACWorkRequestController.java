@@ -27,11 +27,6 @@ public class GACWorkRequestController {
     @Autowired
     private JavaMailSender mailSender;
 
-//    @GetMapping("/contact")
-//    public String Contact() {
-//        return "contact";
-//    }
-
     @PostMapping("/contact")
     public String PostContact(@ModelAttribute GACWorkRequestDto gacWorkRequestDto, Model model) {
 
@@ -64,18 +59,6 @@ public class GACWorkRequestController {
                 e.printStackTrace();
             }
         }
-
-        // Save the GAC_work_request_form to a directory
-//        if (!file_uploads.isEmpty()) {
-//            try {
-//                byte[] bytes = file_uploads.getBytes();
-//                Path path = Paths.get("src/main/resources/static/files/GAC-work-requests" + file_uploads.getOriginalFilename());
-//                Files.write(path, bytes);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-
         return "public/forms/thank-you.html";
     }
 
@@ -98,19 +81,12 @@ public class GACWorkRequestController {
             helper.addAttachment(GAC_work_request_form.getOriginalFilename(), attachmentSource);
         }
 
-
-//        if (!file_uploads.isEmpty()) {
-//            InputStreamSource attachmentSource = new ByteArrayResource(file_uploads.getBytes());
-//            helper.addAttachment(file_uploads.getOriginalFilename(), attachmentSource);
-//        }
-
         for (MultipartFile attachment : file_uploads) {
             if (!attachment.isEmpty()) {
                 InputStreamSource attachmentSource = new ByteArrayResource(attachment.getBytes());
                 helper.addAttachment(attachment.getOriginalFilename(), attachmentSource);
             }
         }
-
         mailSender.send(mimeMessage);
     }
 }
