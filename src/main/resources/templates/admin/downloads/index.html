@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head th:insert="admin/fragments/head.html"></head>
+<head th:insert="~{admin/fragments/head.html}"></head>
 
 <body id="page-top">
 <!-- Page Wrapper -->
 <div id="wrapper">
     <!-- Sidebar -->
-    <ul th:insert="admin/fragments/sidebar.html" class="navbar-nav sidebar sidebar-dark accordion"
+    <ul th:insert="~{admin/fragments/sidebar.html}" class="navbar-nav sidebar sidebar-dark accordion"
         id="accordionSidebar"
         style="background-color: #417cc0"></ul>
     <!-- End of Sidebar -->
@@ -17,7 +17,7 @@
         <div id="content">
 
             <!-- Topbar -->
-            <nav th:insert="admin/fragments/nav.html"
+            <nav th:insert="~{admin/fragments/nav.html}"
                  class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"></nav>
             <!-- End of Topbar -->
 
@@ -104,11 +104,11 @@
 
             </div>
         </div>
-        <footer th:insert="admin/fragments/footer.html" class="sticky-footer bg-white"></footer>
+        <footer th:insert="~{admin/fragments/footer.html}" class="sticky-footer bg-white"></footer>
     </div>
 </div>
 
-<div th:insert="admin/fragments/scripts.html"></div>
+<div th:insert="~{admin/fragments/scripts.html}"></div>
 
 </body>
 </html>
