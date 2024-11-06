@@ -2,9 +2,9 @@
 <html lang="en">
 
 <body id="page-top">
-<head th:insert="public/fragments/head.html"></head>
+<head th:insert="~{public/fragments/head.html}"></head>
 
-<nav class="navbar navbar-expand-lg bg-blue text-uppercase fixed-top" id="mainNav" th:insert="public/fragments/nav.html"></nav>
+<nav class="navbar navbar-expand-lg bg-blue text-uppercase fixed-top" id="mainNav" th:insert="~{public/fragments/nav.html}"></nav>
 
 <section class="page-section center-block">
     <div class="container">
@@ -17,9 +17,9 @@
 
 </section>
 
-<footer class="footer" th:insert="public/fragments/sections/footer"></footer>
+<footer class="footer" th:insert="~{public/fragments/sections/footer}"></footer>
 
-<div class="copyright py-4 text-center text-white" th:insert="public/fragments/sections/copywrite"></div>
+<div class="copyright py-4 text-center text-white" th:insert="~{public/fragments/sections/copywrite}"></div>
 
 
 </body>
