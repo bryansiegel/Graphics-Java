@@ -77,7 +77,7 @@ public class GACWorkRequestController {
         if (!GAC_work_request_form.isEmpty()) {
             try {
                 byte[] bytes = GAC_work_request_form.getBytes();
-                Path path = Paths.get("src/main/resources/static/files/GAC-work-requests" + GAC_work_request_form.getOriginalFilename());
+                Path path = Paths.get("src/main/resources/static/files/GAC-work-requests/" + GAC_work_request_form.getOriginalFilename());
                 Files.write(path, bytes);
             } catch (IOException e) {
                 e.printStackTrace();
