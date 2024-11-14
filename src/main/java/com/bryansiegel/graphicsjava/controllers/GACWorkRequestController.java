@@ -1,6 +1,8 @@
 package com.bryansiegel.graphicsjava.controllers;
 
 import com.bryansiegel.graphicsjava.dtos.GACWorkRequestDto;
+import com.bryansiegel.graphicsjava.models.WorkRequestsModel;
+import com.bryansiegel.graphicsjava.repositories.workRequestsRepository;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +29,16 @@ public class GACWorkRequestController {
     @Autowired
     private JavaMailSender mailSender;
 
+    @Autowired
+    private final workRequestsRepository repository;
+
+    public GACWorkRequestController(workRequestsRepository repository) {
+        this.repository = repository;
+    }
+
+
     @PostMapping("/contact")
-    public String PostContact(@ModelAttribute GACWorkRequestDto gacWorkRequestDto, Model model) {
+    public String PostContact(@ModelAttribute GACWorkRequestDto gacWorkRequestDto, WorkRequestsModel _workrequests,Model model) {
 
         String full_name = gacWorkRequestDto.getFull_name();
         String email = gacWorkRequestDto.getEmail();
@@ -43,6 +53,20 @@ public class GACWorkRequestController {
         // Send the email
         try {
             sendEmail(full_name, email, phone, location_department, project_name, google_drive_link, message, GAC_work_request_form, file_uploads);
+
+        // Add the email to db
+            _workrequests = new WorkRequestsModel();
+            _workrequests.setFullName(full_name);
+            _workrequests.setEmailAddress(email);
+            _workrequests.setPhoneNumber(phone);
+            _workrequests.setLocationDepartmentName(location_department);
+            _workrequests.setProjectName(project_name);
+            _workrequests.setGoogleDriveLink(google_drive_link);
+            _workrequests.setMessage(message);
+            _workrequests.setFilePath(GAC_work_request_form.getOriginalFilename());
+
+            repository.save(_workrequests);
+
         } catch (MessagingException | IOException e) {
             e.printStackTrace();
             model.addAttribute("error", "An error occurred while sending the email.");
@@ -67,6 +91,7 @@ public class GACWorkRequestController {
         return "public/forms/thank-you.html";
     }
 
+    //Send Email
     private void sendEmail(String full_name, String email, String phone, String location_department, String project_name, String google_drive_link, String message, MultipartFile GAC_work_request_form, MultipartFile[] file_uploads) throws MessagingException, IOException {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
@@ -74,7 +99,17 @@ public class GACWorkRequestController {
         helper.setFrom("ccsdcommsunit@gmail.com");
         helper.setTo("siegebm@nv.ccsd.net");
         helper.setSubject("GAC Work Request Form Submission");
-        helper.setText("Name: " + full_name + "\nEmail: " + email + "\nMessage: " + message);
+        helper.setText(
+                "GAC Work Request Form Submission\n\n"
+                + "Name: " + full_name
+                + "\nEmail: " + email
+                + "\nPhone: " + phone
+                + "\nLocation: " + location_department
+                + "\nProject: " + project_name
+                + "\nGoogle Drive Link: " + google_drive_link
+                + "\nMessage: " + message
+
+        );
 
         if (!GAC_work_request_form.isEmpty()) {
             InputStreamSource attachmentSource = new ByteArrayResource(GAC_work_request_form.getBytes());
